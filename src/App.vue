@@ -1,6 +1,6 @@
 <script setup>
 import HelloWorld from "./components/HelloWorld.vue";
-import sass from "./assets/style"
+import './assets/style.scss'
 </script>
 
 <template>
