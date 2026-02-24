@@ -1,6 +1,5 @@
 <script setup>
 import AppHeader from "./components/AppHeader.vue";
-import "./assets/style.scss";
 </script>
 
 <template>
