@@ -1,2 +1,4 @@
-<script></script>
-<template><h1>Hemma</h1></template>
+<template>
+  <h1>Fluentia</h1>
+  <p>Welcome to fluentia</p>
+</template>
