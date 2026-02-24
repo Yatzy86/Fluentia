@@ -10,6 +10,9 @@ import AppHeader from "./components/AppHeader.vue";
     <RouterLink :to="{ name: 'game', params: { name: 'memory' } }"
       >Memory</RouterLink
     >
+    <RouterLink :to="{ name: 'game', params: { name: 'choicequiz' } }"
+      >Flervalsfrågor</RouterLink
+    >
 
     <RouterView />
   </div>
