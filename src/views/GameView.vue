@@ -7,7 +7,6 @@ const memoryGame = defineAsyncComponent(
   () => import("../components/MemoryGame.vue"),
 );
 
-//Gör till en metod?
 const currentGame = computed(() => {
   if (props.name === "memory") {
     return memoryGame;
