@@ -1,10 +1,13 @@
 <script setup>
 import HelloWorld from "./components/HelloWorld.vue";
-import './assets/style.scss'
+import AppHeader from "./components/AppHeader.vue";
+import "./assets/style.scss";
 </script>
 
 <template>
   <div>
+    <AppHeader />
+    <RouterView />
     <h1>Vårat projekt</h1>
     <h2>Här är vi</h2>
     <a href="https://vite.dev" target="_blank">
