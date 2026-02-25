@@ -6,10 +6,15 @@ const props = defineProps(["name"]);
 const memoryGame = defineAsyncComponent(
   () => import("../components/MemoryGame.vue"),
 );
+const choicequizGame = "";
 
 const currentGame = computed(() => {
   if (props.name === "memory") {
     return memoryGame;
+  } else if (props.name === "choicequiz") {
+    return choicequizGame;
+  } else {
+    return "Couldn't find game.";
   }
 });
 </script>
