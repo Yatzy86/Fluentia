@@ -5,15 +5,8 @@ import AppHeader from "./components/AppHeader.vue";
 <template>
   <div>
     <AppHeader />
-    <h1>Vårat projekt</h1>
-    <h2>Här är vi</h2>
-    <RouterLink :to="{ name: 'game', params: { name: 'memory' } }"
-      >Memory</RouterLink
-    >
-    <RouterLink :to="{ name: 'game', params: { name: 'choicequiz' } }"
-      >Flervalsfrågor</RouterLink
-    >
 
-    <RouterView />
+    <!-- visar HomeView. Spel länkar är inuti HomeView -->
+    <RouterView> </RouterView>
   </div>
 </template>

@@ -1,4 +1,8 @@
+<script setup>
+import GameLinks from "../components/GameLinks.vue";
+</script>
+
 <template>
-  <h1>Fluentia</h1>
-  <p>Welcome to fluentia</p>
+  <!-- spel lista sektion -->
+  <GameLinks />
 </template>

@@ -11,3 +11,20 @@ $theme-colors: (
 body {
   background-color: antiquewhite;
 }
+
+#game_list {
+  margin: 2em auto;
+  gap: 2em;
+  align-items: center;
+  justify-content: center;
+
+  .game_card {
+    width: 400px;
+    height: 350px;
+    text-align: center;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
