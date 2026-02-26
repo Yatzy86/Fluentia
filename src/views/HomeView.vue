@@ -4,6 +4,7 @@ import PageIntro from "../components/PageIntro.vue";
 </script>
 
 <template>
+  <!-- Introduktion och knappar till dictionary/glossary -->
   <PageIntro />
   <!-- spel lista sektion -->
   <GameLinks />
