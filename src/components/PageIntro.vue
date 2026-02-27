@@ -8,7 +8,7 @@
       <RouterLink to="/dictionary" class="card-link"
         ><b-button>Open Dictionary</b-button></RouterLink
       >
-      <RouterLink to="#" class="card-link"
+      <RouterLink to="/glossary" class="card-link"
         ><b-button>Open Glossary</b-button></RouterLink
       >
     </b-card>
