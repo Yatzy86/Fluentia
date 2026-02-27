@@ -1,54 +1,111 @@
-<script></script>
+<script setup>
+import logo from "../assets/img/image.png";
+
+function login() {
+  const name = prompt("Vad heter du");
+  alert(name && name.trim() ? `Hello ${name}` : "Hello");
+}
+</script>
 
 <template>
-  <header class="header">
-    <div class="brand">FLUENTIA</div>
-
-    <nav class="nav">
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/games">Games</RouterLink>
-      <RouterLink to="/dictionary">Dictionary</RouterLink>
-    </nav>
-
-    <div class="user">
-      <span class="user">User</span>
-      <span class="name">Guest</span>
-      <span class="icon">Icon</span>
-      <span span="notificationIcon">NI</span>
+  <nav class="header navbar navbar-light">
+    <div class="left logo-wrap">
+      <img class="logo" :src="logo" alt="Fluentia logo" />
     </div>
-  </header>
+
+    <div class="right">
+      <span class="bi bi-bell icon" title="Notifications"></span>
+
+      <i class="bi bi-person icon" title="User"> </i>
+
+      <div class="dropdown">
+        <button
+          class="btn p-0 hamburger-btn"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          aria-label="Menu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><RouterLink class="dropdown-item" to="/">Home</RouterLink></li>
+          <li>
+            <RouterLink class="dropdown-item" to="/dictionary"
+              >Dictionary</RouterLink
+            >
+          </li>
+          <li>
+            <button class="dropdown-item" type="button" @click="login">
+              Log in
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <style lang="scss" scoped>
-$header-bg: #d9d9d9;
-$text-color: #111;
+$color-1: #fdc921;
+$color-2: #fdd85d;
+$color-3: #fffdf5;
+$color-4: #99d6ea;
+$color-5: #6798c0;
 
 .header {
-  height: 60px;
+  height: 90px;
   display: flex;
   align-items: center;
-  padding: 0 20px;
-  background-color: $header-bg;
+  padding: 0 12px;
+  background: $color-3;
   width: 100%;
 }
-.brand {
-  font-size: 18px;
-  font-weight: 700;
-  color: $text-color;
-}
-.nav {
-  margin: 0 auto;
+.logo-wrap {
+  height: 100%;
   display: flex;
-  gap: 32px;
-}
-.user {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0px;
-  font-size: 10px;
+  margin-left: -50px;
 }
+.logo {
+  height: 80px;
+  transform: scale(2.5);
+  width: auto;
+  transform-origin: left center;
+}
+.right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
 .icon {
+  font-size: 22px;
+  color: #111;
   cursor: pointer;
+}
+.hamburger-btn {
+  border: 0;
+  background: transparent;
+}
+.hamburger-btn .navbar-toggler-icon {
+  width: 1.5em;
+  height: 1.5em;
+}
+@media (max-width: 576px) {
+  .header {
+    height: 70px;
+  }
+  .logo {
+    height: 52px;
+    transform: none;
+  }
+  .logo-wrap {
+    margin-left: 0;
+  }
+  .right {
+    gap: 12px;
+  }
 }
 </style>
