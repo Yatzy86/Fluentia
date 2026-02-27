@@ -1,6 +1,5 @@
 <script setup>
-//lägg till kommentarer!
-
+//Array med all spelinfo och länkar till sidan
 const gameList = [
   {
     title: "Memory",
@@ -31,8 +30,11 @@ const gameList = [
 
 <template>
   <section>
+    <h2 class="section_title"><span>Game Selection</span></h2>
+    <!-- bootstrap kort med v-for för att rendera ut länkarna på sidan -->
     <b-card-group deck id="game_list">
       <div v-for="game in gameList" :key="game.name">
+        <!-- Skickar in prop(params) med länkarna som används i Gameview -->
         <RouterLink :to="{ name: 'game', params: { name: game.name } }">
           <b-card
             :title="game.title"
@@ -49,6 +51,7 @@ const gameList = [
         >
       </div>
 
+      <!-- Tomt kort som visar att mer spel kommer snart -->
       <RouterLink to="#">
         <b-card
           img-src="https://picsum.photos/600/300/?image=25"
