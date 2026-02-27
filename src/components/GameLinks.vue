@@ -30,6 +30,7 @@ const gameList = [
 
 <template>
   <section>
+    <h2 class="section_title"><span>Game Selection</span></h2>
     <!-- bootstrap kort med v-for för att rendera ut länkarna på sidan -->
     <b-card-group deck id="game_list">
       <div v-for="game in gameList" :key="game.name">

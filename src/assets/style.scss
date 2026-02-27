@@ -1,3 +1,5 @@
+$background-color: #214373;
+
 $theme-colors: (
   "primary": #166285,
   "secondary": #4f4f52,
@@ -9,13 +11,28 @@ $theme-colors: (
 @import "bootstrap/scss/bootstrap";
 
 body {
-  background-color: antiquewhite;
+  background-color: $background-color;
+}
+
+//HOMEVIEW
+.section_title {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #000;
+  line-height: 0.1em;
+  margin: 3em 0 5em;
+  font-size: 1.5em;
+  font-weight: 700;
+  span {
+    background: $background-color;
+    padding: 0 10px;
+  }
 }
 
 //PageIntro
 #intro_section {
   width: 80vw;
-  margin: 2em auto;
+  margin: 5em auto;
   .card {
     border-radius: 20px;
   }
@@ -25,17 +42,53 @@ body {
     padding: 6em 0 4em 0;
   }
   .card-title {
-    border-bottom: solid 1px black;
+    text-decoration: underline;
+    font-size: 2em;
+    text-underline-offset: 11px;
   }
   .card-text {
     margin-bottom: 5em;
   }
   button {
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.6);
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+  }
+}
+
+@media (max-width: 580px) {
+  #intro_section {
+    width: 90vw;
+    margin: 3em auto;
+    .card-body {
+      padding: 4em 0 2em 0;
+    }
+    .card-title {
+      font-size: 1.3em;
+      font-weight: 700;
+    }
+    .card-text {
+      margin-bottom: 3em;
+      font-size: 1em;
+    }
+    button {
+      font-size: 0.9em;
+    }
+  }
+}
+@media (max-width: 380px) {
+  #intro_section {
+    width: 95vw;
+    .card-body {
+      padding: 3em 0 2em 0;
+    }
+
+    .card-text {
+      font-size: 0.9em;
+    }
   }
 }
 
 //GameLinks
+
 #game_list {
   margin: 2em auto;
   gap: 2em;
@@ -85,5 +138,25 @@ body {
 
   a {
     text-decoration: none;
+  }
+}
+
+//icon section
+#improve_section {
+  margin-bottom: 5em;
+}
+
+@media (max-width: 480px) {
+  #improve_section {
+    margin-bottom: 3em;
+    img {
+      width: 40px;
+    }
+    h3 {
+      font-size: 1.1em;
+    }
+  }
+  .section_title {
+    margin: 2em 0 3em;
   }
 }

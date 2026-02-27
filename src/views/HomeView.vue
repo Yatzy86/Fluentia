@@ -1,6 +1,7 @@
 <script setup>
 import GameLinks from "../components/GameLinks.vue";
 import PageIntro from "../components/PageIntro.vue";
+import ImproveSection from "../components/ImproveSection.vue";
 </script>
 
 <template>
@@ -8,4 +9,6 @@ import PageIntro from "../components/PageIntro.vue";
   <PageIntro />
   <!-- spel lista sektion -->
   <GameLinks />
+  <!-- improve ikon sektion -->
+  <ImproveSection />
 </template>
