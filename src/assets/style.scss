@@ -1,30 +1,34 @@
-$background-color: #214373;
-
 $theme-colors: (
-  "primary": #166285,
-  "secondary": #4f4f52,
-  "third": #577717,
-  "fourth": #3f7679,
-  "fifth": #ac5b2c,
+  "primary": #214373,
+  "secondary": #4177c3,
+  "third": #e7c558,
+  "fourth": #fffdf7,
+  "fifth": #4b8de9,
 );
+
+@function theme-color($key) {
+  @return map-get($theme-colors, $key);
+}
 
 @import "bootstrap/scss/bootstrap";
 
 body {
-  background-color: $background-color;
+  background-color: theme-color("primary");
 }
 
 //HOMEVIEW
 .section_title {
   width: 100%;
   text-align: center;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid theme-color("fourth");
   line-height: 0.1em;
   margin: 3em 0 5em;
   font-size: 1.5em;
   font-weight: 700;
+  color: theme-color("fourth");
   span {
-    background: $background-color;
+    background: theme-color("primary");
+
     padding: 0 10px;
   }
 }
@@ -33,13 +37,19 @@ body {
 #intro_section {
   width: 80vw;
   margin: 5em auto;
+
   .card {
     border-radius: 20px;
+    background-image: url("./img/waveback.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 1250px;
+    background-color: theme-color("secondary");
   }
   .card-body {
     margin: auto;
     text-align: center;
-    padding: 6em 0 4em 0;
+    padding: 10em 0 4em 0;
   }
   .card-title {
     text-decoration: underline;
@@ -51,6 +61,8 @@ body {
   }
   button {
     box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+    color: theme-color("fourth");
+    font-weight: 700;
   }
 }
 
@@ -58,6 +70,9 @@ body {
   #intro_section {
     width: 90vw;
     margin: 3em auto;
+    .card {
+      background-size: 600px;
+    }
     .card-body {
       padding: 4em 0 2em 0;
     }
@@ -100,11 +115,24 @@ body {
     height: 350px;
     text-align: center;
     margin: auto;
+    button {
+      box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+      padding-left: 2em;
+      padding-right: 2em;
+    }
+    h4 {
+      font-weight: 700;
+    }
+    h4,
+    p,
+    button {
+      color: theme-color("primary");
+    }
   }
   @media (max-width: 900px) {
     .game_card {
       width: 300px;
-      height: 300px;
+      height: 320px;
     }
   }
   @media (max-width: 680px) {
@@ -141,9 +169,12 @@ body {
   }
 }
 
-//icon section
+//improve section
 #improve_section {
   margin-bottom: 5em;
+  h3 {
+    color: theme-color("fourth");
+  }
 }
 
 @media (max-width: 480px) {
