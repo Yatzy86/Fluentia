@@ -1,22 +1,40 @@
 <script setup>
+import { ref, computed } from "vue";
 import logo from "../assets/img/image.png";
 
+const userName = ref("");
+const isLoggedIn = computed(() => userName.value.trim().length > 0);
+
 function login() {
-  const name = prompt("Vad heter du");
-  alert(name && name.trim() ? `Hello ${name}` : "Hello");
+  if (isLoggedIn.value) {
+    userName.value = "";
+    return;
+  }
+  const name = prompt("What is your name?");
+  if (name && name.trim()) {
+    userName.value = name.trim();
+    alert(`Hello ${userName.value}`);
+  } else {
+    alert("Hello");
+  }
 }
 </script>
 
 <template>
   <nav class="header navbar navbar-light">
     <div class="left logo-wrap">
-      <img class="logo" :src="logo" alt="Fluentia logo" />
+      <RouterLink to="/">
+        <img class="logo" :src="logo" alt="Fluentia logo" />
+      </RouterLink>
     </div>
 
     <div class="right">
       <span class="bi bi-bell icon" title="Notifications"></span>
 
-      <i class="bi bi-person icon" title="User"> </i>
+      <div class="user">
+        <i class="bi bi-person icon" title="User"> </i>
+        <span v-if="isLoggedIn" class="user-name">{{ userName }}</span>
+      </div>
 
       <div class="dropdown">
         <button
@@ -37,7 +55,7 @@ function login() {
           </li>
           <li>
             <button class="dropdown-item" type="button" @click="login">
-              Log in
+              {{ isLoggedIn ? "Log out" : "Log in" }}
             </button>
           </li>
         </ul>
@@ -107,5 +125,14 @@ $color-5: #6798c0;
   .right {
     gap: 12px;
   }
+}
+.user {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+.user-name {
+  font-weight: 600;
+  font-size: 14px;
 }
 </style>
