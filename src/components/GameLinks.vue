@@ -37,6 +37,7 @@ const gameList = [
         <!-- Skickar in prop(params) med länkarna som används i Gameview -->
         <RouterLink :to="{ name: 'game', params: { name: game.name } }">
           <b-card
+            variant="third"
             :title="game.title"
             :img-src="game.img"
             img-alt="Image"
@@ -46,7 +47,7 @@ const gameList = [
           >
             <b-card-text>{{ game.description }}</b-card-text>
 
-            <b-button variant="primary">Start</b-button>
+            <b-button variant="fourth">Start</b-button>
           </b-card></RouterLink
         >
       </div>
@@ -54,6 +55,7 @@ const gameList = [
       <!-- Tomt kort som visar att mer spel kommer snart -->
       <RouterLink to="#">
         <b-card
+          variant="third"
           img-src="https://picsum.photos/600/300/?image=25"
           img-alt="Image"
           img-top
