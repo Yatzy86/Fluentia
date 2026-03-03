@@ -6,6 +6,9 @@ $theme-colors: (
   "fifth": #4b8de9,
 );
 
+//funktion för att använda färger
+//Används via theme-color("primary")
+//Kan också användas direkt på element via variant="primary"
 @function theme-color($key) {
   @return map-get($theme-colors, $key);
 }
@@ -189,5 +192,46 @@ body {
   }
   .section_title {
     margin: 2em 0 3em;
+  }
+}
+
+//GAMEVIEW
+//Glossary section
+
+#title_nav {
+  font-size: 1.5em;
+  color: theme-color("fourth");
+  margin: 1em 0 1em 1em;
+
+  a {
+    color: theme-color("fourth");
+  }
+  a:hover {
+    color: theme-color("secondary");
+    transition: 0.3s;
+  }
+}
+
+#add_glossary {
+  width: 100vw;
+
+  .card {
+    border-radius: 0;
+  }
+  .card-body {
+    width: 30vw;
+    margin: auto;
+    padding: 2em 0;
+
+    h4 {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    a {
+      color: theme-color("fourth");
+    }
+    .card-text {
+      color: rgb(107, 255, 107);
+    }
   }
 }
