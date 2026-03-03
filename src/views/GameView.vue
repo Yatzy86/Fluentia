@@ -48,13 +48,13 @@ function update() {
 </script>
 
 <template>
-  <article class="d-flex flex-column align-items-center">
+  <article>
     <!-- länk till homeview -->
     <section>
-      <h1 id="title_nav">
+      <p id="title_nav">
         <RouterLink :to="{ name: 'home' }">Home</RouterLink>
         / {{ props.name }}
-      </h1>
+      </p>
     </section>
 
     <!-- laddar komponenten beroende på vad variabeln currentGame blir -->
