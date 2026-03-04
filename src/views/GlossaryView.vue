@@ -19,7 +19,8 @@ export default {
     };
   },
   created() {
-    JSON.parse(localStorage.getItem("wordlist"));
+    //laddar in listan från localstorage och lägger den i wordList
+    this.wordList = JSON.parse(localStorage.getItem("wordlist"));
   },
   watch: {
     //håller koll på input fältet och döljer resultatet när texten suddas ut
@@ -28,6 +29,7 @@ export default {
         this.wordSearched = false;
       }
     },
+    //håller koll på om wordlist ändras och sparar då in den nya listan i localstorage
     wordList: {
       handler() {
         localStorage.setItem("wordlist", JSON.stringify(this.wordList));
@@ -72,6 +74,10 @@ export default {
       //pushas in i en array och sparas till local storage
       this.wordList.push(newWord);
     },
+    //funktion för att ta bort ord.
+    removeWord(word) {
+      this.wordList.splice(this.wordList.indexOf(word), 1); //tar bort 1 object från index av word i arrayen wordList
+    },
   },
 };
 </script>
@@ -87,10 +93,10 @@ export default {
   <p v-else-if="errorMsg">{{ errorMsg }}</p>
 
   <section>
-    <ul>
-      <li></li>
-      <li></li>
-      <BButton>Ta bort</BButton>
+    <ul v-for="word in wordList" :key="word.id">
+      <li>{{ word.english }}</li>
+      <li>{{ word.swedish }}</li>
+      <BButton @click="removeWord(word)">Ta bort</BButton>
     </ul>
   </section>
 </template>
