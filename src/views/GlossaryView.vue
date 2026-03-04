@@ -12,10 +12,12 @@ export default {
   data() {
     return {
       inputText: "", //Sträng som ska innehålla det användaren skriver i inputen
-      svWord: "", //Är det som sparas i svaret från API
+      translatedWord: "", //Är det som sparas i svaret från API
       errorMsg: "", //Texten spom visas om något går fel Börjar som null så inget visas först
       wordSearched: false,
       wordList: [],
+      setLang: "en|sv",
+      placeholderText: "Search English - Swedish",
     };
   },
   created() {
@@ -39,7 +41,7 @@ export default {
   },
 
   methods: {
-    async getEnglishWord() {
+    async getTranslatedWord() {
       //Async använder await och väntar på API svar
       //Funktionen körs när du klickar på knappen
       try {
@@ -52,11 +54,11 @@ export default {
           {
             params: {
               q: this.inputText,
-              langpair: "en|sv",
+              langpair: this.setLang,
             },
           },
         );
-        this.svWord = response.data.matches[0].translation; //Sparar resultatet i en variabel
+        this.translatedWord = response.data.matches[0].translation; //Sparar resultatet i en variabel
         this.wordSearched = true; //Gör så att resultatet visas med v-if
       } catch (error) {
         this.errorMsg = "Kunde inte hämta ordet.";
@@ -69,7 +71,7 @@ export default {
       const newWord = {
         id: crypto.randomUUID(),
         english: this.inputText,
-        swedish: this.svWord,
+        swedish: this.translatedWord,
       };
       //pushas in i en array och sparas till local storage
       this.wordList.push(newWord);
@@ -78,17 +80,45 @@ export default {
     removeWord(word) {
       this.wordList.splice(this.wordList.indexOf(word), 1); //tar bort 1 object från index av word i arrayen wordList
     },
+    switchLang() {
+      if (this.setLang === "en|sv") {
+        this.setLang = "sv|en";
+        this.placeholderText = "Search Swedish - English ";
+        this.inputText = "";
+      } else {
+        this.setLang = "en|sv";
+        this.placeholderText = "Search English - Swedish";
+        this.inputText = "";
+      }
+    },
   },
 };
 </script>
 
 <template>
   <h1>Glossary</h1>
-  <input v-model="inputText" placeholder="Skriv ett ord" />
-  <BButton @click="getEnglishWord">Sök</BButton>
+  <div class="w-25">
+    <b-input-group>
+      <b-form-input
+        v-model="inputText"
+        type="text"
+        :placeholder="placeholderText"
+      ></b-form-input>
+
+      <b-input-group-append class="d-flex">
+        <b-input-group-text>
+          <i @click="switchLang" class="bi bi-arrow-left-right"></i>
+        </b-input-group-text>
+        <b-button @click="getTranslatedWord" variant="third"
+          >Search for word</b-button
+        >
+      </b-input-group-append>
+    </b-input-group>
+  </div>
+
   <div v-if="wordSearched">
-    <p>{{ inputText }} : {{ svWord }}</p>
-    <BButton @click="addToList">Lägg till</BButton>
+    <p>{{ inputText }} : {{ translatedWord }}</p>
+    <BButton @click="addToList">Add to list</BButton>
   </div>
   <p v-else-if="errorMsg">{{ errorMsg }}</p>
 
@@ -96,7 +126,7 @@ export default {
     <ul v-for="word in wordList" :key="word.id">
       <li>{{ word.english }}</li>
       <li>{{ word.swedish }}</li>
-      <BButton @click="removeWord(word)">Ta bort</BButton>
+      <BButton @click="removeWord(word)">Remove from list</BButton>
     </ul>
   </section>
 </template>
