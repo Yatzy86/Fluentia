@@ -36,14 +36,24 @@ const currentGame = computed(() => {
   }
 });
 
+//GLOSSARY
+
+import AddToGlossary from "../components/AddToGlossary.vue";
 //länkar variabel till v-model
-let searchedWord = defineModel();
 let addedWord = ref("");
 
 //När knappen trycks på så blir addedWord samma som searchedWord
 // addedWord skrivs sedan ut längre ner på sidan
-function update() {
-  addedWord.value = searchedWord.value;
+function addWord(newWord) {
+  console.log(newWord);
+  //laddar in listan från localstorage och lägger den i wordList
+  let wordList = ref(JSON.parse(localStorage.getItem("wordlist")) || []);
+  //unshift pushar in i en array(fast först i listan)
+  wordList.value.unshift(newWord);
+  localStorage.setItem("wordlist", JSON.stringify(wordList.value));
+  console.log(wordList);
+  addedWord.value = newWord;
+  console.log(addedWord.value.length);
 }
 </script>
 
@@ -63,20 +73,14 @@ function update() {
     <!-- add to glossary sektion -->
     <section id="add_glossary">
       <b-card variant="secondary" title="Add to Glossary">
-        <b-card-text v-if="addedWord.length > 0"
-          >You have added the word: {{ addedWord }}!</b-card-text
+        <b-card-text v-if="addedWord" class="text-fourth"
+          >You have added
+          <span class="h5" style="color: rgb(107, 255, 107)"
+            >{{ addedWord.english }} : {{ addedWord.swedish }}</span
+          >
+          to the Glossary!</b-card-text
         >
-        <b-card-text>
-          <b-input-group class="mt-3">
-            <b-form-input
-              variant="fourth"
-              v-model="searchedWord"
-            ></b-form-input>
-            <b-input-group-append>
-              <b-button variant="third" @click="update">Button</b-button>
-            </b-input-group-append>
-          </b-input-group>
-        </b-card-text>
+        <b-card-text> <AddToGlossary @word-added="addWord" /></b-card-text>
 
         <RouterLink to="/glossary" class="card-link">
           Explore your Glossary>
