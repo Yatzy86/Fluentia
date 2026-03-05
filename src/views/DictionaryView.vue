@@ -86,8 +86,33 @@ export default {
     </b-input-group>
   </div>
 
-  <div v-if="wordSearched">
-    <p>{{ inputText }} : {{ translatedWord }}</p>
+  <div class="result-box" v-if="wordSearched">
+    <p>{{ inputText }} = {{ translatedWord }}</p>
   </div>
   <p v-else-if="errorMsg">{{ errorMsg }}</p>
 </template>
+
+<style lang="scss" scoped>
+$color-1: #fdc921;
+$color-2: #fdd85d;
+$color-3: #fffdf5;
+$color-4: #99d6ea;
+$color-5: #6798c0;
+h1 {
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+.w-25 {
+  width: 600px !important;
+  margin: auto;
+}
+.result-box {
+  background: $color-3;
+  padding: 30px;
+  border-radius: 20px;
+  margin-top: 20px auto;
+  width: 700px;
+  margin: 40px auto;
+  border: 6px solid $color-4;
+}
+</style>
