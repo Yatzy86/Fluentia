@@ -158,7 +158,7 @@ startGame();
     <h1>Choice Game</h1>
     <div v-if="!endGame">
       <p>Score: {{ score }} / {{ chosenQuestions.length }}</p>
-      <h2>{{ chosenQuestions[currentQuestion].fråga }}</h2>
+      <h2>{{ chosenQuestions[currentQuestion].question }}</h2>
 
       <ul
         v-for="alt in chosenQuestions[currentQuestion].alternative"
