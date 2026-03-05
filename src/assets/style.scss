@@ -238,3 +238,20 @@ body {
 }
 
 //GLOSSARYVIEW
+
+#glossary-section {
+  .table {
+    --bs-body-bg: transparent;
+    th {
+      font-size: 1.3em;
+      color: theme-color("fourth");
+    }
+    td {
+      font-size: 1.3em;
+      color: theme-color("fourth");
+    }
+    i {
+      color: red;
+    }
+  }
+}

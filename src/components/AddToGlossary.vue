@@ -10,6 +10,7 @@ export default {
       wordSearched: false,
       setLang: "en|sv",
       placeholderText: "Search English - Swedish",
+      date: new Date(),
     };
   },
 
@@ -52,8 +53,9 @@ export default {
       //skapar ett nytt objekt med vald info
       const newWord = {
         id: crypto.randomUUID(),
-        english: this.inputText,
-        swedish: this.translatedWord,
+        word: this.inputText,
+        translation: this.translatedWord,
+        date: this.date.toDateString(),
       };
 
       this.inputText = "";
@@ -95,9 +97,13 @@ export default {
     </b-input-group>
   </div>
 
-  <div v-if="wordSearched">
-    <p>{{ inputText }} : {{ translatedWord }}</p>
-    <BButton @click="addToList">Add to list</BButton>
+  <div
+    v-if="wordSearched"
+    class="d-flex gap-2 align-items-center justify-content-around mt-3 bg-primary p-2 rounded"
+  >
+    <p class="mb-0 h5 text-fourth">{{ inputText }}</p>
+    <p class="mb-0 h5 text-fourth">{{ translatedWord }}</p>
+    <BButton @click="addToList" variant="third">Add to list</BButton>
   </div>
   <p v-else-if="errorMsg">{{ errorMsg }}</p>
 </template>

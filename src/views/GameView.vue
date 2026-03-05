@@ -76,7 +76,7 @@ function addWord(newWord) {
         <b-card-text v-if="addedWord" class="text-fourth"
           >You have added
           <span class="h5" style="color: rgb(107, 255, 107)"
-            >{{ addedWord.english }} : {{ addedWord.swedish }}</span
+            >{{ addedWord.word }} : {{ addedWord.translation }}</span
           >
           to the Glossary!</b-card-text
         >

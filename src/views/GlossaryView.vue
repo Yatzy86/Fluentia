@@ -24,15 +24,36 @@ function removeWord(word) {
 
 <template>
   <h1>Glossary</h1>
-  <section id="glossary-section">
-    <AddToGlossary @word-added="addWord" />
-
+  <section
+    id="glossary-section"
+    class="bg-secondary rounded shadow d-flex flex-column justify-content-center align-items-center gap-3 w-75 m-auto mb-5 mt-1 pt-4 pb-3"
+  >
+    <div class="w-50">
+      <AddToGlossary @word-added="addWord" />
+    </div>
     <div>
-      <ul v-for="word in wordList" :key="word.id">
-        <li>{{ word.english }}</li>
-        <li>{{ word.swedish }}</li>
-        <BButton @click="removeWord(word)">Remove from list</BButton>
-      </ul>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Words</th>
+            <th scope="col">Translations</th>
+            <th scope="col">Date added</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="word in wordList" :key="word.id">
+            <td>{{ word.word }}</td>
+            <td>{{ word.translation }}</td>
+            <td>{{ word.date }}</td>
+            <td>
+              <BButton variant="fourth"
+                ><i class="bi bi-trash3" @click="removeWord(word)"></i
+              ></BButton>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </section>
 </template>
