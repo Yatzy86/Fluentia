@@ -113,6 +113,6 @@ h1 {
   margin-top: 20px auto;
   width: 700px;
   margin: 40px auto;
-  border: 6px solid $color-4;
+  border: 6px solid $color-3;
 }
 </style>

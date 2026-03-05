@@ -1,10 +1,15 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 const showInstructions = ref(true);
+const router = useRouter();
 
 function closeInstructions() {
   showInstructions.value = false;
+}
+function goBackHome() {
+  router.push("/");
 }
 </script>
 
@@ -13,7 +18,8 @@ function closeInstructions() {
     v-model="showInstructions"
     ok-title="Got it"
     title="Instructions!"
-    ok-only
+    cancel-title="Go Back"
+    @cancel="goBackHome"
     @ok="closeInstructions"
   >
     <div class="instructions-box">
@@ -42,6 +48,7 @@ $color-5: #6798c0;
 
 :deep(.modal-header) {
   background: $color-1;
+
   text-align: center;
   border-bottom: 3px solid $color-5;
   padding: 14px 16px;
