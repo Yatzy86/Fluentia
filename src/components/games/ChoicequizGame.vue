@@ -154,23 +154,45 @@ startGame();
 </script>
 
 <template>
-  <div v-if="chosenQuestions.length > 0">
-    <h1>Choice Game</h1>
+  <div class="card" v-if="chosenQuestions.length > 0">
+    <h1>Choice Quiz</h1>
     <div v-if="!endGame">
+      <p>
+        Question: {{ chosenQuestions }} of
+        {{ chosenQuestions.length }}
+      </p>
       <p>Score: {{ score }} / {{ chosenQuestions.length }}</p>
-      <h2>{{ chosenQuestions[currentQuestion].question }}</h2>
+      <h2>
+        {{ chosenQuestions[currentQuestion].question }}
+      </h2>
 
       <ul
         v-for="alt in chosenQuestions[currentQuestion].alternative"
         :key="alt.id"
       >
-        <button :disabled="answered" @click="checkAnswer(alt)">
-          {{ alt }}
-        </button>
+        <div class="d-grid gap-2 col-6 mx-auto">
+          <button
+            class="btn btn-primary"
+            type="button"
+            :disabled="answered"
+            @click="checkAnswer(alt)"
+          >
+            {{ alt }}
+          </button>
+        </div>
       </ul>
-
-      <button :disabled="!answered" @click="nextQuest()">Next</button>
+      <div class="d-grid gap-2 col-6 mx-auto">
+        <button
+          class="btn btn-fourth"
+          :disabled="!answered"
+          @click="nextQuest()"
+        >
+          Next
+        </button>
+      </div>
     </div>
+
+    <!-- Detta händer när spelet är slut -->
 
     <div v-else>
       <h2>Game over</h2>
