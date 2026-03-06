@@ -240,6 +240,8 @@ body {
 //GLOSSARYVIEW
 
 #glossary-section {
+  min-height: 50vh;
+
   .table {
     --bs-body-bg: transparent;
     th {

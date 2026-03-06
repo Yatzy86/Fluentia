@@ -1,7 +1,3 @@
-<!-- ATT GÖRA:
-Styla
-Kommentera GlossaryView, Add -->
-
 <script setup>
 import AddToGlossary from "../components/AddToGlossary.vue";
 import { ref } from "vue";
@@ -10,28 +6,37 @@ import { ref } from "vue";
 let wordList = ref(JSON.parse(localStorage.getItem("wordlist")) || []);
 
 function addWord(newWord) {
-  //unshift pushar in i en array(fast först i listan)
+  //unshift pushar in objektet newWord först i listan(index 0) i arrayen wordlist
   wordList.value.unshift(newWord);
+  //sparar arrayen till local storage
   localStorage.setItem("wordlist", JSON.stringify(wordList.value));
 }
 
 //funktion för att ta bort ord.
 function removeWord(word) {
   wordList.value.splice(wordList.value.indexOf(word), 1); //tar bort 1 object från index av word i arrayen wordList
-  localStorage.setItem("wordlist", JSON.stringify(wordList.value));
+  localStorage.setItem("wordlist", JSON.stringify(wordList.value)); //sparar sedan in i localstorage för att listan ska uppdateras
 }
 </script>
 
 <template>
-  <h1>Glossary</h1>
+  <!-- link back to home  -->
+  <p id="title_nav">
+    <RouterLink :to="{ name: 'home' }">Home</RouterLink>
+    / Glossary
+  </p>
+  <h1 class="text-center mb-4 text-fourth fw-bold fs-2">Glossary</h1>
+
   <section
     id="glossary-section"
-    class="bg-secondary rounded shadow d-flex flex-column justify-content-center align-items-center gap-3 w-75 m-auto mb-5 mt-1 pt-4 pb-3"
+    class="bg-secondary rounded shadow d-flex flex-column justify-content-top align-items-center gap-3 w-75 m-auto mb-5 mt-1 pt-4 pb-3"
   >
     <div class="w-50">
+      <!-- component for searching after word and adding to list. Emits word-added with an object that will be added to the wordlist array -->
       <AddToGlossary @word-added="addWord" />
     </div>
     <div>
+      <!-- table to write the words in the 'wordlist' glossary array -->
       <table class="table table-hover">
         <thead>
           <tr>

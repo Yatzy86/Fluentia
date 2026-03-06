@@ -39,21 +39,19 @@ const currentGame = computed(() => {
 //GLOSSARY
 
 import AddToGlossary from "../components/AddToGlossary.vue";
-//länkar variabel till v-model
 let addedWord = ref("");
 
-//När knappen trycks på så blir addedWord samma som searchedWord
-// addedWord skrivs sedan ut längre ner på sidan
+//funktion som tar emot emit från AddToGlossary komponenten och pushar in den i arrayen wordlist
 function addWord(newWord) {
   console.log(newWord);
-  //laddar in listan från localstorage och lägger den i wordList
+  //laddar in nuvarande listan från localstorage och lägger den i wordList
   let wordList = ref(JSON.parse(localStorage.getItem("wordlist")) || []);
-  //unshift pushar in i en array(fast först i listan)
+  //unshift pushar in i en array(fast som index 0)
   wordList.value.unshift(newWord);
+  //laddar in listan i local storage
   localStorage.setItem("wordlist", JSON.stringify(wordList.value));
-  console.log(wordList);
+  //lägger till objektet newWord i en variabel
   addedWord.value = newWord;
-  console.log(addedWord.value.length);
 }
 </script>
 
@@ -73,6 +71,7 @@ function addWord(newWord) {
     <!-- add to glossary sektion -->
     <section id="add_glossary">
       <b-card variant="secondary" title="Add to Glossary">
+        <!-- meddelande som visar att du har lagt till objektet i listan -->
         <b-card-text v-if="addedWord" class="text-fourth"
           >You have added
           <span class="h5" style="color: rgb(107, 255, 107)"
@@ -80,8 +79,10 @@ function addWord(newWord) {
           >
           to the Glossary!</b-card-text
         >
+        <!-- sök och lägg till komponent. Skickar ut objektet som ska läggas till -->
         <b-card-text> <AddToGlossary @word-added="addWord" /></b-card-text>
 
+        <!-- länk till din glossida -->
         <RouterLink to="/glossary" class="card-link">
           Explore your Glossary>
         </RouterLink>
