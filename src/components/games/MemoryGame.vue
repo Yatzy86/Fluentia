@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="Memory">
         <h1>Memory Game</h1>
         <p class="Score">Score: {{ matchedPairs }} / {{ totalPairs }} <span v-if="totalXP > 0" class="xp">+{{ totalXP }} XP</span></p>
         <div class="grid">
@@ -136,7 +136,8 @@ function getRandomPairs(amount) {
 <style scoped>
 
 /* huvud container för memory spelet */
-div {
+.memory-container {
+    width: 100%;
     max-width: 700px;
     margin: 0 auto;
     background-color: #214373;
@@ -355,5 +356,97 @@ p:last-child {
     color: #59e36f;
     margin-left: 12px;
     font-weight: 700;
+}
+
+/* mobil version (responsive) */
+@media (max-width:768px){
+.memory-container{
+    padding:24px 20px 20px;
+    border-radius:18px;
+}
+
+.grid{
+    max-width:100%;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    padding:16px;
+}
+
+.card-front img{
+    width:42px;
+    height:42px;
+}
+
+.card-back{
+    font-size:0.9rem;
+}
+
+.card-back span{
+    padding:10px 6px;
+    font-size:0.9rem;
+}
+
+.controls{
+    gap:12px;
+}
+
+.btn{
+    padding:10px 18px;
+    font-size:0.95rem;
+}
+}
+
+@media (max-width:480px){
+.memory-container{
+    padding:18px 14px 16px;
+    border-radius:14px;
+}
+
+h1{
+    font-size:1.5rem;
+}
+
+.Score{
+    font-size:0.95rem;
+    margin-bottom:18px;
+}
+
+.grid{
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    padding:12px;
+}
+
+.card-front img{
+    width:36px;
+    height:36px;
+}
+
+.card-back{
+    font-size:0.8rem;
+    padding:6px;
+}
+
+.card-back span{
+    padding:8px 4px;
+    font-size:0.8rem;
+}
+
+.controls{
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+}
+
+.btn{
+    width:100%;
+    max-width:220px;
+}
+
+.xp{
+    display:block;
+    margin-left:0;
+    margin-top:6px;
+}
 }
 </style>
