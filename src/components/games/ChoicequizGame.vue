@@ -154,23 +154,27 @@ startGame();
 </script>
 
 <template>
-  <div class="card" v-if="chosenQuestions.length > 0">
+  <!-- <div class="card" v-if="chosenQuestions.length > 0"> -->
+  <main class="game">
     <h1>Choice Quiz</h1>
-    <div v-if="!endGame">
-      <p>
-        Question: {{ chosenQuestions }} of
-        {{ chosenQuestions.length }}
-      </p>
-      <p>Score: {{ score }} / {{ chosenQuestions.length }}</p>
-      <h2>
-        {{ chosenQuestions[currentQuestion].question }}
-      </h2>
+    <section class="quiz" v-if="chosenQuestions.length > 0">
+      <div class="quizInfo" v-if="!endGame">
+        <p class="question">
+          Question: {{ currentQuestion }} of
+          {{ chosenQuestions.length }}
+        </p>
+        <p class="score">Score: {{ score }} / {{ chosenQuestions.length }}</p>
+      </div>
 
-      <ul
-        v-for="alt in chosenQuestions[currentQuestion].alternative"
-        :key="alt.id"
-      >
-        <div class="d-grid gap-2 col-6 mx-auto">
+      <div class="options">
+        <h2>
+          {{ chosenQuestions[currentQuestion].question }}
+        </h2>
+
+        <ul
+          v-for="alt in chosenQuestions[currentQuestion].alternative"
+          :key="alt.id"
+        >
           <button
             class="btn btn-primary"
             type="button"
@@ -179,25 +183,76 @@ startGame();
           >
             {{ alt }}
           </button>
-        </div>
-      </ul>
-      <div class="d-grid gap-2 col-6 mx-auto">
-        <button
-          class="btn btn-fourth"
-          :disabled="!answered"
-          @click="nextQuest()"
-        >
-          Next
-        </button>
+        </ul>
       </div>
-    </div>
-
+      <button
+        class="btn btn-primary"
+        :disabled="!answered"
+        @click="nextQuest()"
+      >
+        Next
+      </button>
+    </section>
     <!-- Detta händer när spelet är slut -->
 
-    <div v-else>
+    <section v-else>
       <h2>Game over</h2>
       <p>Your total score {{ score }} / {{ chosenQuestions.length }}</p>
       <button @click="startNewGame()">New Game</button>
-    </div>
-  </div>
+    </section>
+  </main>
 </template>
+<style scoped>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+
+.quiz {
+  background-color: #4177c3;
+  padding: 1rem;
+  width: 100%;
+  max-width: 640px;
+  border-radius: 1rem;
+}
+
+.quizInfo {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.quizInfo .question {
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.quizInfo .score {
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.options {
+  padding: 1rem;
+  display: block;
+  background-color: #214373;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+}
+</style>
