@@ -205,7 +205,7 @@ body {
 #title_nav {
   font-size: 1.5em;
   color: theme-color("fourth");
-  margin: 1em 0 1em 1em;
+  padding: 1em 0 1em 1em;
 
   a {
     color: theme-color("fourth");
@@ -223,7 +223,7 @@ body {
     border-radius: 0;
   }
   .card-body {
-    width: 30vw;
+    width: 35vw;
     margin: auto;
     padding: 2em 0;
 
@@ -236,12 +236,45 @@ body {
     }
   }
 }
+@media (max-width: 1200px) {
+  #add_glossary {
+    .card-body {
+      width: 50vw;
+    }
+  }
+}
+@media (max-width: 790px) {
+  #add_glossary {
+    .card-body {
+      width: 70vw;
+    }
+  }
+}
+@media (max-width: 500px) {
+  #title_nav {
+    text-align: center;
+  }
+  #add_glossary {
+    .card-body {
+      width: 90vw;
+    }
+  }
+}
 
 //GLOSSARYVIEW
 
+#background_div {
+  background-image: url(img/background.png);
+  background-size: cover;
+
+  padding-bottom: 5em;
+}
 #glossary-section {
   min-height: 50vh;
 
+  .input_width {
+    width: 50%;
+  }
   .table {
     --bs-body-bg: transparent;
     th {
@@ -254,6 +287,50 @@ body {
     }
     i {
       color: red;
+    }
+  }
+}
+@media (max-width: 1000px) {
+  #glossary-section {
+    .input_width {
+      width: 90%;
+    }
+  }
+}
+@media (max-width: 650px) {
+  #glossary-section {
+    min-width: 95vw;
+    .table {
+      th {
+        font-size: 1em;
+      }
+      td {
+        font-size: 1em;
+      }
+    }
+  }
+}
+@media (max-width: 410px) {
+  #glossary-section {
+    input {
+      font-size: 0.8em;
+    }
+    .table {
+      th {
+        font-size: 0.8em;
+      }
+      td {
+        padding: 0.2em 0.3em;
+      }
+      .date_td {
+        font-size: 0.7em;
+      }
+    }
+  }
+  #glossary_input {
+    input,
+    button {
+      font-size: 0.8em;
     }
   }
 }

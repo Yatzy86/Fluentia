@@ -9,7 +9,7 @@ export default {
       errorMsg: "", //Texten spom visas om något går fel Börjar som null så inget visas först
       wordSearched: false,
       setLang: "en|sv",
-      placeholderText: "Search English - Swedish",
+      placeholderText: "Search Eng - Swe",
       date: new Date(),
     };
   },
@@ -69,11 +69,11 @@ export default {
     switchLang() {
       if (this.setLang === "en|sv") {
         this.setLang = "sv|en";
-        this.placeholderText = "Search Swedish - English ";
+        this.placeholderText = "Search Swe - Eng";
         this.inputText = "";
       } else {
         this.setLang = "en|sv";
-        this.placeholderText = "Search English - Swedish";
+        this.placeholderText = "Search Eng - Swe";
         this.inputText = "";
       }
     },
@@ -81,7 +81,7 @@ export default {
 };
 </script>
 <template>
-  <div>
+  <div id="glossary_input">
     <!-- input fält för att söka ord i -->
     <b-input-group>
       <b-form-input
