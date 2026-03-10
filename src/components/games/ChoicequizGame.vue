@@ -15,6 +15,8 @@ const answered = ref(false);
 
 const newGame = ref(false);
 
+const currentChosenAnswer = ref(null);
+
 const questions = ref([
   {
     question: "What is the translation of Dog?",
@@ -131,6 +133,7 @@ const checkAnswer = (chosenAnswer) => {
     score.value++;
   }
   answered.value = true;
+  currentChosenAnswer.value = chosenAnswer;
 };
 
 const nextQuest = () => {
@@ -179,9 +182,23 @@ startGame();
             class="btn btn-primary"
             type="button"
             :disabled="answered"
+            :style="{
+              backgroundColor:
+                // chosenQuestions &&
+                // currentQuestion &&
+                answered &&
+                chosenQuestions[currentQuestion]?.rightAnswer === alt
+                  ? 'green'
+                  : '',
+            }"
             @click="checkAnswer(alt)"
           >
             {{ alt }}
+            <!-- {{
+              // chosenQuestions &&
+              // currentQuestion &&
+              chosenQuestions[currentQuestion]?.rightAnswer
+            }} -->
           </button>
         </ul>
       </div>
