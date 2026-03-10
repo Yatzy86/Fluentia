@@ -8,7 +8,7 @@ export default createRouter({
   history: createWebHashHistory(),
   routes: [
     { component: GameView, path: "/game/:name", props: true, name: "game" },
-    { component: HomeView, path: "/" },
+    { component: HomeView, path: "/", name: "home" },
     { component: DictionaryView, path: "/dictionary" },
     { component: GlossaryView, path: "/glossary" },
   ],
