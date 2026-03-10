@@ -24,7 +24,7 @@
     </div>
     <div class="controls">
         <button class="btn" @click="newGame">New Game</button>
-        <button class="btn outline" @click="restart">restart</button>
+        <button class="btn outline" @click="restart">Restart</button>
     </div>
     <p v-if="hasWon" class="win">You found all the pairs! Congrats!</p>
     </div>
@@ -250,7 +250,7 @@ h1 {
 
 /* baksidan där ordet visas */
 .card-back {
-    background-color: #FFE592; 
+    background-color: #fddb5d; 
     transform: rotateY(180deg); /* gör så att den visas när kortet flippar */
     padding: 8px;
     text-align: center;
@@ -263,7 +263,7 @@ h1 {
 .card-back span {
     display: inline-block;
     width: 100%;
-    background-color: #FFE592;
+    background-color: #fddb5d;
     border-radius: 8px;
     padding: 14px 8px;
     color: #1f1f1f;

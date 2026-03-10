@@ -2,7 +2,9 @@
 import { ref, computed } from "vue";
 import logo from "../assets/img/image.png";
 
+const showLoginModal = ref(false);
 const userName = ref("");
+const tempName = ref("");
 const isLoggedIn = computed(() => userName.value.trim().length > 0);
 
 function login() {
@@ -10,13 +12,16 @@ function login() {
     userName.value = "";
     return;
   }
-  const name = prompt("What is your name?");
-  if (name && name.trim()) {
-    userName.value = name.trim();
-    alert(`Hello ${userName.value}`);
-  } else {
-    alert("Hello");
+
+  showLoginModal.value = true;
+}
+
+function confirmLogin() {
+  if (tempName.value.trim()) {
+    userName.value = tempName.value.trim();
   }
+  tempName.value ="";
+  showLoginModal.value = false;
 }
 </script>
 
@@ -62,6 +67,17 @@ function login() {
       </div>
     </div>
   </nav>
+  <b-modal v-model="showLoginModal"  title ="Log in">
+    <b-form-input v-model="tempName" placeholder="Enter your name"/>
+    <template #footer>
+      <b-button variant="secondary" @click="showLoginModal = false">
+        Cancel
+      </b-button>
+      <b-button variant="third" @click="confirmLogin">
+        Log in
+      </b-button>
+    </template>
+  </b-modal>
 </template>
 
 <style lang="scss" scoped>
