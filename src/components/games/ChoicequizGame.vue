@@ -196,7 +196,7 @@ startGame();
         >
           <div class="d-grid gap-1">
             <button
-              class="btn btn-primary"
+              class="btn btn-primary altButton"
               type="button"
               :disabled="answered"
               :style="{
@@ -263,6 +263,11 @@ h2 {
 
 .questionWord {
   color: #e7c558;
+}
+
+.altButton:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
 }
 
 .quiz {
