@@ -66,6 +66,7 @@ export default {
 
 <template>
   <h1>Dictionary</h1>
+  <p class="subtitle">You can translate words here</p>
   <div class="w-25">
     <b-input-group>
       <b-form-input
@@ -101,6 +102,9 @@ $color-5: #6798c0;
 h1 {
   font-weight: 500;
   margin-bottom: 20px;
+  color: #fffdf5;
+  margin-top: 10px;
+  text-align: center;
 }
 .w-25 {
   width: 600px !important;
@@ -121,5 +125,11 @@ h1 {
 }
 input {
   font-weight: bold;
+}
+.subtitle {
+  text-align: center;
+  color: #fffdf5;
+  margin-bottom: 24px;
+  font-size: 16px;
 }
 </style>

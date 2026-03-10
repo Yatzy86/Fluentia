@@ -87,7 +87,7 @@ $color-5: #6798c0;
   flex-shrink: 0;
 }
 .logo {
-  height: 80px;
+  height: 50px;
   width: auto;
   display: block;
 }
