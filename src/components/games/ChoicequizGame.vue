@@ -19,102 +19,102 @@ const currentChosenAnswer = ref(null);
 
 const questions = ref([
   {
-    question: "What is the translation of Dog?",
+    question: "Dog?",
     alternative: ["Katt", "Fisk", "Fågel", "Hund"],
     rightAnswer: "Hund",
   },
   {
-    question: "What is the translation of Apple?",
+    question: "Apple?",
     alternative: ["Banan", "Äpple", "Päron", "Apelsin"],
     rightAnswer: "Äpple",
   },
   {
-    question: "What is the translation of Parrot?",
+    question: "Parrot?",
     alternative: ["Örn", "Mås", "Papegoja", "Sparv"],
     rightAnswer: "Papegoja",
   },
   {
-    question: "What is the translation of Bottle?",
+    question: "Bottle?",
     alternative: ["Flaska", "Burk", "Stol", "Matta"],
     rightAnswer: "Flaska",
   },
   {
-    question: "What is the translation of Book?",
+    question: "Book?",
     alternative: ["Säng", "Bok", "Kruka", "Dörr"],
     rightAnswer: "Bok",
   },
   {
-    question: "What is the translation of Food?",
+    question: "Food?",
     alternative: ["Dricka", "Mat", "Påse", "Tavla"],
     rightAnswer: "Mat",
   },
   {
-    question: "What is the translation of Pillow?",
+    question: "Pillow?",
     alternative: ["Äta", "Vatten", "Täcke", "Kudde"],
     rightAnswer: "Kudde",
   },
   {
-    question: "What is the translation of Chair?",
+    question: "Chair?",
     alternative: ["Tak", "Säng", "Stol", "Tallrik"],
     rightAnswer: "Stol",
   },
   {
-    question: "What is the translation of Water?",
+    question: "Water?",
     alternative: ["Mjölk", "Vatten", "Bröd", "Salt"],
     rightAnswer: "Vatten",
   },
   {
-    question: "What is the translation of Bread?",
+    question: "Bread?",
     alternative: ["Kött", "Ris", "Bröd", "Potatis"],
     rightAnswer: "Bröd",
   },
   {
-    question: "What is the translation of Window?",
+    question: "Window?",
     alternative: ["Dörr", "Fönster", "Golvlampa", "Tak"],
     rightAnswer: "Fönster",
   },
   {
-    question: "What is the translation of Table?",
+    question: "Table?",
     alternative: ["Bord", "Soffa", "Spegel", "Stol"],
     rightAnswer: "Bord",
   },
   {
-    question: "What is the translation of Cat?",
+    question: "Cat?",
     alternative: ["Katt", "Fågel", "Kanin", "Ko"],
     rightAnswer: "Katt",
   },
   {
-    question: "What is the translation of School?",
+    question: "School?",
     alternative: ["Skola", "Arbete", "Bibliotek", "Klassrum"],
     rightAnswer: "Skola",
   },
   {
-    question: "What is the translation of Teacher?",
+    question: "Teacher?",
     alternative: ["Elev", "Rektor", "Lärare", "Vaktmästare"],
     rightAnswer: "Lärare",
   },
   {
-    question: "What is the translation of Car?",
+    question: "Car?",
     alternative: ["Buss", "Cykel", "Bil", "Tåg"],
     rightAnswer: "Bil",
   },
   {
-    question: "What is the translation of House?",
+    question: "House?",
     alternative: ["Villa", "Hus", "Lägenhet", "Stuga"],
     rightAnswer: "Hus",
   },
   {
-    question: "What is the translation of Sun?",
+    question: "Sun?",
     alternative: ["Stjärna", "Måne", "Moln", "Sol"],
     rightAnswer: "Sol",
   },
   {
-    question: "What is the translation of Moon?",
+    question: "Moon?",
     alternative: ["Sol", "Moln", "Måne", "Himmel"],
     rightAnswer: "Måne",
   },
   {
-    question: "What is the translation of Shirt?",
+    question: "Shirt?",
     alternative: ["Hatt", "Jacka", "Tröja", "Skjorta"],
     rightAnswer: "Skjorta",
   },
@@ -122,8 +122,12 @@ const questions = ref([
 
 //Denna funktionen blandar och väljer 10 st
 const startGame = () => {
-  const shuffleWords = [...questions.value].sort(() => Math.random() - 0.5);
-  chosenQuestions.value = shuffleWords.slice(0, 10);
+  const shuffleQuestions = [...questions.value].sort(() => Math.random() - 0.5);
+  // const shuffleWords = [...questions.value[0].alternative].sort(
+  //   () => Math.random() - 0.5,
+  // );
+  // console.log(shuffleWords);
+  chosenQuestions.value = shuffleQuestions.slice(0, 10);
 };
 
 const checkAnswer = (chosenAnswer) => {
@@ -160,10 +164,15 @@ startGame();
   <!-- <div class="card" v-if="chosenQuestions.length > 0"> -->
   <main class="game">
     <h1>Choice Quiz</h1>
-    <section class="quiz" v-if="chosenQuestions.length > 0">
+    <section
+      class="quiz"
+      v-if="
+        chosenQuestions.length > 0 && currentQuestion < chosenQuestions.length
+      "
+    >
       <div class="quizInfo" v-if="!endGame">
         <p class="question">
-          Question: {{ currentQuestion }} of
+          Question: {{ currentQuestion + 1 }} of
           {{ chosenQuestions.length }}
         </p>
         <p class="score">Score: {{ score }} / {{ chosenQuestions.length }}</p>
@@ -171,57 +180,64 @@ startGame();
 
       <div class="options">
         <h2>
-          {{ chosenQuestions[currentQuestion].question }}
+          What is the translation of
+          <span class="questionWord">{{
+            chosenQuestions[currentQuestion].question
+          }}</span>
         </h2>
 
         <ul
-          v-for="alt in chosenQuestions[currentQuestion].alternative"
+          v-for="alt in answered
+            ? chosenQuestions[currentQuestion].alternative
+            : chosenQuestions[currentQuestion].alternative.sort(
+                () => Math.random() - 0.5,
+              )"
           :key="alt.id"
         >
-          <button
-            class="btn btn-primary"
-            type="button"
-            :disabled="answered"
-            :style="{
-              backgroundColor:
-                // chosenQuestions &&
-                // currentQuestion &&
-                answered &&
-                chosenQuestions[currentQuestion]?.rightAnswer === alt
-                  ? 'green'
-                  : '',
-            }"
-            @click="checkAnswer(alt)"
-          >
-            {{ alt }}
-            <!-- {{
-              // chosenQuestions &&
-              // currentQuestion &&
-              chosenQuestions[currentQuestion]?.rightAnswer
-            }} -->
-          </button>
+          <div class="d-grid gap-1">
+            <button
+              class="btn btn-primary"
+              type="button"
+              :disabled="answered"
+              :style="{
+                backgroundColor:
+                  answered &&
+                  chosenQuestions[currentQuestion]?.rightAnswer === alt
+                    ? 'green'
+                    : currentChosenAnswer === alt
+                      ? 'red'
+                      : '',
+              }"
+              @click="checkAnswer(alt)"
+            >
+              {{ alt }}
+            </button>
+          </div>
         </ul>
       </div>
-      <button
-        class="btn btn-primary"
-        :disabled="!answered"
-        @click="nextQuest()"
-      >
-        Next
-      </button>
+      <div class="d-grid gap-1">
+        <button
+          class="btn btn-third"
+          :disabled="!answered"
+          @click="nextQuest()"
+        >
+          Next
+        </button>
+      </div>
     </section>
     <!-- Detta händer när spelet är slut -->
 
-    <section v-else>
+    <section class="quizEnd" v-else>
       <h2>Game over</h2>
-      <p>Your total score {{ score }} / {{ chosenQuestions.length }}</p>
-      <button @click="startNewGame()">New Game</button>
+      <p class="score">
+        Your total score {{ score }} / {{ chosenQuestions.length }}
+      </p>
+      <button class="newGameButton" @click="startNewGame()">New Game</button>
     </section>
   </main>
 </template>
 <style scoped>
 * {
-  margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: sans-serif;
@@ -236,9 +252,17 @@ startGame();
 }
 
 h1 {
-  font-size: 2rem;
+  color: #fff;
+}
+
+h2 {
+  font-size: 1.5rem;
   margin-bottom: 2rem;
   color: #fff;
+}
+
+.questionWord {
+  color: #e7c558;
 }
 
 .quiz {
@@ -268,8 +292,43 @@ h1 {
 .options {
   padding: 1rem;
   display: block;
-  background-color: #214373;
+  /* background-color: #214373; */
   margin-bottom: 0.5rem;
   border-radius: 0.5rem;
+}
+
+.quizEnd {
+  background-color: #4177c3;
+  padding: 1rem;
+  width: 100%;
+  max-width: 640px;
+  border-radius: 1rem;
+}
+
+.quizEnd h2 {
+  text-align: center;
+}
+
+.score {
+  color: #fff;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.newGameButton {
+  display: flex;
+  padding: 0.5rem;
+  background-color: #e7c558;
+  border-radius: 0.5rem;
+  margin: auto;
+}
+
+@media (max-width: 380px) {
+  .quizInfo .question {
+    font-size: 1rem;
+  }
+  .quizInfo .score {
+    font-size: 1rem;
+  }
 }
 </style>
