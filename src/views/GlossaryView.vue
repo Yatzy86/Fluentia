@@ -1,132 +1,66 @@
-<!-- ATT GÖRA:
-Skriv ut wordlist på sidan med v-for
-Lägg till ta bort knapp
-Se till så att sidan uppdateras automatiskt
-Styla
-Kommentera -->
+<script setup>
+import AddToGlossary from "../components/AddToGlossary.vue";
+import { ref } from "vue";
 
-<script>
-import axios from "axios";
+//laddar in listan från localstorage och lägger den i wordList
+let wordList = ref(JSON.parse(localStorage.getItem("wordlist")) || []);
 
-export default {
-  data() {
-    return {
-      inputText: "", //Sträng som ska innehålla det användaren skriver i inputen
-      translatedWord: "", //Är det som sparas i svaret från API
-      errorMsg: "", //Texten spom visas om något går fel Börjar som null så inget visas först
-      wordSearched: false,
-      wordList: [],
-      setLang: "en|sv",
-      placeholderText: "Search English - Swedish",
-    };
-  },
-  created() {
-    //laddar in listan från localstorage och lägger den i wordList
-    this.wordList = JSON.parse(localStorage.getItem("wordlist"));
-  },
-  watch: {
-    //håller koll på input fältet och döljer resultatet när texten suddas ut
-    inputText(newVal, oldVal) {
-      if (newVal.length < oldVal.length) {
-        this.wordSearched = false;
-      }
-    },
-    //håller koll på om wordlist ändras och sparar då in den nya listan i localstorage
-    wordList: {
-      handler() {
-        localStorage.setItem("wordlist", JSON.stringify(this.wordList));
-      },
-      deep: true,
-    },
-  },
+function addWord(newWord) {
+  //unshift pushar in objektet newWord först i listan(index 0) i arrayen wordlist
+  wordList.value.unshift(newWord);
+  //sparar arrayen till local storage
+  localStorage.setItem("wordlist", JSON.stringify(wordList.value));
+}
 
-  methods: {
-    async getTranslatedWord() {
-      //Async använder await och väntar på API svar
-      //Funktionen körs när du klickar på knappen
-      try {
-        //try: Kod som kan misslyckas pga nätverk, fel URL eller ord som inte finns
-
-        const response = await axios.get(
-          //await axios.get skickar en GET request till API:t
-          //URL:en byggs med this.inputText
-          `https://api.mymemory.translated.net/get?`,
-          {
-            params: {
-              q: this.inputText,
-              langpair: this.setLang,
-            },
-          },
-        );
-        this.translatedWord = response.data.matches[0].translation; //Sparar resultatet i en variabel
-        this.wordSearched = true; //Gör så att resultatet visas med v-if
-      } catch (error) {
-        this.errorMsg = "Kunde inte hämta ordet.";
-        console.error(error);
-      }
-    },
-    //när knappen "lägg till klickas på körs funktionen"
-    addToList() {
-      //skapar ett nytt objekt med vald info
-      const newWord = {
-        id: crypto.randomUUID(),
-        english: this.inputText,
-        swedish: this.translatedWord,
-      };
-      //pushas in i en array och sparas till local storage
-      this.wordList.push(newWord);
-    },
-    //funktion för att ta bort ord.
-    removeWord(word) {
-      this.wordList.splice(this.wordList.indexOf(word), 1); //tar bort 1 object från index av word i arrayen wordList
-    },
-    switchLang() {
-      if (this.setLang === "en|sv") {
-        this.setLang = "sv|en";
-        this.placeholderText = "Search Swedish - English ";
-        this.inputText = "";
-      } else {
-        this.setLang = "en|sv";
-        this.placeholderText = "Search English - Swedish";
-        this.inputText = "";
-      }
-    },
-  },
-};
+//funktion för att ta bort ord.
+function removeWord(word) {
+  wordList.value.splice(wordList.value.indexOf(word), 1); //tar bort 1 object från index av word i arrayen wordList
+  localStorage.setItem("wordlist", JSON.stringify(wordList.value)); //sparar sedan in i localstorage för att listan ska uppdateras
+}
 </script>
 
 <template>
-  <h1>Glossary</h1>
-  <div class="w-25">
-    <b-input-group>
-      <b-form-input
-        v-model="inputText"
-        type="text"
-        :placeholder="placeholderText"
-      ></b-form-input>
+  <div id="background_div">
+    <!-- link back to home  -->
+    <p id="title_nav">
+      <RouterLink :to="{ name: 'home' }">Home</RouterLink>
+      / Glossary
+    </p>
+    <h1 class="text-center mb-4 text-fourth fw-bold fs-2">Glossary</h1>
 
-      <b-input-group-append class="d-flex">
-        <b-input-group-text>
-          <i @click="switchLang" class="bi bi-arrow-left-right"></i>
-        </b-input-group-text>
-        <b-button @click="getTranslatedWord" variant="third"
-          >Search for word</b-button
-        >
-      </b-input-group-append>
-    </b-input-group>
+    <section
+      id="glossary-section"
+      class="bg-secondary rounded shadow d-flex flex-column justify-content-top align-items-center gap-3 w-75 m-auto mt-1 pt-4 pb-3"
+    >
+      <div class="input_width">
+        <!-- component for searching after word and adding to list. Emits word-added with an object that will be added to the wordlist array -->
+        <AddToGlossary @word-added="addWord" />
+      </div>
+      <div>
+        <!-- table to write the words in the 'wordlist' glossary array -->
+        <table class="table table-hover" per-page="5">
+          <thead>
+            <tr>
+              <th scope="col">Words</th>
+              <th scope="col">Translations</th>
+              <th class="date_th" scope="col">Date added</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="word in wordList" :key="word.id">
+              <td>{{ word.word }}</td>
+              <td>{{ word.translation }}</td>
+              <td class="date_td">{{ word.date }}</td>
+              <td>
+                <BButton variant="fourth"
+                  ><i class="bi bi-trash3" @click="removeWord(word)"></i
+                ></BButton>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </div>
-
-  <div v-if="wordSearched">
-    <p>{{ inputText }} : {{ translatedWord }}</p>
-    <BButton @click="addToList">Add to list</BButton>
-  </div>
-  <p v-else-if="errorMsg">{{ errorMsg }}</p>
-
-  <section>
-    <ul v-for="word in wordList" :key="word.id">
-      <li>{{ word.english }}</li>
-      <li>{{ word.swedish }}</li>
-      <BButton @click="removeWord(word)">Remove from list</BButton>
-    </ul>
-  </section>
 </template>

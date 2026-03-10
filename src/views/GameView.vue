@@ -36,14 +36,22 @@ const currentGame = computed(() => {
   }
 });
 
-//länkar variabel till v-model
-let searchedWord = defineModel();
+//GLOSSARY
+
+import AddToGlossary from "../components/AddToGlossary.vue";
 let addedWord = ref("");
 
-//När knappen trycks på så blir addedWord samma som searchedWord
-// addedWord skrivs sedan ut längre ner på sidan
-function update() {
-  addedWord.value = searchedWord.value;
+//funktion som tar emot emit från AddToGlossary komponenten och pushar in den i arrayen wordlist
+function addWord(newWord) {
+  console.log(newWord);
+  //laddar in nuvarande listan från localstorage och lägger den i wordList
+  let wordList = ref(JSON.parse(localStorage.getItem("wordlist")) || []);
+  //unshift pushar in i en array(fast som index 0)
+  wordList.value.unshift(newWord);
+  //laddar in listan i local storage
+  localStorage.setItem("wordlist", JSON.stringify(wordList.value));
+  //lägger till objektet newWord i en variabel
+  addedWord.value = newWord;
 }
 </script>
 
@@ -63,21 +71,18 @@ function update() {
     <!-- add to glossary sektion -->
     <section id="add_glossary">
       <b-card variant="secondary" title="Add to Glossary">
-        <b-card-text v-if="addedWord.length > 0"
-          >You have added the word: {{ addedWord }}!</b-card-text
+        <!-- meddelande som visar att du har lagt till objektet i listan -->
+        <b-card-text v-if="addedWord" class="text-fourth"
+          >You have added
+          <span class="h5" style="color: rgb(107, 255, 107)"
+            >{{ addedWord.word }} : {{ addedWord.translation }}</span
+          >
+          to the Glossary!</b-card-text
         >
-        <b-card-text>
-          <b-input-group class="mt-3">
-            <b-form-input
-              variant="fourth"
-              v-model="searchedWord"
-            ></b-form-input>
-            <b-input-group-append>
-              <b-button variant="third" @click="update">Button</b-button>
-            </b-input-group-append>
-          </b-input-group>
-        </b-card-text>
+        <!-- sök och lägg till komponent. Skickar ut objektet som ska läggas till -->
+        <b-card-text> <AddToGlossary @word-added="addWord" /></b-card-text>
 
+        <!-- länk till din glossida -->
         <RouterLink to="/glossary" class="card-link">
           Explore your Glossary>
         </RouterLink>
