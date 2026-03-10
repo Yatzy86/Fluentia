@@ -16,11 +16,12 @@ function login() {
   showLoginModal.value = true;
 }
 
+// Danar
 function confirmLogin() {
-  if (tempName.value.trim()) {
-    userName.value = tempName.value.trim();
+  if (tempName.value.trim()) { // kontrollera att använderan har skrivit någonting
+    userName.value = tempName.value.trim();  // spara namnet
   }
-  tempName.value ="";
+  tempName.value ="";  // rensar bort namnet nästa gång när du öppnar 
   showLoginModal.value = false;
 }
 </script>
@@ -66,6 +67,8 @@ function confirmLogin() {
         </ul>
       </div>
     </div>
+
+    <!--bootstrap inloggning // Danar-->
   </nav>
   <b-modal v-model="showLoginModal"  title ="Log in">
     <b-form-input v-model="tempName" placeholder="Enter your name"/>
@@ -73,7 +76,8 @@ function confirmLogin() {
       <b-button variant="secondary" @click="showLoginModal = false">
         Cancel
       </b-button>
-      <b-button variant="third" @click="confirmLogin">
+      <b-button variant="third" :disabled="!tempName.trim()" 
+       @click="confirmLogin">
         Log in
       </b-button>
     </template>
