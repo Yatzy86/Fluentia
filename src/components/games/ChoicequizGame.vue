@@ -217,7 +217,7 @@ startGame();
       </div>
       <div class="d-grid gap-1">
         <button
-          class="btn btn-third"
+          class="btn btn-third nextQuestion"
           :disabled="!answered"
           @click="nextQuest()"
         >
@@ -263,6 +263,18 @@ h2 {
 
 .questionWord {
   color: #e7c558;
+  font-weight: bold;
+}
+
+.altButton {
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.nextQuestion {
+  padding: 1rem;
+  border-radius: 1rem;
+  font-weight: bold;
 }
 
 .altButton:hover {
