@@ -74,8 +74,9 @@ $color-5: #6798c0;
 .header {
   height: 90px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 0 12px;
+  padding: 0 16px;
   background: $color-3;
   width: 100%;
 }
@@ -83,19 +84,19 @@ $color-5: #6798c0;
   height: 100%;
   display: flex;
   align-items: center;
-  margin-left: -50px;
+  flex-shrink: 0;
 }
 .logo {
   height: 80px;
-  transform: scale(2.5);
   width: auto;
-  transform-origin: left center;
+  display: block;
 }
 .right {
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
+  flex-shrink: 0;
 }
 
 .icon {
@@ -109,18 +110,17 @@ $color-5: #6798c0;
 }
 .hamburger-btn .navbar-toggler-icon {
   width: 1.5em;
-  height: 1.5em;
+  height: 2em;
 }
 @media (max-width: 576px) {
   .header {
     height: 70px;
+    padding: 0 12px;
   }
   .logo {
     height: 52px;
-    transform: none;
-  }
-  .logo-wrap {
-    margin-left: 0;
+    width: auto;
+    display: block;
   }
   .right {
     gap: 12px;
@@ -130,6 +130,7 @@ $color-5: #6798c0;
   display: flex;
   align-items: center;
   font-size: 14px;
+  gap: 6px;
 }
 .user-name {
   font-weight: 600;
