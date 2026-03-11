@@ -2,15 +2,19 @@
 import { ref, computed } from "vue";
 import logo from "../assets/img/image.png";
 
-const userName = ref("");
-const isLoggedIn = computed(() => userName.value.trim().length > 0);
+const userName = ref(""); //stores user's name
+const isLoggedIn = computed(() => userName.value.trim().length > 0); //computed property checks if user is loggedin and returns true if the ussername is not empty
 
+//this function handles login and logout
 function login() {
+  //if user is already logged in then clear the username(logout)
   if (isLoggedIn.value) {
     userName.value = "";
     return;
   }
+  //Ask the user their name
   const name = prompt("What is your name?");
+  //if it is a valid name then store it and show greeting msg
   if (name && name.trim()) {
     userName.value = name.trim();
     alert(`Hello ${userName.value}`);
@@ -23,6 +27,7 @@ function login() {
 <template>
   <nav class="header navbar navbar-light">
     <div class="left logo-wrap">
+      <!--Logo that links to the homepage-->
       <RouterLink to="/">
         <img class="logo" :src="logo" alt="Fluentia logo" />
       </RouterLink>
@@ -32,11 +37,13 @@ function login() {
       <span class="bi bi-bell icon" title="Notifications"></span>
 
       <div class="user">
+        <!-- user section that shows profile name and usericon-->
         <i class="bi bi-person icon" title="User"> </i>
         <span v-if="isLoggedIn" class="user-name">{{ userName }}</span>
       </div>
 
       <div class="dropdown">
+        <!--Dropdown menu-->
         <button
           class="btn p-0 hamburger-btn"
           role="button"
@@ -53,6 +60,7 @@ function login() {
               >Dictionary</RouterLink
             >
           </li>
+          <!--login or logout button depending on login state-->
           <li>
             <button class="dropdown-item" type="button" @click="login">
               {{ isLoggedIn ? "Log out" : "Log in" }}
