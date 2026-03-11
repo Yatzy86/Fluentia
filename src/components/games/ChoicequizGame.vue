@@ -3,20 +3,28 @@ import { ref } from "vue";
 
 //Här skapas en variabel för frågor som ska visas
 
+//Den valda frågan
 const chosenQuestions = ref([]);
 
+//Nuvarande frågan
 const currentQuestion = ref(0);
 
+//Poäng
 const score = ref(0);
 
+//Slut på spelet
 const endGame = ref(false);
 
+//Svar
 const answered = ref(false);
 
+//Nytt spel
 const newGame = ref(false);
 
+//Det nuvarande valda svaret
 const currentChosenAnswer = ref(null);
 
+//Frågorna i i objekt som ligger i nycklarna question, alternative och rightAnswer
 const questions = ref([
   {
     question: "Dog?",
@@ -120,16 +128,18 @@ const questions = ref([
   },
 ]);
 
-//Denna funktionen blandar och väljer 10 st
+//Denna funktionen blandar frågorna.
+//De tre punkterna är en "spread operator". Den gör en kopia av questions.value arrayen.
+//sort sorterar och Math.random ger tillbaka ett slumpmässigt tal mellan -0,5 och 0,5
+//Detta sparas i shuffleQuestions.
 const startGame = () => {
   const shuffleQuestions = [...questions.value].sort(() => Math.random() - 0.5);
-  // const shuffleWords = [...questions.value[0].alternative].sort(
-  //   () => Math.random() - 0.5,
-  // );
-  // console.log(shuffleWords);
+
+  //chosenQuestions.value fångar upp det som sparats i shuffleQuestions. slice(0,10) gör att den slumpar 10 frågor.
   chosenQuestions.value = shuffleQuestions.slice(0, 10);
 };
 
+//checkAnswer ökar poängen ifall det valda svaret är rätt.
 const checkAnswer = (chosenAnswer) => {
   if (
     chosenQuestions.value[currentQuestion.value].rightAnswer === chosenAnswer
@@ -137,6 +147,8 @@ const checkAnswer = (chosenAnswer) => {
     score.value++;
   }
   answered.value = true;
+
+  //Här läggs chosenAnswer in i currentChosenAnswer.value
   currentChosenAnswer.value = chosenAnswer;
 };
 
@@ -263,7 +275,7 @@ h2 {
 
 .questionWord {
   color: #e7c558;
-  font-weight: bold;
+  font-weight:;
 }
 
 .altButton {
