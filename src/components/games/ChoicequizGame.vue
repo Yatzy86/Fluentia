@@ -155,10 +155,20 @@ const checkAnswer = (chosenAnswer) => {
 const nextQuest = () => {
   answered.value = false;
   currentQuestion.value++;
+
+  //Om nuvarande frågan(currentQuestion) är lika mycket som den valda frågans längd.
+  //Då är spelet slut, vid andra ord endGame är true.
   if (currentQuestion.value === chosenQuestions.value.length) {
     endGame.value = true;
   }
 };
+
+//Genom att köra denna funktionen
+//Så är endGame false det menas med att spelet startar
+//currentQuestion.value är tillbaka till 0
+//score är tillbaka till 0
+//newGame är sann så den kör igång
+//startGame() kör igång så den startar ett nytt spel
 
 const startNewGame = () => {
   endGame.value = false;
@@ -173,15 +183,18 @@ startGame();
 </script>
 
 <template>
-  <!-- <div class="card" v-if="chosenQuestions.length > 0"> -->
   <main class="game">
     <h1>Choice Quiz</h1>
+    <!-- Om den valda frågans längd är högre eller om den nuvarande frågan är lägre än de valda frågornas längd -->
+    <!-- Då ska nedanstående section class quiz visas -->
     <section
       class="quiz"
       v-if="
         chosenQuestions.length > 0 && currentQuestion < chosenQuestions.length
       "
     >
+      <!-- Denna visas om endGame är falskt -->
+
       <div class="quizInfo" v-if="!endGame">
         <p class="question">
           Question: {{ currentQuestion + 1 }} of
@@ -197,7 +210,9 @@ startGame();
             chosenQuestions[currentQuestion].question
           }}</span>
         </h2>
-
+        <!-- Denna loopen går in i answered, fångar in alternativen och lägger i alt, 
+         sedan blandas alternativen med math random.
+         Med :key"alt.id" så skapar den ett unikt id -->
         <ul
           v-for="alt in answered
             ? chosenQuestions[currentQuestion].alternative
@@ -206,6 +221,8 @@ startGame();
               )"
           :key="alt.id"
         >
+          Här ligger altButton klassen
+
           <div class="d-grid gap-1">
             <button
               class="btn btn-primary altButton"
@@ -228,6 +245,7 @@ startGame();
         </ul>
       </div>
       <div class="d-grid gap-1">
+        <!-- Knappen blir aktiv när du svarat på ett utav alternativen -->
         <button
           class="btn btn-third nextQuestion"
           :disabled="!answered"
@@ -267,33 +285,6 @@ h1 {
   color: #fff;
 }
 
-h2 {
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
-  color: #fff;
-}
-
-.questionWord {
-  color: #e7c558;
-  font-weight:;
-}
-
-.altButton {
-  padding: 1rem;
-  border-radius: 1rem;
-}
-
-.nextQuestion {
-  padding: 1rem;
-  border-radius: 1rem;
-  font-weight: bold;
-}
-
-.altButton:hover {
-  transform: translateY(-2px);
-  opacity: 0.95;
-}
-
 .quiz {
   background-color: #4177c3;
   padding: 1rem;
@@ -321,13 +312,40 @@ h2 {
 .options {
   padding: 1rem;
   display: block;
-  /* background-color: #214373; */
   margin-bottom: 0.5rem;
   border-radius: 0.5rem;
 }
 
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+
+.questionWord {
+  color: #e7c558;
+  font-weight: 1rem;
+}
+
+.altButton {
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.altButton:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+.nextQuestion {
+  padding: 1rem;
+  border-radius: 1rem;
+  font-weight: bold;
+}
+
 .quizEnd {
   background-color: #4177c3;
+
   padding: 1rem;
   width: 100%;
   max-width: 640px;
@@ -335,12 +353,6 @@ h2 {
 }
 
 .quizEnd h2 {
-  text-align: center;
-}
-
-.score {
-  color: #fff;
-  font-size: 1.25rem;
   text-align: center;
 }
 
