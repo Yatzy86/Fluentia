@@ -7,7 +7,9 @@ const userName = ref("");
 const tempName = ref("");
 const isLoggedIn = computed(() => userName.value.trim().length > 0);
 
+//this function handles login and logout
 function login() {
+  //if user is already logged in then clear the username(logout)
   if (isLoggedIn.value) {
     userName.value = "";
     return;
@@ -21,7 +23,7 @@ function confirmLogin() {
   if (tempName.value.trim()) { // kontrollera att använderan har skrivit någonting
     userName.value = tempName.value.trim();  // spara namnet
   }
-  tempName.value ="";  // rensar bort namnet nästa gång när du öppnar 
+  tempName.value = "";
   showLoginModal.value = false;
 }
 </script>
@@ -29,6 +31,7 @@ function confirmLogin() {
 <template>
   <nav class="header navbar navbar-light">
     <div class="left logo-wrap">
+      <!--Logo that links to the homepage-->
       <RouterLink to="/">
         <img class="logo" :src="logo" alt="Fluentia logo" />
       </RouterLink>
@@ -38,11 +41,13 @@ function confirmLogin() {
       <span class="bi bi-bell icon" title="Notifications"></span>
 
       <div class="user">
+        <!-- user section that shows profile name and usericon-->
         <i class="bi bi-person icon" title="User"> </i>
         <span v-if="isLoggedIn" class="user-name">{{ userName }}</span>
       </div>
 
       <div class="dropdown">
+        <!--Dropdown menu-->
         <button
           class="btn p-0 hamburger-btn"
           role="button"
@@ -59,6 +64,7 @@ function confirmLogin() {
               >Dictionary</RouterLink
             >
           </li>
+          <!--login or logout button depending on login state-->
           <li>
             <button class="dropdown-item" type="button" @click="login">
               {{ isLoggedIn ? "Log out" : "Log in" }}
@@ -70,16 +76,13 @@ function confirmLogin() {
 
     <!--bootstrap inloggning // Danar-->
   </nav>
-  <b-modal v-model="showLoginModal"  title ="Log in">
-    <b-form-input v-model="tempName" placeholder="Enter your name"/>
+  <b-modal v-model="showLoginModal" title="Log in">
+    <b-form-input v-model="tempName" placeholder="Enter your name" />
     <template #footer>
       <b-button variant="secondary" @click="showLoginModal = false">
         Cancel
       </b-button>
-      <b-button variant="third" :disabled="!tempName.trim()" 
-       @click="confirmLogin">
-        Log in
-      </b-button>
+      <b-button variant="third" @click="confirmLogin"> Log in </b-button>
     </template>
   </b-modal>
 </template>
@@ -94,8 +97,9 @@ $color-5: #6798c0;
 .header {
   height: 90px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 0 12px;
+  padding: 0 16px;
   background: $color-3;
   width: 100%;
 }
@@ -103,19 +107,19 @@ $color-5: #6798c0;
   height: 100%;
   display: flex;
   align-items: center;
-  margin-left: -50px;
+  flex-shrink: 0;
 }
 .logo {
-  height: 80px;
-  transform: scale(2.5);
+  height: 50px;
   width: auto;
-  transform-origin: left center;
+  display: block;
 }
 .right {
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
+  flex-shrink: 0;
 }
 
 .icon {
@@ -129,18 +133,17 @@ $color-5: #6798c0;
 }
 .hamburger-btn .navbar-toggler-icon {
   width: 1.5em;
-  height: 1.5em;
+  height: 2em;
 }
 @media (max-width: 576px) {
   .header {
     height: 70px;
+    padding: 0 12px;
   }
   .logo {
     height: 52px;
-    transform: none;
-  }
-  .logo-wrap {
-    margin-left: 0;
+    width: auto;
+    display: block;
   }
   .right {
     gap: 12px;
@@ -150,6 +153,7 @@ $color-5: #6798c0;
   display: flex;
   align-items: center;
   font-size: 14px;
+  gap: 6px;
 }
 .user-name {
   font-weight: 600;
