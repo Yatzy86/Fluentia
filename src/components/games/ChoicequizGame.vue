@@ -221,7 +221,7 @@ startGame();
               )"
           :key="alt.id"
         >
-          Här ligger altButton klassen
+          <!-- Här ligger altButton klassen -->
 
           <div class="d-grid gap-1">
             <button
