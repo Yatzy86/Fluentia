@@ -1,6 +1,20 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
+//INSTRUKTIONER
+const showInstructions = ref(true);
+const router = useRouter();
+
+function closeInstructions() {
+  showInstructions.value = false;
+  playGame();
+}
+function goBackHome() {
+  router.push("/");
+}
+
+//BILDER
 const imgSrc = [
   "/src/assets/img/hangman/hangman01.jpg",
   "/src/assets/img/hangman/hangman02.gif",
@@ -66,17 +80,96 @@ function changeImg() {
   }
 }
 
-if (imgCount.value >= 20) {
-  currentImg.value = imgSrc[imgCount];
-  setTimeout(function () {
-    imgCount.value + 1;
-    currentImg.value = imgSrc[imgCount];
-  }, 900);
+//SPEL
+//Variabler för spelet
+const alphabet = [..."abcdefghijklmnopqrstuvwxyzåäö"];
+
+const words = [
+  {
+    swedish: "Äpple",
+    english: "Apple",
+  },
+  {
+    swedish: "Päron",
+    english: "Pear",
+  },
+  {
+    swedish: "Apelsin",
+    english: "Orange",
+  },
+];
+let secretWord = ref("");
+let letters = [];
+let errorsLeft = ref(10);
+
+function playGame() {
+  let random = Math.floor(Math.random() * words.length);
+  secretWord.value = words[random].swedish.toUpperCase();
+  console.log(secretWord);
+}
+
+function checkLetter(letter) {
+  letter = letter.toUpperCase();
+
+  let correct = secretWord.value.indexOf(letter) > -1;
+  console.log(correct);
+
+  if (!correct) {
+    errorsLeft.value -= 1;
+    console.log(errorsLeft);
+  }
+
+  return correct;
+}
+
+function getWordStatus(letter) {
+  let wordStatus = [];
+  const splitWord = secretWord.split("");
+
+  splitWord.forEach(function letter{
+
+  } )
 }
 </script>
 
 <template>
-  <h1>Hangman</h1>
-  <img width="700" :src="currentImg" alt="" />
-  <BButton @click="changeImg" :disabled="isRunning">Wrong Answer</BButton>
+  <article id="hangman">
+    <!-- Instruktioner -->
+    <BModal
+      v-model="showInstructions"
+      ok-title="Got it"
+      title="Instructions!"
+      cancel-title="Go Back"
+      @cancel="goBackHome"
+      @ok="closeInstructions"
+    >
+      <div class="instructions-box">
+        <p>1. Read the captions carefully.</p>
+        <p>2. Choose the correct answer from the options .</p>
+        <p>3. Select only one answer per question.</p>
+        <p>4. Review your answers before submitting.</p>
+        <p>5. Good luck!!</p>
+      </div>
+    </BModal>
+
+    <!-- Spel -->
+    <h1>Hangman</h1>
+    <img width="700" :src="currentImg" alt="" />
+    <BButton @click="changeImg" :disabled="isRunning">Wrong Answer</BButton>
+
+    <div>
+      <b-card-group class="d-flex gap-2">
+        <b-card
+          bg-variant="fourth"
+          text-variant="primary"
+          class="text-center"
+          v-for="(letter, index) in alphabet"
+          :key="index"
+          @click="checkLetter(letter)"
+        >
+          <b-card-text class="letter">{{ letter.toUpperCase() }}</b-card-text>
+        </b-card>
+      </b-card-group>
+    </div>
+  </article>
 </template>

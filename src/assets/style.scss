@@ -17,6 +17,7 @@ $theme-colors: (
 
 body {
   background-color: theme-color("primary");
+  box-sizing: border-box;
 }
 
 .header {
@@ -333,5 +334,17 @@ body {
     button {
       font-size: 0.8em;
     }
+  }
+}
+
+// HANGMAN
+#hangman {
+  .card-group {
+    width: 50%;
+  }
+  .card {
+    min-width: 50px;
+    max-width: 50px;
+    cursor: pointer;
   }
 }
