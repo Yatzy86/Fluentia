@@ -101,11 +101,14 @@ let secretWord = ref("");
 let letters = [];
 let errorsLeft = ref(10);
 let correct = ref(false);
-let guessedLetters = [];
+let guessedLetters = ref([]);
 
 function playGame() {
   let random = Math.floor(Math.random() * words.length);
   secretWord.value = words[random].swedish.toUpperCase();
+  //guessedLetter initieras med tomma strängar beroende på längd av ordet
+  const secretLetters = secretWord.value.split("");
+  guessedLetters.value = secretLetters.map(() => "");
   console.log(secretWord);
 }
 
@@ -134,11 +137,11 @@ function checkLetter(letter) {
     if (letters.indexOf(letter) > -1) {
       wordStatus.push(letter);
     } else {
-      wordStatus.push("_");
+      wordStatus.push("");
     }
   });
 
-  guessedLetters = wordStatus;
+  guessedLetters.value = wordStatus;
   console.log(guessedLetters);
 }
 </script>
@@ -164,12 +167,13 @@ function checkLetter(letter) {
     </BModal>
 
     <!-- Spel -->
-    <h1>Hangman</h1>
-    <img width="700" :src="currentImg" alt="" />
+    <img width="600" :src="currentImg" alt="" />
 
-    <div>
-      <ul v-for="letter in guessedLetters" :key="letter">
-        <li>{{ letter }}</li>
+    <div class="d-flex ms-2">
+      <ul v-for="(letter, index) in guessedLetters" :key="index">
+        <li class="p-3 fs-2 pe-4 text-fourth border-bottom">
+          {{ letter }}
+        </li>
       </ul>
     </div>
 
