@@ -160,7 +160,10 @@ startGame();
       <p>Score: {{ score }} / {{ chosenQuestions.length }}</p>
       <h2>{{ chosenQuestions[currentQuestion].fråga }}</h2>
 
-      <ul v-for="alt in chosenQuestions[currentQuestion].alternative">
+      <ul
+        v-for="alt in chosenQuestions[currentQuestion].alternative"
+        :key="alt.id"
+      >
         <button :disabled="answered" @click="checkAnswer(alt)">
           {{ alt }}
         </button>
