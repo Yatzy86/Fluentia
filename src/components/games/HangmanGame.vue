@@ -49,7 +49,6 @@ function changeImg() {
   isRunning.value = true;
 
   imgCount.value++;
-  console.log(imgCount.value);
 
   if (imgCount.value % 2 !== 0) {
     //sparar imgCount i en variabel som jag använder, så att inte användaren kan klicka medans bilderna laddar
@@ -101,7 +100,8 @@ const words = [
 let secretWord = ref("");
 let letters = [];
 let errorsLeft = ref(10);
-let correct = false;
+let correct = ref(false);
+let guessedLetters = [];
 
 function playGame() {
   let random = Math.floor(Math.random() * words.length);
@@ -110,29 +110,36 @@ function playGame() {
 }
 
 function checkLetter(letter) {
-  letters = letter.toUpperCase();
-  console.log(letters);
+  letter = letter.toUpperCase();
+  console.log(letter);
 
   //Kollar index of bokstav i secretWord och indexen är över -1(alltså att den finns i arrayen eftersom en array börjar på 0), så blir correct = true
-  correct = secretWord.value.indexOf(letter) > -1;
+  if (letters.indexOf(letter) > -1) {
+    return;
+  }
+
+  letters.push(letter);
+  correct.value = secretWord.value.indexOf(letter) > -1;
   console.log(correct);
 
-  if (!correct) {
+  if (!correct.value) {
     errorsLeft.value -= 1;
+    changeImg();
     console.log(errorsLeft);
   }
   let wordStatus = [];
   const splitWord = secretWord.value.split("");
 
   splitWord.forEach((letter) => {
-    if (letters.indexOf(letter) > -1 && wordStatus[letter] == null) {
+    if (letters.indexOf(letter) > -1) {
       wordStatus.push(letter);
-    } else if (letters.indexOf(letter) >= -1) {
-      wordStatus.push("");
+    } else {
+      wordStatus.push("_");
     }
   });
-  console.log(wordStatus);
-  return wordStatus;
+
+  guessedLetters = wordStatus;
+  console.log(guessedLetters);
 }
 </script>
 
@@ -159,7 +166,12 @@ function checkLetter(letter) {
     <!-- Spel -->
     <h1>Hangman</h1>
     <img width="700" :src="currentImg" alt="" />
-    <BButton @click="changeImg" :disabled="isRunning">Wrong Answer</BButton>
+
+    <div>
+      <ul v-for="letter in guessedLetters" :key="letter">
+        <li>{{ letter }}</li>
+      </ul>
+    </div>
 
     <div>
       <b-card-group class="d-flex gap-2">
@@ -169,9 +181,10 @@ function checkLetter(letter) {
           class="text-center"
           v-for="(letter, index) in alphabet"
           :key="index"
-          @click="checkLetter(letter)"
         >
-          <b-card-text class="letter">{{ letter.toUpperCase() }}</b-card-text>
+          <button :disabled="isRunning" @click="checkLetter(letter)">
+            <b-card-text class="letter">{{ letter.toUpperCase() }}</b-card-text>
+          </button>
         </b-card>
       </b-card-group>
     </div>
