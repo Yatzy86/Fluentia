@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
-//INSTRUKTIONER
+// //INSTRUKTIONER
 const showInstructions = ref(true);
 const router = useRouter();
 
@@ -101,6 +101,7 @@ const words = [
 let secretWord = ref("");
 let letters = [];
 let errorsLeft = ref(10);
+let correct = false;
 
 function playGame() {
   let random = Math.floor(Math.random() * words.length);
@@ -109,26 +110,29 @@ function playGame() {
 }
 
 function checkLetter(letter) {
-  letter = letter.toUpperCase();
+  letters = letter.toUpperCase();
+  console.log(letters);
 
-  let correct = secretWord.value.indexOf(letter) > -1;
+  //Kollar index of bokstav i secretWord och indexen är över -1(alltså att den finns i arrayen eftersom en array börjar på 0), så blir correct = true
+  correct = secretWord.value.indexOf(letter) > -1;
   console.log(correct);
 
   if (!correct) {
     errorsLeft.value -= 1;
     console.log(errorsLeft);
   }
-
-  return correct;
-}
-
-function getWordStatus(letter) {
   let wordStatus = [];
-  const splitWord = secretWord.split("");
+  const splitWord = secretWord.value.split("");
 
-  splitWord.forEach(function letter{
-
-  } )
+  splitWord.forEach((letter) => {
+    if (letters.indexOf(letter) > -1 && wordStatus[letter] == null) {
+      wordStatus.push(letter);
+    } else if (letters.indexOf(letter) >= -1) {
+      wordStatus.push("");
+    }
+  });
+  console.log(wordStatus);
+  return wordStatus;
 }
 </script>
 
