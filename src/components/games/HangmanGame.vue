@@ -1,6 +1,13 @@
 <script setup>
+//ATT GÖRA
+//Lägg till resultat:
+//Game over. När man har slut på gissningar så kommer game over bilden och allting förutom försök igen knapp kommer upp
+//YOU WON. När man gissar alla rätt. Spelet avslutas och en YOU WON bild visas och en restart knapp
+//Lägg till kategorier som frukter, fordon, skola osv.
+//Skriv ut det engelska ordet som ett hint?
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import words from "../../data/hangmanwords.js";
 
 // //INSTRUKTIONER
 const showInstructions = ref(true);
@@ -83,25 +90,14 @@ function changeImg() {
 //Variabler för spelet
 const alphabet = [..."abcdefghijklmnopqrstuvwxyzåäö"];
 
-const words = [
-  {
-    swedish: "Äpple",
-    english: "Apple",
-  },
-  {
-    swedish: "Päron",
-    english: "Pear",
-  },
-  {
-    swedish: "Apelsin",
-    english: "Orange",
-  },
-];
 let secretWord = ref("");
 let letters = [];
 let errorsLeft = ref(10);
 let correct = ref(false);
 let guessedLetters = ref([]);
+//sparar rätt och fel bokstäver för att uppdatera färg på knapparna
+let correctLetters = ref([]);
+let wrongLetters = ref([]);
 
 function playGame() {
   let random = Math.floor(Math.random() * words.length);
@@ -128,7 +124,10 @@ function checkLetter(letter) {
   if (!correct.value) {
     errorsLeft.value -= 1;
     changeImg();
+    wrongLetters.value.push(letter);
     console.log(errorsLeft);
+  } else {
+    correctLetters.value.push(letter);
   }
   let wordStatus = [];
   const splitWord = secretWord.value.split("");
@@ -186,7 +185,21 @@ function checkLetter(letter) {
           v-for="(letter, index) in alphabet"
           :key="index"
         >
-          <button :disabled="isRunning" @click="checkLetter(letter)">
+          <button
+            :style="{
+              backgroundColor: correctLetters.includes(letter.toUpperCase())
+                ? 'green'
+                : wrongLetters.includes(letter.toUpperCase())
+                  ? 'red'
+                  : '',
+            }"
+            :disabled="
+              isRunning ||
+              correctLetters.includes(letter.toUpperCase()) ||
+              wrongLetters.includes(letter.toUpperCase())
+            "
+            @click="checkLetter(letter)"
+          >
             <b-card-text class="letter">{{ letter.toUpperCase() }}</b-card-text>
           </button>
         </b-card>
