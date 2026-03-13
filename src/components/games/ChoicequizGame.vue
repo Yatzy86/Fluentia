@@ -243,6 +243,7 @@ startGame();
         <!-- Denna loopen går in i answered, fångar in alternativen och lägger i alt, 
          sedan blandas alternativen med math random.
          Med :key"alt.id" så skapar den ett unikt id -->
+
         <ul
           v-for="alt in answered
             ? chosenQuestions[currentQuestion].alternative
@@ -273,6 +274,8 @@ startGame();
               }"
               @click="checkAnswer(alt)"
             >
+              {{ currentChosenAnswer }}
+              {{ answered }}
               {{ alt }}
             </button>
           </div>
@@ -388,16 +391,17 @@ h1 {
 
 //Frågan
 
-.quizInfo .question {
+.question {
   color: #fff;
   font-size: 1.25rem;
 }
 
 //Poäng
 
-.quizInfo .score {
+.score {
   color: #fff;
   font-size: 1.25rem;
+  text-align: center;
 }
 
 //Rutan som innehåller frågan och alternativen
@@ -476,10 +480,10 @@ h2 {
 //Mobilbrytpunkt som ändrar storlek på score(poäng) och question(fråga)
 
 @media (max-width: 380px) {
-  .quizInfo .question {
+  .question {
     font-size: 1rem;
   }
-  .quizInfo .score {
+  .score {
     font-size: 1rem;
   }
 }
