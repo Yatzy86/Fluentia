@@ -339,9 +339,6 @@ body {
 
 // HANGMAN
 #hangman {
-  .card-group {
-    width: 50%;
-  }
   .card {
     min-width: 50px;
     max-width: 50px;
@@ -349,5 +346,18 @@ body {
   }
   li {
     list-style-type: none;
+  }
+  .game_section {
+    background-color: theme-color(secondary);
+    margin: auto;
+    .game_controls {
+      width: 40%;
+    }
+    .guessed_status {
+      width: fit-content;
+      ul {
+        padding: 0 2em 0 0;
+      }
+    }
   }
 }

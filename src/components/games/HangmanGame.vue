@@ -1,8 +1,8 @@
 <script setup>
 //ATT GÖRA
 //Lägg till resultat:
-//Game over. När man har slut på gissningar så kommer game over bilden och allting förutom försök igen knapp kommer upp
 //YOU WON. När man gissar alla rätt. Spelet avslutas och en YOU WON bild visas och en restart knapp
+//(if correctLetters === secretLetters.length gameWon = true)
 //Lägg till kategorier som frukter, fordon, skola osv.
 //Skriv ut det engelska ordet som ett hint?
 import { ref } from "vue";
@@ -97,10 +97,12 @@ let secretTranslation = ref("");
 let letters = [];
 let errorsLeft = ref(10);
 let correct = ref(false);
-let guessedLetters = ref([]);
+let guessedStatus = ref([]);
 //sparar rätt och fel bokstäver för att uppdatera färg på knapparna
 let correctLetters = ref([]);
 let wrongLetters = ref([]);
+let gameWon = ref(false);
+let gameLost = ref(false);
 
 function playGame() {
   // tar längden av words arrayen och gör en math random på den för att få ut ett random nummer. math floor rundar upp till ett helt tal
@@ -112,7 +114,7 @@ function playGame() {
   secretTranslation.value = secretObject.value.english.toUpperCase();
   //Räknar ut längd på ordet. guessedLetter initieras sedan med tomma strängar med hjälp av map
   const secretLetters = secretWord.value.split("");
-  guessedLetters.value = secretLetters.map(() => "");
+  guessedStatus.value = secretLetters.map(() => "");
 }
 
 function resetGame() {
@@ -125,10 +127,12 @@ function resetGame() {
   console.log(currentImg.value);
   errorsLeft.value = 10;
   letters = [];
-  guessedLetters.value = [];
+  guessedStatus.value = [];
   correctLetters.value = [];
   wrongLetters.value = [];
   correct.value = false;
+  gameWon.value = false;
+  gameLost.value = false;
   //kör spelet
   playGame();
 }
@@ -170,8 +174,26 @@ function checkLetter(letter) {
     }
   });
 
-  //sen uppdateras guessedLetters med den senaste statusen av ordet. Detta görs för att få tillgång till den senaste statusen i en global variabel som vi kan använda nedanför i template
-  guessedLetters.value = wordStatus;
+  //sen uppdateras guessedStatus med den senaste statusen av ordet. Detta görs för att få tillgång till den senaste statusen i en global variabel som vi kan använda nedanför i template
+  guessedStatus.value = wordStatus;
+
+  wonGame();
+  lostGame();
+}
+
+function lostGame() {
+  if (errorsLeft.value <= 0) {
+    gameLost.value = true;
+  }
+}
+
+function wonGame() {
+  //guessedStatus är ordets status. Vi kollar om det finns tomma strängar i ordets status och om det inte finns det så betyder det att spelet är slut. .every kollar varje värde i arrayen och returnerar true eller false
+  const guessed = guessedStatus.value.every((letter) => letter !== "");
+  if (guessed) {
+    gameWon.value = true;
+    currentImg.value = imgSrc[0];
+  }
 }
 
 playGame();
@@ -198,29 +220,46 @@ playGame();
     </BModal>
 
     <!-- SPEL -->
-    <section class="game_section">
-      <img width="600" :src="currentImg" alt="" />
-
-      <!-- Spela igen knapp. Visas bara när man har slut på gissningar(errorsLeft är 0) -->
-      <div v-if="errorsLeft <= 0">
-        <p>The secret word was {{ secretWord }}</p>
-        <p>In english this means {{ secretTranslation }}</p>
-        <BButton @click="resetGame()">Play again</BButton>
+    <section class="game_section d-inline-flex justify-content-center w-100">
+      <div>
+        <img
+          width="600"
+          :src="currentImg"
+          alt="animals in a boat, suspended over lava. The only thing holding the boat up being balloons."
+        />
       </div>
+      <div class="game_controls">
+        <div v-if="gameWon">
+          <h1>Congratulations!</h1>
+          <h2>You won!</h2>
+          <p>You found the secret word {{ secretWord }}</p>
+          <p>In english this means {{ secretTranslation }}</p>
+          <BButton @click="resetGame()">Play again</BButton>
+        </div>
 
-      <!-- Ord som ska gissas.Visas som tom först men fylls med bokstäver när man gissat rätt och bokstäverna sparas i guessedLetters arrayen -->
-      <div v-if="errorsLeft > 0" class="d-flex ms-2">
-        <ul v-for="(letter, index) in guessedLetters" :key="index">
-          <li class="p-3 fs-2 pe-4 text-fourth border-bottom">
-            {{ letter }}
-          </li>
-        </ul>
-      </div>
+        <!-- Spela igen knapp. Visas bara när man har slut på gissningar(errorsLeft är 0) -->
+        <div v-if="gameLost">
+          <h1>You lost!</h1>
+          <p>You couldn't find the secret word {{ secretWord }}</p>
+          <p>In english this means {{ secretTranslation }}</p>
+          <BButton @click="resetGame()">Play again</BButton>
+        </div>
 
-      <!-- Knappar för bokstäverna. Tryck för att gissa -->
-      <!-- v-if="errorsLeft gömmer knapparna när en har slut på gissningar -->
-      <div v-if="errorsLeft > 0">
-        <b-card-group class="d-flex gap-2">
+        <!-- Ord som ska gissas.Visas som tom först men fylls med bokstäver när man gissat rätt och bokstäverna sparas i guessedStatus arrayen -->
+        <div
+          v-if="!gameLost && !gameWon"
+          class="guessed_status d-inline-flex ms-2"
+        >
+          <ul v-for="(letter, index) in guessedStatus" :key="index">
+            <li class="p-3 fs-2 pe-4 text-fourth border-bottom">
+              {{ letter }}
+            </li>
+          </ul>
+        </div>
+
+        <!-- Knappar för bokstäverna. Tryck för att gissa -->
+
+        <b-card-group class="d-flex gap-2" v-if="!gameLost && !gameWon">
           <!-- Loops the letters from the alphabet array -->
           <b-card
             bg-variant="fourth"
