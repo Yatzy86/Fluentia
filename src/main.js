@@ -7,5 +7,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-vue-next/dist/bootstrap-vue-next.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./assets/style.scss";
+import { createPinia } from "pinia";
 
-createApp(App).use(router).use(createBootstrap()).mount("#app");
+createApp(App).use(createPinia()).use(router).use(createBootstrap()).mount("#app");

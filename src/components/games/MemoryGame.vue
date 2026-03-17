@@ -1,4 +1,21 @@
 <template>
+           <BModal
+    v-model="showInstructions"
+    ok-title="Got it"
+    title="Instructions!"
+    cancel-title="Go Back"
+    @cancel="goBackHome"
+    @ok="closeInstructions"
+  >
+    <div class="instructions-box">
+      <p>1. Click two cards to flip them.</p>
+      <p>2. If they match they stay open.</p>
+      <p>3. If not they flip back.</p>
+      <p>4. Match all pairs to win.</p>
+      <p>5. Good luck!!</p>
+    </div>
+  </BModal>
+
   <div class="Memory">
     <h1>Memory Game</h1>
     <p class="Score">
@@ -11,8 +28,7 @@
         :key="card.id"
         @click="flipCard(card)"
         class="card"
-        :class="{ flipped: card.isFlipped, matched: card.isMatched }"
-      >
+        :class="{ flipped: card.isFlipped, matched: card.isMatched }">
         <!--flipped card trasnition-->
         <div class="card-inner">
           <!--flipped card trasnition-->
@@ -39,12 +55,15 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import wordPairs from "../../data/words.js";
-
+import { useLevelStore } from "../LevelSystem.js"
+const levelStore = useLevelStore()
 // all info som spelet håller koll på
 const cards = ref([]); // alla kort
 const flippedCards = ref([]); // de kort som är vuppvändat
 const isLocked = ref(false); // stoppar klick medan vi kollar ett par
 const matchedPairs = ref(0); // visar hur många kort man har matchad
+const showInstructions = ref(true);
+
 
 const totalPairs = computed(
   () => new Set(cards.value.map((c) => c.pairId)).size,
@@ -102,6 +121,7 @@ function checkMatch() {
     b.isMatched = true;
     matchedPairs.value++;
     totalXP.value += 10;
+    levelStore.addXP(10) 
     flippedCards.value = [];
     isLocked.value = false;
   } else {
@@ -143,7 +163,50 @@ function getRandomPairs(amount) {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+$color-1: #fdc921;
+$color-2: #fdd85d;
+$color-3: #fffdf5;
+$color-4: #99d6ea;
+$color-5: #6798c0;
+
+:deep(.modal-title) {
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  color: rgba(0, 0, 0, 0.78);
+  text-transform: uppercase;
+}
+
+
+:deep(.modal-header) {
+  background: $color-1;
+  text-align: center;
+  border-bottom: 3px solid $color-5;
+  padding: 14px 16px;
+}
+:deep(.modal-content) {
+  border-radius: 14px;
+  border: 2px solid $color-4;
+  background-color: $color-3;
+  overflow: hidden;
+}
+.instructions-box {
+  background: $color-3;
+  padding: 16px;
+  border-radius: 12px;
+  border: 2px dashed $color-4;
+  position: relative;
+}
+.instructions-box p {
+  background: $color-2;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin: 8px 0;
+  border-left: 4px solid $color-4;
+  font-weight: 500;
+}
+
 /* huvud container för memory spelet */
 .memory-container {
   width: 100%;
@@ -355,7 +418,7 @@ p.win {
 }
 
 /* XP text */
-p:last-child {
+.Memory p:last-child {
   text-align: center;
   color: #59e36f;
   font-size: 1rem;
@@ -406,7 +469,6 @@ p:last-child {
     font-size: 0.95rem;
   }
 }
-
 @media (max-width: 480px) {
   .memory-container {
     padding: 18px 14px 16px;
@@ -460,4 +522,5 @@ p:last-child {
     margin-top: 6px;
   }
 }
+
 </style>
