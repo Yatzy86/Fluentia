@@ -206,7 +206,9 @@ body {
 #title_nav {
   font-size: 1.5em;
   color: theme-color("fourth");
-  padding: 1em 0 1em 1em;
+  padding: 0.5em 0 0.5em 1em;
+
+  margin-bottom: 0em;
 
   a {
     color: theme-color("fourth");
@@ -218,7 +220,7 @@ body {
 }
 
 #add_glossary {
-  margin-top: 5em;
+  margin-top: 3em;
   width: 100vw;
 
   .card {
@@ -339,24 +341,99 @@ body {
 
 // HANGMAN
 #hangman {
-  .card {
-    min-width: 50px;
-    max-width: 50px;
-    cursor: pointer;
-  }
-  li {
-    list-style-type: none;
-  }
   .game_section {
+    width: 95%;
     background-color: theme-color(secondary);
     margin: auto;
+    padding: 2em 0 3em 0;
+    .alphabet_button {
+      padding: 1em;
+    }
+    .card {
+      min-width: fit-content;
+      max-width: fit-content;
+      height: fit-content;
+      cursor: pointer;
+
+      margin-bottom: 0 !important;
+
+      .card-body {
+        padding: 0;
+      }
+    }
+    li {
+      list-style-type: none;
+    }
+
+    .card-group {
+      justify-content: center;
+    }
+
     .game_controls {
       width: 40%;
     }
     .guessed_status {
+      margin: 1em 0 0.5em 1.5em;
       width: fit-content;
+
       ul {
-        padding: 0 2em 0 0;
+        padding: 0;
+        margin-right: 1em;
+        li {
+          border-bottom: solid theme-color(fourth) 4px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  #hangman {
+    .game_section {
+      flex-direction: column;
+      align-items: center;
+      .card-group {
+        flex-flow: row wrap;
+      }
+      img {
+        width: 400px;
+      }
+      .game_controls {
+        width: 95%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .guessed_status {
+        margin-left: 0em;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  #hangman {
+    .game_section {
+      img {
+        width: 350px;
+      }
+      .alphabet_button {
+        padding: 0.7em;
+      }
+
+      .guessed_status {
+        ul {
+          margin-right: 0.5em;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 400px) {
+  #hangman {
+    .game_section {
+      img {
+        max-width: 95%;
       }
     }
   }

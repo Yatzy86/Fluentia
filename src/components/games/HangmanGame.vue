@@ -1,9 +1,9 @@
 <script setup>
 //ATT GÖRA
 //Lägg till resultat:
-//YOU WON. När man gissar alla rätt. Spelet avslutas och en YOU WON bild visas och en restart knapp
-//(if correctLetters === secretLetters.length gameWon = true)
-//Lägg till kategorier som frukter, fordon, skola osv.
+//Styla GAME OVER och YOU WON sidan
+//Kommentera
+//Lägg till kategorier som frukter, fordon, skola osv?
 //Skriv ut det engelska ordet som ett hint?
 import { ref } from "vue";
 import { useRouter } from "vue-router";
@@ -44,6 +44,7 @@ const imgSrc = [
   "/src/assets/img/hangman/hangman20.gif",
   "/src/assets/img/hangman/hangman21.gif",
   "/src/assets/img/hangman/hangman22.gif",
+  "/src/assets/img/hangman/hangman23.gif",
 ];
 
 let imgCount = ref(0);
@@ -192,7 +193,7 @@ function wonGame() {
   const guessed = guessedStatus.value.every((letter) => letter !== "");
   if (guessed) {
     gameWon.value = true;
-    currentImg.value = imgSrc[0];
+    currentImg.value = imgSrc[22];
   }
 }
 
@@ -220,10 +221,10 @@ playGame();
     </BModal>
 
     <!-- SPEL -->
-    <section class="game_section d-inline-flex justify-content-center w-100">
+    <section class="game_section d-flex justify-content-center">
       <div>
         <img
-          width="600"
+          width="500"
           :src="currentImg"
           alt="animals in a boat, suspended over lava. The only thing holding the boat up being balloons."
         />
@@ -242,16 +243,18 @@ playGame();
           <h1>You lost!</h1>
           <p>You couldn't find the secret word {{ secretWord }}</p>
           <p>In english this means {{ secretTranslation }}</p>
-          <BButton @click="resetGame()">Play again</BButton>
+          <BButton @click="resetGame()" variant="third">Play again</BButton>
         </div>
 
         <!-- Ord som ska gissas.Visas som tom först men fylls med bokstäver när man gissat rätt och bokstäverna sparas i guessedStatus arrayen -->
-        <div
-          v-if="!gameLost && !gameWon"
-          class="guessed_status d-inline-flex ms-2"
-        >
+        <div v-if="!gameLost && !gameWon" class="guessed_status d-inline-flex">
           <ul v-for="(letter, index) in guessedStatus" :key="index">
-            <li class="p-3 fs-2 pe-4 text-fourth border-bottom">
+            <li
+              class="fs-2 text-fourth"
+              :style="{
+                padding: letter === '' ? '0.5em' : '0em',
+              }"
+            >
               {{ letter }}
             </li>
           </ul>
@@ -262,7 +265,7 @@ playGame();
         <b-card-group class="d-flex gap-2" v-if="!gameLost && !gameWon">
           <!-- Loops the letters from the alphabet array -->
           <b-card
-            bg-variant="fourth"
+            bg-variant="secondary"
             text-variant="primary"
             class="text-center"
             v-for="(letter, index) in alphabet"
@@ -271,7 +274,9 @@ playGame();
             <!-- Stylar knapparna olika beroende på om det är rätt eller fel -->
             <!-- Gör knapparna som man har redan gissat på disabled eller när bilderna uppdateras -->
             <!-- Klickar man på knappen så körs funktionen checkLetter som tar med sig letter som en parameter -->
-            <button
+            <BButton
+              variant="third"
+              class="alphabet_button"
               :style="{
                 backgroundColor: correctLetters.includes(letter.toUpperCase())
                   ? 'green'
@@ -289,7 +294,7 @@ playGame();
               <b-card-text class="letter">{{
                 letter.toUpperCase()
               }}</b-card-text>
-            </button>
+            </BButton>
           </b-card>
         </b-card-group>
       </div>
