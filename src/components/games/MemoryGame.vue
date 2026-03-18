@@ -52,6 +52,7 @@
     <p v-if="hasWon" class="win">You found all the pairs! Congrats!</p>
   </div>
 </template>
+
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import wordPairs from "../../data/words.js";
@@ -121,7 +122,7 @@ function checkMatch() {
     b.isMatched = true;
     matchedPairs.value++;
     totalXP.value += 10;
-    levelStore.addXP(10) 
+    levelStore.addXP(100) //// LEVEL SYSTEM!!   xp för varje rätt svar. (100xp)
     flippedCards.value = [];
     isLocked.value = false;
   } else {
