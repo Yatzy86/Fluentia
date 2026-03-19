@@ -30,9 +30,9 @@ const gameList = [
 
 <template>
   <section>
-    <h2 class="section_title"><span>Game Selection</span></h2>
+    <h2 class="section-title"><span>Game Selection</span></h2>
     <!-- bootstrap kort med v-for för att rendera ut länkarna på sidan -->
-    <b-card-group deck id="game_list">
+    <b-card-group deck id="game-list">
       <div v-for="game in gameList" :key="game.name">
         <!-- Skickar in prop(params) med länkarna som används i Gameview -->
         <RouterLink :to="{ name: 'game', params: { name: game.name } }">
@@ -43,7 +43,7 @@ const gameList = [
             img-alt="Image"
             img-top
             tag="article"
-            class="mb-2 game_card"
+            class="mb-2 game-card"
           >
             <b-card-text>{{ game.description }}</b-card-text>
 
@@ -60,7 +60,7 @@ const gameList = [
           img-alt="Image"
           img-top
           tag="article"
-          class="mb-2 game_card"
+          class="mb-2 game-card"
         >
           <b-card-text>Coming soon...</b-card-text>
         </b-card>

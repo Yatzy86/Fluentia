@@ -21,139 +21,157 @@
                 </a>
             </div>
         </div>
+      </div>
 
-        <!--Subscribe tips-->
-        <div class="footer-email">
-            <p class="email-title">Get weekly Swedish tips!</p>
-            <div class="email-box">
-                <input class="email-input" type="email" placeholder="Enter your email">
-                <button class="email-btn">Subscribe</button>
-            </div>
-            <p class="footer-bottom">Fluentia Policy & Terms</p>
-        </div>
-    </footer>
- </template>
+      <!--Sociala medier-->
+      <div class="footer-social">
+        <a href="#" class="social-icon" aria-label="Facebook">
+          <i class="bi bi-facebook"></i>
+        </a>
+        <a href="#" class="social-icon" aria-label="instagram">
+          <i class="bi bi-instagram"></i>
+        </a>
+      </div>
+    </div>
 
- <style scoped>
- .footer {
-    background-color: #ffffff;
-    padding: 25px 25px 1px;
-    margin: 0 auto;
- }
+    <!--Subscribe tips-->
+    <div class="footer-email">
+      <p class="email-title">Get weekly Swedish tips!</p>
+      <div class="email-box">
+        <input
+          class="email-input"
+          type="email"
+          placeholder="Enter your email"
+        />
+        <button class="email-btn">Subscribe</button>
+      </div>
+      <p class="footer-bottom">Fluentia Policy & Terms</p>
+    </div>
+  </footer>
+</template>
 
- .footer-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
- }
+<style scoped>
+.footer {
+  background-color: #fffdf7;
+  padding: 25px 25px 1px;
+  margin: 0 auto;
+}
 
- .footer-title {
-    margin: 0;
-    font-size: 26px;
-    font-weight: 800;
- }
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.footer-title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+}
 
 .footer-links {
-    margin-top: 10px;
-    display: flex;
-    gap: 18px;
-    flex-wrap: wrap;
+  margin-top: 10px;
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
 }
 
 .footer-link {
-    text-decoration: none;
-    font-weight: 500;
+  text-decoration: none;
+  font-weight: 500;
 }
 
 .footer-link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 /* social */
 .footer-social {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .social-icon {
-    width: 30px;
-    height: 30px;
-    font-size:25px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    color: #000
+  width: 30px;
+  height: 30px;
+  font-size: 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  color: #000;
 }
 
 /* Email */
 
 .footer-email {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .email-title {
-    margin: 0 0 10px;
-    font-weight: 700;
+  margin: 0 0 10px;
+  font-weight: 700;
 }
 
 .email-box {
-    display: flex;
-    gap: 12px;
-    align-items: center;
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
 .email-input {
-    padding: 13px;
-    border-radius: 10px;
-    border: 1px solid;
-    outline: none;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid;
+  outline: none;
 }
 
 .email-btn {
-    padding: 14px 22px;
-    border-radius: 10px;
-    border: 0;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s ease,
-     color 0.3s ease, transform 0.3s ease;
+  padding: 14px 22px;
+  border-radius: 10px;
+  border: 0;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    transform 0.3s ease;
 }
 
 .email-btn:hover {
-    background-color: #222;
-    color: white;
-    transform: translateY(-3px);
+  background-color: #222;
+  color: white;
+  transform: translateY(-3px);
 }
 
 .footer-bottom {
-    margin-top: 14px;
-    text-align: center;
-    font-size: 13px;
-    width: 100%;
+  margin-top: 14px;
+  text-align: center;
+  font-size: 13px;
+  width: 100%;
 }
 
 /* mobile */
 @media (max-width: 576px) {
-    .footer-top {
-        flex-direction: column;
-        gap: 20px;
-    }
+  .footer-top {
+    flex-direction: column;
+    gap: 20px;
+  }
 
-    .footer-social {
-        justify-content: flex-start;
-    }
+  .footer-social {
+    justify-content: flex-start;
+  }
 
-    .email-box {
-        flex-direction: column;
-        align-items: stretch;
-    }
+  .email-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
 
-    .email-btn {
-        width: 100%;
-    }
+  .email-btn {
+    width: 100%;
+  }
 
-    .footer-bottom {
-        text-align: center;
-    }
+  .footer-bottom {
+    text-align: center;
+  }
 }
 </style>

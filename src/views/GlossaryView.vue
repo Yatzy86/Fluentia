@@ -20,9 +20,9 @@ function removeWord(word) {
 </script>
 
 <template>
-  <div id="background_div">
+  <div id="background-div">
     <!-- link back to home  -->
-    <p id="title_nav">
+    <p id="title-nav">
       <RouterLink :to="{ name: 'home' }">Home</RouterLink>
       / Glossary
     </p>
@@ -32,7 +32,7 @@ function removeWord(word) {
       id="glossary-section"
       class="bg-secondary rounded shadow d-flex flex-column justify-content-top align-items-center gap-3 w-75 m-auto mt-1 pt-4 pb-3"
     >
-      <div class="input_width">
+      <div class="input-width">
         <!-- component for searching after word and adding to list. Emits word-added with an object that will be added to the wordlist array -->
         <AddToGlossary @word-added="addWord" />
       </div>
@@ -43,7 +43,7 @@ function removeWord(word) {
             <tr>
               <th scope="col">Words</th>
               <th scope="col">Translations</th>
-              <th class="date_th" scope="col">Date added</th>
+              <th class="date-th" scope="col">Date added</th>
               <th></th>
             </tr>
           </thead>
@@ -51,7 +51,7 @@ function removeWord(word) {
             <tr v-for="word in wordList" :key="word.id">
               <td>{{ word.word }}</td>
               <td>{{ word.translation }}</td>
-              <td class="date_td">{{ word.date }}</td>
+              <td class="date-td">{{ word.date }}</td>
               <td>
                 <BButton variant="fourth"
                   ><i class="bi bi-trash3" @click="removeWord(word)"></i
