@@ -71,7 +71,7 @@ export default {
 </script>
 
 <template>
-  <p id="title_nav">
+  <p id="title-nav">
     <RouterLink :to="{ name: 'home' }">Home </RouterLink>
     /Dictionary/
     <ShareButton />
