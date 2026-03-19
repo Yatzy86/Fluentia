@@ -1,10 +1,4 @@
 <script setup>
-//ATT GÖRA
-//Lägg till resultat:
-//Styla GAME OVER och YOU WON sidan
-//Kommentera
-//Lägg till kategorier som frukter, fordon, skola osv?
-//Skriv ut det engelska ordet som ett hint?
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import words from "../../data/hangmanwords.js";
@@ -13,14 +7,16 @@ import words from "../../data/hangmanwords.js";
 const showInstructions = ref(true);
 const router = useRouter();
 
+//Funktion för att stänga instruktioner
 function closeInstructions() {
   showInstructions.value = false;
 }
+//Funktion för att gå tillbaka till HomeView
 function goBackHome() {
   router.push("/");
 }
 
-//BILDER
+// //BILDER
 const imgSrc = [
   "/src/assets/img/hangman/hangman01.jpg",
   "/src/assets/img/hangman/hangman02.gif",
@@ -47,12 +43,13 @@ const imgSrc = [
   "/src/assets/img/hangman/hangman23.gif",
 ];
 
+//Variabler för bilderna
 let imgCount = ref(0);
 let currentImg = ref(imgSrc[0]);
 const isRunning = ref(false);
 const timeoutId = ref(null);
 
-//Betyder bild varje gång man svarar fel
+//Funktion som byter bild varje gång man svarar fel
 function changeImg() {
   //Används för att gör disable på knapparna medans bilderna laddas in
   if (isRunning.value) return;
@@ -73,18 +70,21 @@ function changeImg() {
     gifPreload.onload = function () {
       currentImg.value = imgSrc[imgCount.value];
 
-      //Timeout funktion
+      //Timeout funktion på 900 msk
       //Ett id sätts som jag sen använder för att stoppa timeout med cleartimeout
       timeoutId.value = setTimeout(function () {
+        //Lägger till ett värde på currentImg, vilket gör att bilden byts ut
         currentImg.value = imgSrc[currentCount + 1];
         //currentCount sparas sedan tillbaka i imgCount så att det är säkert att imgCount har korrekt värde
         imgCount.value = currentCount + 1;
 
+        //En timeout funktion som startar när currentCount är 19(imgSrc[20])
         if (currentCount == 19) {
           timeoutId.value = setTimeout(function () {
+            //lägger till två på currentCount, vilket gör att två bilder visas efter varandra
             imgCount.value = currentCount + 2;
             currentImg.value = imgSrc[currentCount + 2];
-            console.log(currentCount);
+            //isRunning blir false, vilket gör att knapparna m. disable går att trycka på
             isRunning.value = false;
           }, 3000);
         } else {
@@ -95,10 +95,9 @@ function changeImg() {
   }
 }
 
-//SPEL
+// //SPEL
 //Variabler för spelet
 const alphabet = [..."abcdefghijklmnopqrstuvwxyzåäö"];
-
 let secretObject = ref({});
 let secretWord = ref("");
 let secretTranslation = ref("");
@@ -106,15 +105,15 @@ let letters = [];
 let errorsLeft = ref(10);
 let correct = ref(false);
 let guessedStatus = ref([]);
-//sparar rätt och fel bokstäver för att uppdatera färg på knapparna
 let correctLetters = ref([]);
 let wrongLetters = ref([]);
 let gameWon = ref(false);
 let gameLost = ref(false);
 let hintOpen = ref(false);
 
+//Funktion för att köra spelet
 function playGame() {
-  // tar längden av words arrayen och gör en math random på den för att få ut ett random nummer. math floor rundar upp till ett helt tal
+  // tar längden av den importade words arrayen och gör en math random på den för att få ut ett random nummer. math floor rundar upp till ett helt tal
   let random = Math.floor(Math.random() * words.length);
   // använder det random numret för att få ett objekt med random index
   secretObject.value = words[random];
@@ -126,6 +125,7 @@ function playGame() {
   guessedStatus.value = secretLetters.map(() => "");
 }
 
+//Funktion som körs när man trycker på 'Play Again'-knappen
 function resetGame() {
   // tar bort kvarliggande timeouts så att rätt bild kan visas
   clearTimeout(timeoutId.value);
@@ -147,18 +147,19 @@ function resetGame() {
   playGame();
 }
 
+//Funktion som kollar om bokstaven man valde är rätt eller inte
 function checkLetter(letter) {
   // gör bokstaven stor
   letter = letter.toUpperCase();
 
-  //VAD GÖR DETTA?
+  //kollar om man gissat på bokstaven. Om bokstaven finns redan så avbryts funktionen
   if (letters.indexOf(letter) > -1) {
     return;
   }
-
   //pushar in bokstäver för att hålla koll på vilka bokstäver vi har kollat
   letters.push(letter);
-  //Kollar index of bokstav i secretWord och om indexen är över -1(alltså att den finns i arrayen eftersom en array börjar på 0), så blir corrent lika med true
+
+  //Kollar index av bokstav i secretWord och om indexen är över -1(alltså att den finns i arrayen eftersom en array börjar på 0), så blir correct lika med true
   correct.value = secretWord.value.indexOf(letter) > -1;
 
   // om bokstaven är fel(correct = false), så blir errorsLeft en siffra mindre, bilden byts och den pushar bokstaven till wrongLetters arrayen
@@ -175,7 +176,7 @@ function checkLetter(letter) {
   //delar upp ordet i bokstäver
   const splitWord = secretWord.value.split("");
 
-  //för varje bokstav så kollar vi igen om bokstaven finns i ordet. Vi håller även koll på gamla bokstäver och pushar in dem om de finns i ordet. På de delar av splitWord som vi inte har hittat den korrekta bokstaven så pushar vi en tom sträng.
+  //för varje bokstav så kollar vi igen om bokstaven finns i ordet. Vi håller även koll på gamla bokstäver och pushar in dem om de finns i ordet. På de delar av splitWord som vi inte har hittat den korrekta bokstaven så pushar vi in en tom sträng.
   splitWord.forEach((letter) => {
     if (letters.indexOf(letter) > -1) {
       wordStatus.push(letter);
@@ -184,28 +185,34 @@ function checkLetter(letter) {
     }
   });
 
-  //sen uppdateras guessedStatus med den senaste statusen av ordet. Detta görs för att få tillgång till den senaste statusen i en global variabel som vi kan använda nedanför i template
+  //sen uppdateras guessedStatus med den senaste statusen av ordet. Detta görs för att få tillgång till den senaste statusen i en global variabel som vi kan använda nedanför i template för att skriva ut ordet på sidan
   guessedStatus.value = wordStatus;
 
+  //I slutet så körs varje gång funktioner som kollar om man har vunnit eller förlorat
   wonGame();
   lostGame();
 }
 
+//Funktion som kollar om man förlorat
 function lostGame() {
+  //Kollar om man har slut på gissningar och gör då gameLost till true
   if (errorsLeft.value <= 0) {
     gameLost.value = true;
   }
 }
 
+//Funktion som kollar om man har vunnit
 function wonGame() {
-  //guessedStatus är ordets status. Vi kollar om det finns tomma strängar i ordets status och om det inte finns det så betyder det att spelet är slut. .every kollar varje värde i arrayen och returnerar true eller false
+  //guessedStatus är ordets status. Den kollar om det finns tomma strängar i ordets status och om det inte finns det så betyder det att spelet är slut och att man har vunnit. .every kollar varje värde i arrayen och returnerar true eller false(liknande forEach)
   const guessed = guessedStatus.value.every((letter) => letter !== "");
   if (guessed) {
+    //gameWon blir till true och bilden för när man vunnit visas
     gameWon.value = true;
     currentImg.value = imgSrc[22];
   }
 }
 
+//Funktion som visar eller döljer letråden
 function toggleHint() {
   hintOpen.value = !hintOpen.value;
 }
@@ -235,6 +242,7 @@ playGame();
 
     <!-- SPEL -->
     <section class="game-section d-flex justify-content-center">
+      <!-- Spel Bilderna. Läses in via v-bind -->
       <div>
         <img
           width="500"
@@ -242,7 +250,9 @@ playGame();
           alt="animals in a boat, suspended over lava. The only thing holding the boat up being balloons."
         />
       </div>
+
       <div class="game-controls">
+        <!-- Meddelande vid vunnet spel -->
         <div v-if="gameWon" class="result-div">
           <h1>You won!</h1>
           <p>
@@ -254,7 +264,7 @@ playGame();
           <BButton @click="resetGame()" variant="third">Play again</BButton>
         </div>
 
-        <!-- Spela igen knapp. Visas bara när man har slut på gissningar(errorsLeft är 0) -->
+        <!-- Meddelande vid förlorat spel -->
         <div v-if="gameLost" class="result-div">
           <h1>You lost!</h1>
           <p>
@@ -266,10 +276,12 @@ playGame();
           <BButton @click="resetGame()" variant="third">Play again</BButton>
         </div>
 
+        <!-- Knapp för att visa och dölja letråden -->
         <div v-if="!gameLost && !gameWon" class="mt-2">
           <BButton @click="toggleHint()" v-if="!hintOpen" variant="primary"
             >Show in English</BButton
           >
+          <!-- Letråden -->
           <div v-else class="d-flex align-items-center gap-2">
             <p class="fs-5 text-fourth m-0">
               {{ secretTranslation }}
@@ -277,7 +289,8 @@ playGame();
             <BButton @click="toggleHint()" variant="primary">Hide</BButton>
           </div>
         </div>
-        <!-- Ord som ska gissas.Visas som tom först men fylls med bokstäver när man gissat rätt och bokstäverna sparas i guessedStatus arrayen -->
+
+        <!-- Ord som ska gissas. Visas som tom först men fylls med bokstäver när man gissat rätt och bokstäverna sparas i guessedStatus arrayen -->
         <div v-if="!gameLost && !gameWon" class="guessed-status d-inline-flex">
           <ul v-for="(letter, index) in guessedStatus" :key="index">
             <li
@@ -292,9 +305,7 @@ playGame();
         </div>
 
         <!-- Knappar för bokstäverna. Tryck för att gissa -->
-
         <b-card-group class="d-flex gap-2" v-if="!gameLost && !gameWon">
-          <!-- Loops the letters from the alphabet array -->
           <b-card
             bg-variant="secondary"
             text-variant="primary"
