@@ -230,19 +230,26 @@ playGame();
         />
       </div>
       <div class="game_controls">
-        <div v-if="gameWon">
-          <h1>Congratulations!</h1>
-          <h2>You won!</h2>
-          <p>You found the secret word {{ secretWord }}</p>
-          <p>In english this means {{ secretTranslation }}</p>
-          <BButton @click="resetGame()">Play again</BButton>
+        <div v-if="gameWon" class="result_div">
+          <h1>You won!</h1>
+          <p>
+            You found the secret word <span>{{ secretWord }}</span>
+          </p>
+          <p>
+            In english this means <span>{{ secretTranslation }}</span>
+          </p>
+          <BButton @click="resetGame()" variant="third">Play again</BButton>
         </div>
 
         <!-- Spela igen knapp. Visas bara när man har slut på gissningar(errorsLeft är 0) -->
-        <div v-if="gameLost">
+        <div v-if="gameLost" class="result_div">
           <h1>You lost!</h1>
-          <p>You couldn't find the secret word {{ secretWord }}</p>
-          <p>In english this means {{ secretTranslation }}</p>
+          <p>
+            You couldn't find the secret word <span>{{ secretWord }}</span>
+          </p>
+          <p>
+            In english this means <span>{{ secretTranslation }}</span>
+          </p>
           <BButton @click="resetGame()" variant="third">Play again</BButton>
         </div>
 

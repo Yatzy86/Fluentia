@@ -4,8 +4,8 @@ const words = [
     english: "Apple",
   },
   {
-    swedish: "Päron",
-    english: "Pear",
+    swedish: "Kaffe",
+    english: "Coffee",
   },
   {
     swedish: "Apelsin",
@@ -16,28 +16,72 @@ const words = [
     english: "Lemon",
   },
   {
-    swedish: "Banan",
-    english: "Banana",
+    swedish: "Skola",
+    english: "School",
   },
   {
-    swedish: "Ananas",
-    english: "Pineapple",
+    swedish: "Väska",
+    english: "Bag",
   },
   {
-    swedish: "Clementin",
-    english: "Clementine",
+    swedish: "Middag",
+    english: "Dinner",
   },
   {
-    swedish: "Aprikos",
-    english: "Apricot",
+    swedish: "Frukost",
+    english: "Breakfast",
   },
   {
-    swedish: "Vindruvor",
-    english: "Grapes",
+    swedish: "Väder",
+    english: "Weather",
   },
   {
-    swedish: "Plommon",
-    english: "Plum",
+    swedish: "Tallrik",
+    english: "Plate",
+  },
+  {
+    swedish: "Halsduk",
+    english: "Scarf",
+  },
+  {
+    swedish: "Tröja",
+    english: "Sweater",
+  },
+  {
+    swedish: "Lägenhet",
+    english: "Apartment",
+  },
+  {
+    swedish: "Ryggsäck",
+    english: "Backpack",
+  },
+  {
+    swedish: "Grönsaker",
+    english: "Vegetables",
+  },
+  {
+    swedish: "Paraply",
+    english: "Umbrella",
+  },
+  {
+    swedish: "Klocka",
+    english: "Watch",
+  },
+  {
+    swedish: "Shoes",
+    english: "Skor",
+  },
+  {
+    swedish: "Människa",
+    english: "Human",
+  },
+  {
+    swedish: "Spårvagn",
+    english: "Tram",
+  },
+  {
+    swedish: "Dator",
+    english: "Computer",
   },
 ];
 

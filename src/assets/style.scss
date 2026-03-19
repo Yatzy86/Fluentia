@@ -345,7 +345,27 @@ body {
     width: 95%;
     background-color: theme-color(secondary);
     margin: auto;
+    align-items: center;
     padding: 2em 0 3em 0;
+    .result_div {
+      background-color: theme-color(primary);
+      border: solid 5px theme-color(third);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 5em 0;
+      h1,
+      h2,
+      p {
+        color: theme-color(fourth);
+      }
+      span {
+        font-size: 1.5em;
+        font-weight: 700;
+        color: theme-color(third);
+      }
+    }
     .alphabet_button {
       padding: 1em;
     }
@@ -391,7 +411,10 @@ body {
   #hangman {
     .game_section {
       flex-direction: column;
-      align-items: center;
+      .result_div {
+        width: 70vw;
+        padding: 1em;
+      }
       .card-group {
         flex-flow: row wrap;
       }
@@ -414,6 +437,9 @@ body {
 @media (max-width: 600px) {
   #hangman {
     .game_section {
+      .result_div {
+        width: 90vw;
+      }
       img {
         width: 350px;
       }
