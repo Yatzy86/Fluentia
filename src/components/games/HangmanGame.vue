@@ -304,3 +304,27 @@ playGame();
     </section>
   </article>
 </template>
+<style lang="scss" scoped>
+$theme-colors: (
+  "primary": #214373,
+  "secondary": #4177c3,
+  "third": #fddb5d,
+  "fourth": #fffdf7,
+  "fifth": #4b8de9,
+);
+.instructions-box {
+  background: third;
+  padding: 16px;
+  border-radius: 12px;
+  border: 2px dashed fourth;
+  position: relative;
+}
+.instructions-box p {
+  background: secondary;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin: 8px 0;
+  border-left: 4px solid fourth;
+  font-weight: 500;
+}
+</style>
