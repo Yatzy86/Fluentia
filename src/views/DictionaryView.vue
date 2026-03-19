@@ -1,5 +1,7 @@
 <script>
 import axios from "axios";
+import { RouterLink } from "vue-router";
+import ShareButton from "../components/ShareButton.vue";
 
 export default {
   data() {
@@ -65,6 +67,11 @@ export default {
 </script>
 
 <template>
+  <p id="title_nav">
+    <RouterLink :to="{ name: 'home' }">Home </RouterLink>
+    /Dictionary/
+    <ShareButton />
+  </p>
   <h1>Dictionary</h1>
   <p class="subtitle">You can translate words here</p>
   <div class="w-25">

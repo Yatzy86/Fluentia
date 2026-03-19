@@ -200,6 +200,7 @@ startGame();
     ok-title="Got it"
     title="Instructions!"
     cancel-title="Go Back"
+    centered
     @cancel="goBackHome"
     @ok="closeInstructions"
   >
@@ -240,7 +241,7 @@ startGame();
             chosenQuestions[currentQuestion].question
           }}</span>
         </h2>
-        <!-- Denna loopen går in i answered, fångar in alternativen och lägger i alt, 
+        <!-- Denna loopen går in i answered, fångar in alternativen och lägger i alt,
          sedan blandas alternativen med math random.
          Med :key"alt.id" så skapar den ett unikt id -->
         <ul
