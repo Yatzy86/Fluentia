@@ -223,7 +223,7 @@ startGame();
         chosenQuestions.length > 0 && currentQuestion < chosenQuestions.length
       "
     >
-      <!-- Denna visas om endGame är falskt -->
+      <!-- Denna visas om endGame är falskt, vid andra ord ifall spelet är igång -->
 
       <div class="quizInfo" v-if="!endGame">
         <p class="question">
@@ -243,6 +243,7 @@ startGame();
         <!-- Denna loopen går in i answered, fångar in alternativen och lägger i alt, 
          sedan blandas alternativen med math random.
          Med :key"alt.id" så skapar den ett unikt id -->
+
         <ul
           v-for="alt in answered
             ? chosenQuestions[currentQuestion].alternative
@@ -251,7 +252,11 @@ startGame();
               )"
           :key="alt.id"
         >
-          <!-- Här ligger altButton klassen -->
+          <!-- Här ligger altButton klassen, vid andra ord de alternativen som kommer i form av knappar -->
+
+          <!-- Detta gör att när du klickar på altButton så blir den grön ifall du svarar rätt, 
+          och röd ifall du svarar fel. Ifall du svarar fel så ser du även det rätta alternativet i grön färg.
+          Den kollar ditt svar med hjälp av checkAnswer funktionen -->
 
           <div class="d-grid gap-1">
             <button
@@ -269,6 +274,8 @@ startGame();
               }"
               @click="checkAnswer(alt)"
             >
+              {{ currentChosenAnswer }}
+              {{ answered }}
               {{ alt }}
             </button>
           </div>
@@ -292,6 +299,8 @@ startGame();
       <p class="score">
         Your total score {{ score }} / {{ chosenQuestions.length }}
       </p>
+
+      <!-- Denna knappen startar ett helt nytt spel -->
       <button class="newGameButton" @click="startNewGame()">New Game</button>
     </section>
   </main>
@@ -309,6 +318,8 @@ $color-3: #fffdf5;
 $color-4: #99d6ea;
 $color-5: #6798c0;
 
+//Instruktioner för spelet
+
 :deep(.modal-title) {
   font-weight: 800;
   letter-spacing: 0.4px;
@@ -318,7 +329,6 @@ $color-5: #6798c0;
 
 :deep(.modal-header) {
   background: $color-1;
-
   text-align: center;
   border-bottom: 3px solid $color-5;
   padding: 14px 16px;
@@ -345,6 +355,8 @@ $color-5: #6798c0;
   font-weight: 500;
 }
 
+//Stylingen för spelet
+
 .game {
   display: flex;
   flex-direction: column;
@@ -353,9 +365,13 @@ $color-5: #6798c0;
   min-height: 100vh;
 }
 
+//Rubriken
+
 h1 {
   color: #fff;
 }
+
+//Spelet
 
 .quiz {
   background-color: #4177c3;
@@ -365,21 +381,30 @@ h1 {
   border-radius: 1rem;
 }
 
+//Informationen, poäng och vilken fråga du är på
+
 .quizInfo {
   display: flex;
   justify-content: space-between;
   margin-bottom: 1rem;
 }
 
-.quizInfo .question {
+//Frågan
+
+.question {
   color: #fff;
   font-size: 1.25rem;
 }
 
-.quizInfo .score {
+//Poäng
+
+.score {
   color: #fff;
   font-size: 1.25rem;
+  text-align: center;
 }
+
+//Rutan som innehåller frågan och alternativen
 
 .options {
   padding: 1rem;
@@ -388,26 +413,36 @@ h1 {
   border-radius: 0.5rem;
 }
 
+//Rubriken för frågan
+
 h2 {
   font-size: 1.5rem;
   margin-bottom: 2rem;
   color: #fff;
 }
 
+//Stylingen kring vilket ord som ska översättas
+
 .questionWord {
   color: #e7c558;
   font-weight: 1rem;
 }
+
+//Alternativsknappen
 
 .altButton {
   padding: 1rem;
   border-radius: 1rem;
 }
 
+//Vad som händer när du låter musen cirkulera över knappen
+
 .altButton:hover {
   transform: translateY(-2px);
   opacity: 0.95;
 }
+
+//"Nästa Fråga"-knappen
 
 .nextQuestion {
   padding: 1rem;
@@ -415,18 +450,24 @@ h2 {
   font-weight: bold;
 }
 
+//Detta händer när spelet slutar
+
+//Rutan som kommer när du avslutar spelet
 .quizEnd {
   background-color: #4177c3;
-
   padding: 1rem;
   width: 100%;
   max-width: 640px;
   border-radius: 1rem;
 }
 
+//Rubriken
+
 .quizEnd h2 {
   text-align: center;
 }
+
+//"Nytt spel" knappen
 
 .newGameButton {
   display: flex;
@@ -436,11 +477,13 @@ h2 {
   margin: auto;
 }
 
+//Mobilbrytpunkt som ändrar storlek på score(poäng) och question(fråga)
+
 @media (max-width: 380px) {
-  .quizInfo .question {
+  .question {
     font-size: 1rem;
   }
-  .quizInfo .score {
+  .score {
     font-size: 1rem;
   }
 }
