@@ -8,8 +8,6 @@
                     <RouterLink to="/" class="footer-link">Home</RouterLink>
                     <RouterLink to="/glossary" class="footer-link">Glossary</RouterLink>
                     <RouterLink to="/dictionary" class="footer-link">Dictionary</RouterLink>
-                    <RouterLink to="/about" class="footer-link">About</RouterLink>
-                    <RouterLink to="/contact" class="footer-link">Contact</RouterLink>
                 </div>
             </div>
 

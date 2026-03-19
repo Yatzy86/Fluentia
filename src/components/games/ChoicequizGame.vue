@@ -206,7 +206,7 @@ startGame();
     @ok="closeInstructions"
   >
     <div class="instructions-box">
-      <p>1. Read the captions carefully.</p>
+      <p>1. Read the instructions carefully.</p>
       <p>2. Choose the correct answer from the options .</p>
       <p>3. Select only one answer per question.</p>
       <p>4. Review your answers before submitting.</p>
