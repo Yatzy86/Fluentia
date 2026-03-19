@@ -111,6 +111,7 @@ let correctLetters = ref([]);
 let wrongLetters = ref([]);
 let gameWon = ref(false);
 let gameLost = ref(false);
+let hintOpen = ref(false);
 
 function playGame() {
   // tar längden av words arrayen och gör en math random på den för att få ut ett random nummer. math floor rundar upp till ett helt tal
@@ -141,6 +142,7 @@ function resetGame() {
   correct.value = false;
   gameWon.value = false;
   gameLost.value = false;
+  hintOpen.value = false;
   //kör spelet
   playGame();
 }
@@ -204,6 +206,10 @@ function wonGame() {
   }
 }
 
+function toggleHint() {
+  hintOpen.value = !hintOpen.value;
+}
+
 playGame();
 </script>
 
@@ -260,7 +266,17 @@ playGame();
           <BButton @click="resetGame()" variant="third">Play again</BButton>
         </div>
 
-        <p>Hint: Word</p>
+        <div v-if="!gameLost && !gameWon" class="mt-2">
+          <BButton @click="toggleHint()" v-if="!hintOpen" variant="primary"
+            >Show in English</BButton
+          >
+          <div v-else class="d-flex align-items-center gap-2">
+            <p class="fs-5 text-fourth m-0">
+              {{ secretTranslation }}
+            </p>
+            <BButton @click="toggleHint()" variant="primary">Hide</BButton>
+          </div>
+        </div>
         <!-- Ord som ska gissas.Visas som tom först men fylls med bokstäver när man gissat rätt och bokstäverna sparas i guessedStatus arrayen -->
         <div v-if="!gameLost && !gameWon" class="guessed-status d-inline-flex">
           <ul v-for="(letter, index) in guessedStatus" :key="index">
