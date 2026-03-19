@@ -18,9 +18,10 @@ function login() {
   showLoginModal.value = true;
 }
 
+// Danar
 function confirmLogin() {
-  if (tempName.value.trim()) {
-    userName.value = tempName.value.trim();
+  if (tempName.value.trim()) { // kontrollera att använderan har skrivit någonting
+    userName.value = tempName.value.trim();  // spara namnet
   }
   tempName.value = "";
   showLoginModal.value = false;
@@ -72,6 +73,8 @@ function confirmLogin() {
         </ul>
       </div>
     </div>
+
+    <!--bootstrap inloggning // Danar-->
   </nav>
   <b-modal v-model="showLoginModal" title="Log in">
     <b-form-input v-model="tempName" placeholder="Enter your name" />
