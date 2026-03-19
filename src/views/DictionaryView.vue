@@ -4,6 +4,10 @@ import { RouterLink } from "vue-router";
 import ShareButton from "../components/ShareButton.vue";
 
 export default {
+  components: {
+    RouterLink,
+    ShareButton,
+  },
   data() {
     return {
       inputText: "", //Sträng som ska innehålla det användaren skriver i inputen
