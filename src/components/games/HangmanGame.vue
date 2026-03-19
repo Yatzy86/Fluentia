@@ -305,26 +305,24 @@ playGame();
   </article>
 </template>
 <style lang="scss" scoped>
-$theme-colors: (
-  "primary": #214373,
-  "secondary": #4177c3,
-  "third": #fddb5d,
-  "fourth": #fffdf7,
-  "fifth": #4b8de9,
-);
+$color-1: #fdc921;
+$color-2: #fdd85d;
+$color-3: #fffdf5;
+$color-4: #99d6ea;
+$color-5: #6798c0;
 .instructions-box {
   background: third;
-  padding: 16px;
-  border-radius: 12px;
-  border: 2px dashed fourth;
+  padding: 13px;
+  border-radius: 10px;
+  border: 2px dashed $color-4;
   position: relative;
 }
 .instructions-box p {
-  background: secondary;
-  padding: 8px 12px;
-  border-radius: 8px;
+  background: $color-2;
+  padding: 6px 8px;
+  border-radius: 6px;
   margin: 8px 0;
-  border-left: 4px solid fourth;
-  font-weight: 500;
+  border-left: 4px solid $color-4;
+  font-weight: 400;
 }
 </style>
