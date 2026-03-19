@@ -25,7 +25,7 @@ body {
 }
 
 //HOMEVIEW
-.section_title {
+.section-title {
   width: 100%;
   text-align: center;
   border-bottom: 1px solid theme-color("fourth");
@@ -42,7 +42,7 @@ body {
 }
 
 //PageIntro
-#intro_section {
+#intro-section {
   width: 80vw;
   margin: 5em auto;
 
@@ -75,7 +75,7 @@ body {
 }
 
 @media (max-width: 580px) {
-  #intro_section {
+  #intro-section {
     width: 90vw;
     margin: 3em auto;
     .card {
@@ -98,7 +98,7 @@ body {
   }
 }
 @media (max-width: 380px) {
-  #intro_section {
+  #intro-section {
     width: 95vw;
     .card-body {
       padding: 3em 0 2em 0;
@@ -112,13 +112,13 @@ body {
 
 //GameLinks
 
-#game_list {
+#game-list {
   margin: 2em auto;
   gap: 2em;
   align-items: center;
   justify-content: center;
 
-  .game_card {
+  .game-card {
     width: 400px;
     height: 350px;
     text-align: center;
@@ -138,13 +138,13 @@ body {
     }
   }
   @media (max-width: 900px) {
-    .game_card {
+    .game-card {
       width: 300px;
       height: 320px;
     }
   }
   @media (max-width: 680px) {
-    .game_card {
+    .game-card {
       display: flex;
       flex-direction: row;
       height: 190px;
@@ -155,7 +155,7 @@ body {
     }
   }
   @media (max-width: 480px) {
-    .game_card {
+    .game-card {
       width: 95vw;
       height: 150px;
 
@@ -178,7 +178,7 @@ body {
 }
 
 //improve section
-#improve_section {
+#improve-section {
   margin-bottom: 5em;
   h3 {
     color: theme-color("fourth");
@@ -186,7 +186,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  #improve_section {
+  #improve-section {
     margin-bottom: 3em;
     img {
       width: 40px;
@@ -195,7 +195,7 @@ body {
       font-size: 1.1em;
     }
   }
-  .section_title {
+  .section-title {
     margin: 2em 0 3em;
   }
 }
@@ -203,7 +203,7 @@ body {
 //GAMEVIEW
 //Glossary section
 
-#title_nav {
+#title-nav {
   font-size: 1.5em;
   color: theme-color("fourth");
   padding: 0.5em 0 0.5em 1em;
@@ -219,7 +219,7 @@ body {
   }
 }
 
-#add_glossary {
+#add-glossary {
   margin-top: 3em;
   width: 100vw;
 
@@ -241,24 +241,24 @@ body {
   }
 }
 @media (max-width: 1200px) {
-  #add_glossary {
+  #add-glossary {
     .card-body {
       width: 50vw;
     }
   }
 }
 @media (max-width: 790px) {
-  #add_glossary {
+  #add-glossary {
     .card-body {
       width: 70vw;
     }
   }
 }
 @media (max-width: 500px) {
-  #title_nav {
+  #title-nav {
     text-align: center;
   }
-  #add_glossary {
+  #add-glossary {
     .card-body {
       width: 90vw;
     }
@@ -267,7 +267,7 @@ body {
 
 //GLOSSARYVIEW
 
-#background_div {
+#background-div {
   background-image: url(img/background.png);
   background-size: cover;
 
@@ -276,7 +276,7 @@ body {
 #glossary-section {
   min-height: 50vh;
 
-  .input_width {
+  .input-width {
     width: 50%;
   }
   .table {
@@ -296,7 +296,7 @@ body {
 }
 @media (max-width: 1000px) {
   #glossary-section {
-    .input_width {
+    .input-width {
       width: 90%;
     }
   }
@@ -326,12 +326,12 @@ body {
       td {
         padding: 0.2em 0.3em;
       }
-      .date_td {
+      .date-td {
         font-size: 0.7em;
       }
     }
   }
-  #glossary_input {
+  #glossary-input {
     input,
     button {
       font-size: 0.8em;
@@ -341,13 +341,13 @@ body {
 
 // HANGMAN
 #hangman {
-  .game_section {
+  .game-section {
     width: 95%;
     background-color: theme-color(secondary);
     margin: auto;
     align-items: center;
     padding: 2em 0 3em 0;
-    .result_div {
+    .result-div {
       background-color: theme-color(primary);
       border: solid 5px theme-color(third);
       display: flex;
@@ -366,7 +366,7 @@ body {
         color: theme-color(third);
       }
     }
-    .alphabet_button {
+    .alphabet-button {
       padding: 1em;
     }
     .card {
@@ -389,10 +389,10 @@ body {
       justify-content: center;
     }
 
-    .game_controls {
+    .game-controls {
       width: 40%;
     }
-    .guessed_status {
+    .guessed-status {
       margin: 1em 0 0.5em 1.5em;
       width: fit-content;
 
@@ -409,9 +409,9 @@ body {
 
 @media (max-width: 1000px) {
   #hangman {
-    .game_section {
+    .game-section {
       flex-direction: column;
-      .result_div {
+      .result-div {
         width: 70vw;
         padding: 1em;
       }
@@ -421,13 +421,13 @@ body {
       img {
         width: 400px;
       }
-      .game_controls {
+      .game-controls {
         width: 95%;
         display: flex;
         flex-direction: column;
         align-items: center;
       }
-      .guessed_status {
+      .guessed-status {
         margin-left: 0em;
       }
     }
@@ -436,18 +436,18 @@ body {
 
 @media (max-width: 600px) {
   #hangman {
-    .game_section {
-      .result_div {
+    .game-section {
+      .result-div {
         width: 90vw;
       }
       img {
         width: 350px;
       }
-      .alphabet_button {
+      .alphabet-button {
         padding: 0.7em;
       }
 
-      .guessed_status {
+      .guessed-status {
         ul {
           margin-right: 0.5em;
         }
@@ -457,7 +457,7 @@ body {
 }
 @media (max-width: 400px) {
   #hangman {
-    .game_section {
+    .game-section {
       img {
         max-width: 95%;
       }

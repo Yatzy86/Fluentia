@@ -52,25 +52,32 @@ let currentImg = ref(imgSrc[0]);
 const isRunning = ref(false);
 const timeoutId = ref(null);
 
+//Betyder bild varje gång man svarar fel
 function changeImg() {
+  //Används för att gör disable på knapparna medans bilderna laddas in
   if (isRunning.value) return;
   isRunning.value = true;
 
+  //När jag kör så plussas imgCount upp en gång som gör att bilden byts
   imgCount.value++;
+  //currentCount används i funktionen
   const currentCount = imgCount.value;
 
+  //Körs om imgCount jämt fördelat med 2 inte ger några rester
   if (imgCount.value % 2 !== 0) {
-    //sparar imgCount i en variabel som jag använder, så att inte användaren kan klicka medans bilderna laddar
-
+    //laddar in gif bilden i förväg
     const gifPreload = new Image();
     gifPreload.src = imgSrc[imgCount.value];
 
+    //När gif bilden laddats klart körs funktionen
     gifPreload.onload = function () {
       currentImg.value = imgSrc[imgCount.value];
 
+      //Timeout funktion
+      //Ett id sätts som jag sen använder för att stoppa timeout med cleartimeout
       timeoutId.value = setTimeout(function () {
         currentImg.value = imgSrc[currentCount + 1];
-        //Den sparas sedan tillbaka i imgCount så att imgCount har korrekt värde igen
+        //currentCount sparas sedan tillbaka i imgCount så att det är säkert att imgCount har korrekt värde
         imgCount.value = currentCount + 1;
 
         if (currentCount == 19) {
@@ -221,7 +228,7 @@ playGame();
     </BModal>
 
     <!-- SPEL -->
-    <section class="game_section d-flex justify-content-center">
+    <section class="game-section d-flex justify-content-center">
       <div>
         <img
           width="500"
@@ -229,8 +236,8 @@ playGame();
           alt="animals in a boat, suspended over lava. The only thing holding the boat up being balloons."
         />
       </div>
-      <div class="game_controls">
-        <div v-if="gameWon" class="result_div">
+      <div class="game-controls">
+        <div v-if="gameWon" class="result-div">
           <h1>You won!</h1>
           <p>
             You found the secret word <span>{{ secretWord }}</span>
@@ -242,7 +249,7 @@ playGame();
         </div>
 
         <!-- Spela igen knapp. Visas bara när man har slut på gissningar(errorsLeft är 0) -->
-        <div v-if="gameLost" class="result_div">
+        <div v-if="gameLost" class="result-div">
           <h1>You lost!</h1>
           <p>
             You couldn't find the secret word <span>{{ secretWord }}</span>
@@ -253,8 +260,9 @@ playGame();
           <BButton @click="resetGame()" variant="third">Play again</BButton>
         </div>
 
+        <p>Hint: Word</p>
         <!-- Ord som ska gissas.Visas som tom först men fylls med bokstäver när man gissat rätt och bokstäverna sparas i guessedStatus arrayen -->
-        <div v-if="!gameLost && !gameWon" class="guessed_status d-inline-flex">
+        <div v-if="!gameLost && !gameWon" class="guessed-status d-inline-flex">
           <ul v-for="(letter, index) in guessedStatus" :key="index">
             <li
               class="fs-2 text-fourth"
@@ -283,7 +291,7 @@ playGame();
             <!-- Klickar man på knappen så körs funktionen checkLetter som tar med sig letter som en parameter -->
             <BButton
               variant="third"
-              class="alphabet_button"
+              class="alphabet-button"
               :style="{
                 backgroundColor: correctLetters.includes(letter.toUpperCase())
                   ? 'green'
