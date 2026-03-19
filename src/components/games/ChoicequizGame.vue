@@ -274,8 +274,8 @@ startGame();
               }"
               @click="checkAnswer(alt)"
             >
-              {{ currentChosenAnswer }}
-              {{ answered }}
+              <!-- {{ currentChosenAnswer }}
+              {{ answered }} -->
               {{ alt }}
             </button>
           </div>
