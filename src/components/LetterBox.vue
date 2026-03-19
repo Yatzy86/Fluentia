@@ -13,11 +13,13 @@ const props = defineProps({
 
 <template>
   <div
-    class="col-span-1 flex items-center justify-center h-16 uppercase border-2 border-gray-200 transition-all duration-300"
+    class="d-flex align-items-center justify-content-center text-uppercase border border-2 transition"
+    style="height: 4rem"
     :class="{
-      'border-gray-500 bg-gray-500 text-white': color == 'gray',
-      'border-green-600 bg-green-600 text-white': color == 'green',
-      'border-yellow-500 bg-yellow-500 text-white': color == 'yellow',
+      'bg-white text-dark border-light': !color || color === 'white',
+      'border-secondary bg-secondary text-white': color == 'gray',
+      'border-success bg-success text-white': color == 'green',
+      'border-warning bg-warning text-white': color == 'yellow',
     }"
   >
     {{ letter }}

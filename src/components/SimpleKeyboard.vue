@@ -1,9 +1,11 @@
-<template><div class="simple-keyboard"></div></template>
+<template>
+  <div class="simple-keyboard"></div>
+</template>
+
 <script setup>
 import Keyboard from "simple-keyboard";
 import "simple-keyboard/build/css/index.css";
 import { ref, onMounted, watch } from "vue";
-// import layout from 'simple-keyboard-layouts/build/layouts/swedish'
 
 const emit = defineEmits(["onKeyPress"]);
 
@@ -16,10 +18,9 @@ const keyboard = ref(null);
 const savedLetters = ref("");
 
 const onKeyPress = (button) => {
-  emit("onKeyPress", button); //Emit-name and payload
+  emit("onKeyPress", button);
 };
 
-//Mount before access div
 onMounted(() => {
   keyboard.value = new Keyboard("simple-keyboard", {
     layout: {
@@ -32,17 +33,16 @@ onMounted(() => {
     onKeyPress: onKeyPress,
   });
 });
+
 watch(
   () => props.guessedLetters,
   (guessedLetters, _prevGuessedLetters) => {
-    //Addbuttontheme lägger till en klass till knapparna
     keyboard.value.addButtonTheme(guessedLetters.miss.join(" "), "miss");
     keyboard.value.addButtonTheme(guessedLetters.found.join(" "), "found");
     keyboard.value.addButtonTheme(guessedLetters.hint.join(" "), "hint");
     savedLetters.value = guessedLetters;
     console.log("letter:", savedLetters.value, guessedLetters);
   },
-  //Deep för att vi kikar på objektens egenskaper
   { deep: true },
 );
 
@@ -50,7 +50,6 @@ watch(
   () => props.restartKb,
   (restartStatus, _prevRestartStatus) => {
     if (restartStatus === true) {
-      // alert('alerting')
       keyboard.value.removeButtonTheme(
         savedLetters.value.miss.join(" ") +
           " " +
@@ -59,8 +58,6 @@ watch(
           savedLetters.value.hint.join(" "),
         "miss found hint",
       );
-      // keyboard.value.removeButtonTheme(savedLetters.value.found.join(' '), 'miss found hint')
-      // keyboard.value.removeButtonTheme(savedLetters.value.hint.join(' '), 'miss found hint')
     }
   },
 );
@@ -68,16 +65,17 @@ watch(
 
 <style>
 div.miss {
-  @apply bg-gray-500 !important;
-  @apply text-white;
+  background-color: var(--bs-secondary) !important;
+  color: var(--bs-white);
 }
 
 div.found {
-  @apply bg-green-600 !important;
-  @apply text-white;
+  background-color: var(--bs-success) !important;
+  color: var(--bs-white);
 }
+
 div.hint:not(.found) {
-  @apply bg-yellow-500 !important;
-  @apply text-white;
+  background-color: var(--bs-warning) !important;
+  color: var(--bs-white);
 }
 </style>
