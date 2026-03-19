@@ -2,7 +2,8 @@
 import { ref } from "vue";
 
 import { useRouter } from "vue-router";
-
+import { useLevelStore } from "../LevelSystem.js"
+const levelStore = useLevelStore()
 const showInstructions = ref(true);
 const router = useRouter();
 
@@ -157,6 +158,7 @@ const checkAnswer = (chosenAnswer) => {
     chosenQuestions.value[currentQuestion.value].rightAnswer === chosenAnswer
   ) {
     score.value++;
+    levelStore.addXP(100)
   }
   answered.value = true;
 
