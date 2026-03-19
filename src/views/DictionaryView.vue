@@ -43,7 +43,7 @@ export default {
         this.translatedWord = response.data.matches[0].translation; //Sparar resultatet i en variabel
         this.wordSearched = true; //Gör så att resultatet visas med v-if
       } catch (error) {
-        this.errorMsg = "Kunde inte hämta ordet.";
+        this.errorMsg = "Word not found.";
         console.error(error);
       }
     },

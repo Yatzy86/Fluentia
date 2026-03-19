@@ -1,7 +1,7 @@
 <script></script>
 <template>
   <!-- bootstrap kort  -->
-  <section id="intro_section">
+  <section id="intro-section">
     <b-card variant="secondary" title="Learn Swedish in a fun way">
       <b-card-text> Play Games, build vocabulary, track progress </b-card-text>
 

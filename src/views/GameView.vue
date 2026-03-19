@@ -59,7 +59,7 @@ function addWord(newWord) {
   <article>
     <!-- länk till homeview -->
     <section>
-      <p id="title_nav">
+      <p id="title-nav">
         <RouterLink :to="{ name: 'home' }">Home</RouterLink>
         / {{ props.name }}
       </p>
@@ -69,7 +69,7 @@ function addWord(newWord) {
     <component :is="currentGame" />
 
     <!-- add to glossary sektion -->
-    <section id="add_glossary">
+    <section id="add-glossary">
       <b-card variant="secondary" title="Add to Glossary">
         <!-- meddelande som visar att du har lagt till objektet i listan -->
         <b-card-text v-if="addedWord" class="text-fourth"

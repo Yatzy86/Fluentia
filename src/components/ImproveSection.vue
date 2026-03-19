@@ -25,9 +25,9 @@ const iconList = [
 </script>
 
 <template>
-  <h2 class="section_title"><span>What will you improve?</span></h2>
+  <h2 class="section-title"><span>What will you improve?</span></h2>
   <section
-    id="improve_section"
+    id="improve-section"
     class="d-flex justify-content-around align-items-center"
   >
     <div

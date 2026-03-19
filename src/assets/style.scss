@@ -17,6 +17,7 @@ $theme-colors: (
 
 body {
   background-color: theme-color("primary");
+  box-sizing: border-box;
 }
 
 .header {
@@ -24,7 +25,7 @@ body {
 }
 
 //HOMEVIEW
-.section_title {
+.section-title {
   width: 100%;
   text-align: center;
   border-bottom: 1px solid theme-color("fourth");
@@ -41,7 +42,7 @@ body {
 }
 
 //PageIntro
-#intro_section {
+#intro-section {
   width: 80vw;
   margin: 5em auto;
 
@@ -74,7 +75,7 @@ body {
 }
 
 @media (max-width: 580px) {
-  #intro_section {
+  #intro-section {
     width: 90vw;
     margin: 3em auto;
     .card {
@@ -97,7 +98,7 @@ body {
   }
 }
 @media (max-width: 380px) {
-  #intro_section {
+  #intro-section {
     width: 95vw;
     .card-body {
       padding: 3em 0 2em 0;
@@ -111,13 +112,13 @@ body {
 
 //GameLinks
 
-#game_list {
+#game-list {
   margin: 2em auto;
   gap: 2em;
   align-items: center;
   justify-content: center;
 
-  .game_card {
+  .game-card {
     width: 400px;
     height: 350px;
     text-align: center;
@@ -137,13 +138,13 @@ body {
     }
   }
   @media (max-width: 900px) {
-    .game_card {
+    .game-card {
       width: 300px;
       height: 320px;
     }
   }
   @media (max-width: 680px) {
-    .game_card {
+    .game-card {
       display: flex;
       flex-direction: row;
       height: 190px;
@@ -154,7 +155,7 @@ body {
     }
   }
   @media (max-width: 480px) {
-    .game_card {
+    .game-card {
       width: 95vw;
       height: 150px;
 
@@ -177,7 +178,7 @@ body {
 }
 
 //improve section
-#improve_section {
+#improve-section {
   margin-bottom: 5em;
   h3 {
     color: theme-color("fourth");
@@ -185,7 +186,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  #improve_section {
+  #improve-section {
     margin-bottom: 3em;
     img {
       width: 40px;
@@ -194,7 +195,7 @@ body {
       font-size: 1.1em;
     }
   }
-  .section_title {
+  .section-title {
     margin: 2em 0 3em;
   }
 }
@@ -202,10 +203,12 @@ body {
 //GAMEVIEW
 //Glossary section
 
-#title_nav {
+#title-nav {
   font-size: 1.5em;
   color: theme-color("fourth");
-  padding: 1em 0 1em 1em;
+  padding: 0.5em 0 0.5em 1em;
+
+  margin-bottom: 0em;
 
   a {
     color: theme-color("fourth");
@@ -216,8 +219,8 @@ body {
   }
 }
 
-#add_glossary {
-  margin-top: 5em;
+#add-glossary {
+  margin-top: 3em;
   width: 100vw;
 
   .card {
@@ -238,24 +241,24 @@ body {
   }
 }
 @media (max-width: 1200px) {
-  #add_glossary {
+  #add-glossary {
     .card-body {
       width: 50vw;
     }
   }
 }
 @media (max-width: 790px) {
-  #add_glossary {
+  #add-glossary {
     .card-body {
       width: 70vw;
     }
   }
 }
 @media (max-width: 500px) {
-  #title_nav {
+  #title-nav {
     text-align: center;
   }
-  #add_glossary {
+  #add-glossary {
     .card-body {
       width: 90vw;
     }
@@ -264,7 +267,7 @@ body {
 
 //GLOSSARYVIEW
 
-#background_div {
+#background-div {
   background-image: url(img/background.png);
   background-size: cover;
 
@@ -273,7 +276,7 @@ body {
 #glossary-section {
   min-height: 50vh;
 
-  .input_width {
+  .input-width {
     width: 50%;
   }
   .table {
@@ -293,7 +296,7 @@ body {
 }
 @media (max-width: 1000px) {
   #glossary-section {
-    .input_width {
+    .input-width {
       width: 90%;
     }
   }
@@ -323,15 +326,141 @@ body {
       td {
         padding: 0.2em 0.3em;
       }
-      .date_td {
+      .date-td {
         font-size: 0.7em;
       }
     }
   }
-  #glossary_input {
+  #glossary-input {
     input,
     button {
       font-size: 0.8em;
+    }
+  }
+}
+
+// HANGMAN
+#hangman {
+  .game-section {
+    width: 95%;
+    background-color: theme-color(secondary);
+    margin: auto;
+    align-items: center;
+    padding: 2em 0 3em 0;
+    .result-div {
+      background-color: theme-color(primary);
+      border: solid 5px theme-color(third);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 5em 0;
+      h1,
+      h2,
+      p {
+        color: theme-color(fourth);
+      }
+      span {
+        font-size: 1.5em;
+        font-weight: 700;
+        color: theme-color(third);
+      }
+    }
+    .alphabet-button {
+      padding: 1em;
+    }
+    .card {
+      min-width: fit-content;
+      max-width: fit-content;
+      height: fit-content;
+      cursor: pointer;
+
+      margin-bottom: 0 !important;
+
+      .card-body {
+        padding: 0;
+      }
+    }
+    li {
+      list-style-type: none;
+    }
+
+    .card-group {
+      justify-content: center;
+    }
+
+    .game-controls {
+      width: 40%;
+    }
+    .guessed-status {
+      margin: 1em 0 0.5em 1.5em;
+      width: fit-content;
+
+      ul {
+        padding: 0;
+        margin-right: 1em;
+        li {
+          border-bottom: solid theme-color(fourth) 4px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  #hangman {
+    .game-section {
+      flex-direction: column;
+      .result-div {
+        width: 70vw;
+        padding: 1em;
+      }
+      .card-group {
+        flex-flow: row wrap;
+      }
+      img {
+        width: 400px;
+      }
+      .game-controls {
+        width: 95%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .guessed-status {
+        margin: 0.5em 0 0.5em 0em;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  #hangman {
+    .game-section {
+      .result-div {
+        width: 90vw;
+      }
+      img {
+        width: 350px;
+      }
+      .alphabet-button {
+        padding: 0.7em;
+      }
+
+      .guessed-status {
+        ul {
+          margin-right: 0.5em;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 400px) {
+  #hangman {
+    .game-section {
+      img {
+        max-width: 95%;
+      }
     }
   }
 }
