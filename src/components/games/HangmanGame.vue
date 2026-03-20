@@ -55,7 +55,7 @@ function changeImg() {
   if (isRunning.value) return;
   isRunning.value = true;
 
-  //När jag kör så plussas imgCount upp en gång som gör att bilden byts
+  //När jag kör så plussas imgCount upp en gång
   imgCount.value++;
   //currentCount används i funktionen
   const currentCount = imgCount.value;
@@ -68,6 +68,7 @@ function changeImg() {
 
     //När gif bilden laddats klart körs funktionen
     gifPreload.onload = function () {
+      //rätt bild visas
       currentImg.value = imgSrc[imgCount.value];
 
       //Timeout funktion på 900 msk
@@ -92,6 +93,8 @@ function changeImg() {
         }
       }, 900);
     };
+    console.log(imgCount.value);
+    console.log(currentImg.value);
   }
 }
 
