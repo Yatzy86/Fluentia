@@ -14,6 +14,7 @@
     "bootstrap-icons": "^1.13.1",
     "bootstrap-vue-next": "^0.43.6",
     "pinia": "^3.0.4",
+    "simple-keyboard": "^3.8.121",
     "vue": "^3.5.25",
     "vue-router": "^4.6.4"
   },
