@@ -1,25 +1,12 @@
 <template>
   <footer class="footer">
     <div class="footer-top">
-<<<<<<< HEAD
-      <div>
-        <!--navigation länk-->
-        <h2 class="footer-title">Explore</h2>
-        <div class="footer-links">
-          <RouterLink to="/" class="footer-link">Home</RouterLink>
-          <RouterLink to="/glossary" class="footer-link">Glossary</RouterLink>
-          <RouterLink to="/dictionary" class="footer-link"
-            >Dictionary</RouterLink
-          >
-        </div>
-=======
       <!--navigation länk-->
       <h2 class="footer-title">Explore</h2>
       <div class="footer-links">
         <RouterLink to="/" class="footer-link">Home</RouterLink>
         <RouterLink to="/glossary" class="footer-link">Glossary</RouterLink>
         <RouterLink to="/dictionary" class="footer-link">Dictionary</RouterLink>
->>>>>>> main
       </div>
 
       <!--Sociala medier-->
