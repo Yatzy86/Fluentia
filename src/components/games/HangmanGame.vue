@@ -230,6 +230,9 @@ playGame();
       cancel-title="Go Back"
       @cancel="goBackHome"
       @ok="closeInstructions"
+      no-close-on-backdrop
+      no-close-on-esc
+      no-header-close
     >
       <div class="instructions-box">
         <p>2. Guess the hidden word by choosing one letter at a time.</p>
