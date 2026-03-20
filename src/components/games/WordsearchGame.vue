@@ -2,28 +2,42 @@
 import WordRow from "../WordRow.vue";
 import SimpleKeyboard from "../SimpleKeyboard.vue";
 import { reactive, onMounted, computed, ref } from "vue";
-import words from "../../data/hangmanwords.js";
 
 const restartKeyboard = ref(false);
 const restartWords = ref(false);
 
-let randomWord = ref(words[Math.floor(Math.random() * words.length)]);
-
 const newGame = () => {
-  randomWord.value = words[Math.floor(Math.random() * words.length)];
-  state.solution = randomWordSwe.value;
+  state.solution = randomWord;
   state.guesses = ["", "", "", "", "", ""];
   state.currentGuessIndex = 0;
+
   restartKeyboard.value = true;
   restartWords.value = true;
 };
 
-const randomWordSwe = ref(randomWord.value.swedish);
-const randomWordEng = ref(randomWord.value.english);
+const word = [
+  "äpple",
+  "banan",
+  "apple",
+  "huset",
+  "spela",
+  "hoppa",
+  "drack",
+  "rolig",
+  "snabb",
+  "stark",
+  "liten",
+  "älska",
+  "snöre",
+  "morot",
+  "tröja",
+  "affär",
+];
+
+const randomWord = word[Math.floor(Math.random() * word.length)];
 
 const state = reactive({
-  solution: randomWordSwe.value,
-  letters: randomWordSwe.value.split(""),
+  solution: word[Math.floor(Math.random() * word.length)],
   guesses: ["", "", "", "", "", ""],
   currentGuessIndex: 0,
   guessedLetters: {
@@ -58,7 +72,7 @@ const handleInput = (key) => {
   }
 
   if (key === "{enter}") {
-    if (currentGuess.length === state.letters.length) {
+    if (currentGuess.length === 5) {
       state.currentGuessIndex++;
       for (var i = 0; i < currentGuess.length; i++) {
         let c = currentGuess.charAt(i);
@@ -73,7 +87,7 @@ const handleInput = (key) => {
     }
   } else if (key == "{bksp}") {
     state.guesses[state.currentGuessIndex] = currentGuess.slice(0, -1);
-  } else if (currentGuess.length < state.letters.length) {
+  } else if (currentGuess.length < 5) {
     const alphaRegex = /[a-zA-ZåäöÅÄÖ]+/;
     if (alphaRegex.test(key)) {
       state.guesses[state.currentGuessIndex] += key;
@@ -84,6 +98,7 @@ const handleInput = (key) => {
 onMounted(() => {
   window.addEventListener("keydown", (e) => {
     e.preventDefault();
+    console.log(e);
 
     let key =
       e.keyCode === 13
@@ -107,8 +122,6 @@ onMounted(() => {
     class="d-flex flex-column vh-100 mx-auto justify-content-evenly"
     style="max-width: 28rem"
   >
-    {{ randomWordEng }}
-    {{ randomWordSwe }}
     <div>
       <word-row
         v-for="(guess, i) in state.guesses"
@@ -117,7 +130,6 @@ onMounted(() => {
         :solution="state.solution"
         :submitted="i < state.currentGuessIndex"
         :restartW="restartWords"
-        :secretLetters="state.letters"
       />
     </div>
 
