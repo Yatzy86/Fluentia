@@ -20,7 +20,7 @@ const word = [
   "banan",
   "apple",
   "huset",
-  "spring",
+  "spela",
   "hoppa",
   "drack",
   "rolig",
@@ -37,7 +37,7 @@ const word = [
 const randomWord = word[Math.floor(Math.random() * word.length)];
 
 const state = reactive({
-  solution: randomWord,
+  solution: word[Math.floor(Math.random() * word.length)],
   guesses: ["", "", "", "", "", ""],
   currentGuessIndex: 0,
   guessedLetters: {
@@ -98,6 +98,7 @@ const handleInput = (key) => {
 onMounted(() => {
   window.addEventListener("keydown", (e) => {
     e.preventDefault();
+    console.log(e);
 
     let key =
       e.keyCode === 13
@@ -132,7 +133,9 @@ onMounted(() => {
       />
     </div>
 
-    <p v-if="wonGame" class="text-center">Congratz on your win!</p>
+    <p v-if="wonGame" class="text-center">
+      Congratz on your win! You did it on {{ state.guesses.length }} tries!
+    </p>
     <p v-else-if="lostGame" class="text-center">Out of tries</p>
 
     <simple-keyboard
@@ -144,11 +147,17 @@ onMounted(() => {
     <button
       v-on:keypress="(e) => e.preventDefault()"
       @click="newGame"
-      class="btn btn-primary"
+      class="btn btn-third newGameButton"
     >
       New game
     </button>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.text-center {
+  color: #fff;
+  font-size: 1.25rem;
+  text-align: center;
+}
+</style>
