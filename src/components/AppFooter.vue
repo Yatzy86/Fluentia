@@ -7,10 +7,10 @@
         <div class="footer-links">
           <RouterLink to="/" class="footer-link">Home</RouterLink>
           <RouterLink to="/glossary" class="footer-link">Glossary</RouterLink>
-          <RouterLink to="/dictionary" class="footer-link"
-            >Dictionary</RouterLink
-          >
+          <RouterLink to="/dictionary" class="footer-link">Dictionary</RouterLink>
         </div>
+         </div>
+        
 
       <!--Sociala medier-->
       <div class="footer-social">
@@ -21,6 +21,7 @@
           <i class="bi bi-instagram"></i>
         </a>
       </div>
+       </div>
 
     <!--Sociala medier-->
     <div class="footer-social">
