@@ -3,11 +3,74 @@ import WordRow from "../WordRow.vue";
 import SimpleKeyboard from "../SimpleKeyboard.vue";
 import { reactive, onMounted, computed, ref } from "vue";
 
+const word = [
+  {
+    swedish: "äpple",
+    english: "apple",
+  },
+  {
+    swedish: "banan",
+    english: "banana",
+  },
+  {
+    swedish: "hoppa",
+    english: "jump",
+  },
+  {
+    swedish: "spela",
+    english: "play",
+  },
+  {
+    swedish: "rolig",
+    english: "funny",
+  },
+  {
+    swedish: "snabb",
+    english: "fast",
+  },
+  {
+    swedish: "stark",
+    english: "strong",
+  },
+  {
+    swedish: "liten",
+    english: "small",
+  },
+  {
+    swedish: "älska",
+    english: "love",
+  },
+  {
+    swedish: "snöre",
+    english: "rope",
+  },
+  {
+    swedish: "morot",
+    english: "carrot",
+  },
+  {
+    swedish: "väder",
+    english: "weather",
+  },
+  {
+    swedish: "affär",
+    english: "store",
+  },
+];
+
 const restartKeyboard = ref(false);
 const restartWords = ref(false);
+const randomWord = ref(word[Math.floor(Math.random() * word.length)]);
+const randomWordSwe = ref(randomWord.value.swedish);
+const randomWordEng = ref(randomWord.value.english);
+const hintOpen = ref(false);
 
 const newGame = () => {
-  state.solution = randomWord;
+  randomWord.value = word[Math.floor(Math.random() * word.length)];
+  randomWordSwe.value = randomWord.value.swedish;
+  randomWordEng.value = randomWord.value.english;
+
+  state.solution = randomWordSwe;
   state.guesses = ["", "", "", "", "", ""];
   state.currentGuessIndex = 0;
 
@@ -15,29 +78,8 @@ const newGame = () => {
   restartWords.value = true;
 };
 
-const word = [
-  "äpple",
-  "banan",
-  "apple",
-  "huset",
-  "spela",
-  "hoppa",
-  "drack",
-  "rolig",
-  "snabb",
-  "stark",
-  "liten",
-  "älska",
-  "snöre",
-  "morot",
-  "tröja",
-  "affär",
-];
-
-const randomWord = word[Math.floor(Math.random() * word.length)];
-
 const state = reactive({
-  solution: word[Math.floor(Math.random() * word.length)],
+  solution: randomWordSwe,
   guesses: ["", "", "", "", "", ""],
   currentGuessIndex: 0,
   guessedLetters: {
@@ -46,6 +88,10 @@ const state = reactive({
     hint: [],
   },
 });
+
+const toggleHint = () => {
+  hintOpen.value = !hintOpen.value;
+};
 
 const wonGame = computed(
   () => state.guesses[state.currentGuessIndex - 1] === state.solution,
@@ -98,7 +144,6 @@ const handleInput = (key) => {
 onMounted(() => {
   window.addEventListener("keydown", (e) => {
     e.preventDefault();
-    console.log(e);
 
     let key =
       e.keyCode === 13
@@ -106,11 +151,11 @@ onMounted(() => {
         : e.keyCode === 8
           ? "{bksp}"
           : e.keyCode === 221
-            ? "Å"
+            ? "å"
             : e.keyCode === 222
-              ? "Ä"
+              ? "ä"
               : e.keyCode === 192
-                ? "Ö"
+                ? "ö"
                 : String.fromCharCode(e.keyCode).toLowerCase();
     handleInput(key);
   });
@@ -122,6 +167,13 @@ onMounted(() => {
     class="d-flex flex-column vh-100 mx-auto justify-content-evenly"
     style="max-width: 28rem"
   >
+    <div @click="toggleHint" v-if="!hintOpen">
+      <button>Show in english</button>
+    </div>
+    <div v-else>
+      <button @click="toggleHint">Hide</button>
+      <p>{{ randomWordEng }}</p>
+    </div>
     <div>
       <word-row
         v-for="(guess, i) in state.guesses"
