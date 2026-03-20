@@ -1,11 +1,14 @@
 <template>
-           <BModal
+  <BModal
     v-model="showInstructions"
     ok-title="Got it"
     title="Instructions!"
     cancel-title="Go Back"
     @cancel="goBackHome"
     @ok="closeInstructions"
+    no-close-on-backdrop
+    no-close-on-esc
+    no-header-close
   >
     <div class="instructions-box">
       <p>1. Click two cards to flip them.</p>
@@ -28,7 +31,8 @@
         :key="card.id"
         @click="flipCard(card)"
         class="card"
-        :class="{ flipped: card.isFlipped, matched: card.isMatched }">
+        :class="{ flipped: card.isFlipped, matched: card.isMatched }"
+      >
         <!--flipped card trasnition-->
         <div class="card-inner">
           <!--flipped card trasnition-->
@@ -56,16 +60,22 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import wordPairs from "../../data/words.js";
-import { useLevelStore } from "../LevelSystem.js"
-const levelStore = useLevelStore()
+import { useLevelStore } from "../LevelSystem.js";
+import { useRouter } from "vue-router";
+const levelStore = useLevelStore();
 // all info som spelet håller koll på
 const cards = ref([]); // alla kort
 const flippedCards = ref([]); // de kort som är vuppvändat
 const isLocked = ref(false); // stoppar klick medan vi kollar ett par
 const matchedPairs = ref(0); // visar hur många kort man har matchad
 const showInstructions = ref(true);
-
-
+const router = useRouter();
+function closeInstructions() {
+  showInstructions.value = false;
+}
+function goBackHome() {
+  router.push("/");
+}
 const totalPairs = computed(
   () => new Set(cards.value.map((c) => c.pairId)).size,
 );
@@ -122,7 +132,7 @@ function checkMatch() {
     b.isMatched = true;
     matchedPairs.value++;
     totalXP.value += 10;
-    levelStore.addXP(100) //// LEVEL SYSTEM!!   xp för varje rätt svar. (100xp)
+    levelStore.addXP(100); //// LEVEL SYSTEM!!   xp för varje rätt svar. (100xp)
     flippedCards.value = [];
     isLocked.value = false;
   } else {
@@ -165,7 +175,6 @@ function getRandomPairs(amount) {
 </script>
 
 <style lang="scss" scoped>
-
 $color-1: #fdc921;
 $color-2: #fdd85d;
 $color-3: #fffdf5;
@@ -178,7 +187,6 @@ $color-5: #6798c0;
   color: rgba(0, 0, 0, 0.78);
   text-transform: uppercase;
 }
-
 
 :deep(.modal-header) {
   background: $color-1;
@@ -523,5 +531,4 @@ p.win {
     margin-top: 6px;
   }
 }
-
 </style>

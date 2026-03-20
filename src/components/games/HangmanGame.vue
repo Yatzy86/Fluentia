@@ -354,14 +354,14 @@ $color-5: #6798c0;
 
 .instructions-box {
   background: $color-3;
-  padding: 16px;
+  padding: 10px;
   border-radius: 12px;
   border: 2px dashed $color-4;
   position: relative;
 }
 .instructions-box p {
   background: $color-2;
-  padding: 8px 12px;
+  padding: 6px 10px;
   border-radius: 8px;
   margin: 8px 0;
   border-left: 4px solid $color-4;
