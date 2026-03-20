@@ -36,7 +36,7 @@ onMounted(() => {
 
 watch(
   () => props.guessedLetters,
-  (guessedLetters, _prevGuessedLetters) => {
+  (guessedLetters) => {
     keyboard.value.addButtonTheme(guessedLetters.miss.join(" "), "miss");
     keyboard.value.addButtonTheme(guessedLetters.found.join(" "), "found");
     keyboard.value.addButtonTheme(guessedLetters.hint.join(" "), "hint");
@@ -48,7 +48,7 @@ watch(
 
 watch(
   () => props.restartKb,
-  (restartStatus, _prevRestartStatus) => {
+  (restartStatus) => {
     if (restartStatus === true) {
       keyboard.value.removeButtonTheme(
         savedLetters.value.miss.join(" ") +
