@@ -21,7 +21,6 @@
                 </a>
             </div>
         </div>
-      </div>
 
       <!--Sociala medier-->
       <div class="footer-social">
@@ -32,7 +31,6 @@
           <i class="bi bi-instagram"></i>
         </a>
       </div>
-    </div>
 
     <!--Subscribe tips-->
     <div class="footer-email">
