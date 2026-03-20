@@ -134,7 +134,8 @@ onMounted(() => {
     </div>
 
     <p v-if="wonGame" class="text-center">
-      Congratz on your win! You did it on {{ state.guesses.length }} tries!
+      Congratz on your win! You did it on
+      {{ state.currentGuessIndex }} tries!
     </p>
     <p v-else-if="lostGame" class="text-center">Out of tries</p>
 
