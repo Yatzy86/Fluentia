@@ -9,6 +9,7 @@ const props = defineProps({
     default: "",
   },
 });
+console.log("color:", props.color);
 </script>
 
 <template>

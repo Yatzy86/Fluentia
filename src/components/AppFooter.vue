@@ -29,10 +29,16 @@
           type="email"
           placeholder="Enter your email"
         />
-        <button class="email-btn">Subscribe</button>
+        <button v-b-modal="'subscribe-modal'" class="email-btn">
+          Subscribe
+        </button>
       </div>
       <p class="footer-bottom">Fluentia Policy & Terms</p>
     </div>
+
+    <b-modal id="subscribe-modal" class="text-center" ok-only
+      >You have been subscribed!
+    </b-modal>
   </footer>
 </template>
 

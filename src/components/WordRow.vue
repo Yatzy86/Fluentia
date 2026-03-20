@@ -7,10 +7,7 @@ const props = defineProps({
   solution: String,
   submitted: Boolean,
   restartW: Boolean,
-  secretLetters: Array,
 });
-
-const secretLetters = props.secretLetters;
 
 const colors = ref(["", "", "", "", "", ""]);
 
@@ -21,11 +18,15 @@ watch(
       let s = props.solution;
       let v = props.value;
 
-      // let temp = ["gray", "gray", "gray", "gray", "gray"];
-      let temp = secretLetters.map(() => "gray");
+      let temp = ["gray", "gray", "gray", "gray", "gray"];
       let letterPool = [];
+<<<<<<< HEAD
       console.log(temp);
       for (let i = 1; i < secretLetters.length; i++) {
+=======
+
+      for (let i = 0; i < 5; i++) {
+>>>>>>> bf885fd41e890f8a58b453ec51540957bf00fcf9
         if (s.charAt(i) == v.charAt(i)) {
           temp[i] = "green";
         } else {
@@ -33,7 +34,7 @@ watch(
         }
       }
 
-      for (let i = 0; i < secretLetters.length; i++) {
+      for (let i = 0; i < 5; i++) {
         if (temp[i] == "gray") {
           if (letterPool.indexOf(v.charAt(i)) != -1) {
             letterPool.splice(letterPool.indexOf(v.charAt(i)), 1);
@@ -51,7 +52,7 @@ watch(
   () => props.restartW,
   async (restartW, prevRestartW) => {
     if (restartW === true) {
-      for (let i = 0; i < secretLetters.length; i++) {
+      for (let i = 0; i < 5; i++) {
         colors.value[i] = "white";
         await new Promise((resolve) => setTimeout(resolve));
       }
@@ -61,15 +62,9 @@ watch(
 </script>
 
 <template>
-  <div
-    class="word-row-bootstrap mx-auto mb-1"
-    :style="{
-      gridTemplateColumns: 'repeat(' + secretLetters.length + ', 1fr)',
-    }"
-  >
+  <div class="word-row-bootstrap mx-auto mb-1">
     <letter-box
-      class="letterBox"
-      v-for="i in secretLetters.length"
+      v-for="i in 5"
       :key="i"
       :letter="value[i - 1]"
       :color="colors[i - 1]"
@@ -80,11 +75,8 @@ watch(
 <style scoped>
 .word-row-bootstrap {
   display: grid;
+  grid-template-columns: repeat(5, 1fr);
   gap: 0.25rem;
   max-width: 20rem;
-}
-
-.letterBox {
-  min-width: 2em;
 }
 </style>
