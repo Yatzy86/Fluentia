@@ -1,7 +1,9 @@
 <script setup>
 import { ref, computed } from "vue";
 import logo from "../assets/img/image.png";
+import { useLevelStore } from "./LevelSystem.js" 
 
+const levelStore = useLevelStore()   
 const showLoginModal = ref(false);
 const userName = ref("");
 const tempName = ref("");
@@ -36,8 +38,15 @@ function confirmLogin() {
         <img class="logo" :src="logo" alt="Fluentia logo" />
       </RouterLink>
     </div>
-
     <div class="right">
+          <!--Level bar  /Danar-->
+    <div v-if="isLoggedIn" class="xp-section">
+      <span class="level-badge">Level {{ levelStore.level }}</span>
+      <div class="xp-bar">
+        <div class="xp-fill" :style="{ width: levelStore.xpPercent }"></div>
+      </div>
+      <span class="xp-text">{{ levelStore.currentXP }} / {{ levelStore.xpNeeded }} XP</span>
+    </div>
       <span class="bi bi-bell icon" title="Notifications"></span>
 
       <div class="user">
@@ -158,5 +167,37 @@ $color-5: #6798c0;
 .user-name {
   font-weight: 600;
   font-size: 14px;
+}
+.xp-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+ 
+.level-badge {
+  background: $color-1;
+  color: #1f1f1f;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+ 
+.xp-bar {
+  width: 160px;
+  height: 10px;
+  background: rgb(206, 204, 204);
+  border-radius: 10px;
+}
+ 
+.xp-fill {
+  height: 100%;
+  background: $color-1;
+  border-radius: 10px
+}
+ 
+.xp-text {
+  font-size: 0.8rem;
+  color: #000000;
 }
 </style>

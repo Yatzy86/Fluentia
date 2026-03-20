@@ -280,8 +280,6 @@ startGame();
               }"
               @click="checkAnswer(alt)"
             >
-              <!-- {{ currentChosenAnswer }}
-              {{ answered }} -->
               {{ alt }}
             </button>
           </div>
