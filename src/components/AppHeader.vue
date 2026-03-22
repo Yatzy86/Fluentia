@@ -43,7 +43,7 @@ function confirmLogin() {
     <div v-if="isLoggedIn" class="xp-section">
       <span class="level-badge">Level {{ levelStore.level }}</span>
       <div class="xp-bar">
-        <div class="xp-fill" :style="{ width: levelStore.xpPercent }"></div>
+        <div class="xp-fill" :style="{ width: levelStore.xpPercent + '%' }"></div>
       </div>
       <span class="xp-text">{{ levelStore.currentXP }} / {{ levelStore.xpNeeded }} XP</span>
     </div>
@@ -181,6 +181,7 @@ $color-5: #6798c0;
   font-size: 0.85rem;
   padding: 4px 12px;
   border-radius: 20px;
+  white-space: nowrap;
 }
  
 .xp-bar {
@@ -188,16 +189,19 @@ $color-5: #6798c0;
   height: 10px;
   background: rgb(206, 204, 204);
   border-radius: 10px;
+  overflow: hidden;
 }
  
 .xp-fill {
   height: 100%;
   background: $color-1;
-  border-radius: 10px
+  border-radius: 10px;
+  transition: width 0.4s ease;
 }
  
 .xp-text {
   font-size: 0.8rem;
   color: #000000;
+  white-space: nowrap;
 }
 </style>

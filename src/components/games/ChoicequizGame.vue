@@ -158,7 +158,7 @@ const checkAnswer = (chosenAnswer) => {
     chosenQuestions.value[currentQuestion.value].rightAnswer === chosenAnswer
   ) {
     score.value++;
-    levelStore.addXP(100);
+    levelStore.addXP(125);
   }
   answered.value = true;
 

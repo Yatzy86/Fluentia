@@ -2,7 +2,9 @@
 import WordRow from "../WordRow.vue";
 import SimpleKeyboard from "../SimpleKeyboard.vue";
 import { reactive, onMounted, computed, ref } from "vue";
+import { useLevelStore } from "../LevelSystem.js"
 
+const levelStore = useLevelStore()   
 const restartKeyboard = ref(false);
 const restartWords = ref(false);
 
@@ -73,7 +75,8 @@ const handleInput = (key) => {
 
   if (key === "{enter}") {
     if (currentGuess.length === 5) {
-      state.currentGuessIndex++;
+      state.currentGuessIndex++; 
+      levelStore.addXP(500) // levelsystem 500xp
       for (var i = 0; i < currentGuess.length; i++) {
         let c = currentGuess.charAt(i);
         if (c == state.solution.charAt(i)) {
