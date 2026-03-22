@@ -84,7 +84,7 @@ export default {
 <template>
   <p id="title-nav">
     <RouterLink :to="{ name: 'home' }">Home </RouterLink>
-    /Dictionary/
+    / Dictionary /
     <ShareButton />
   </p>
   <h1>Dictionary</h1>
