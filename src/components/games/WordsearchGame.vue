@@ -140,7 +140,7 @@ const handleInput = (key) => {
   }
 
   if (key === "{enter}") {
-    if (currentGuess.length === state.letters.length) {
+    if (currentGuess.length === 5) {
       state.currentGuessIndex++;
       for (var i = 0; i < currentGuess.length; i++) {
         let c = currentGuess.charAt(i);
@@ -155,7 +155,7 @@ const handleInput = (key) => {
     }
   } else if (key == "{bksp}") {
     state.guesses[state.currentGuessIndex] = currentGuess.slice(0, -1);
-  } else if (currentGuess.length < state.letters.length) {
+  } else if (currentGuess.length < 5) {
     const alphaRegex = /[a-zA-ZåäöÅÄÖ]+/;
     if (alphaRegex.test(key)) {
       state.guesses[state.currentGuessIndex] += key;
@@ -204,7 +204,6 @@ onMounted(() => {
         :solution="state.solution"
         :submitted="i < state.currentGuessIndex"
         :restartW="restartWords"
-        :secretLetters="state.letters"
       />
     </div>
 
