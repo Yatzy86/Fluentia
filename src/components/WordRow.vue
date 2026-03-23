@@ -24,8 +24,8 @@ watch(
       // let temp = ["gray", "gray", "gray", "gray", "gray"];
       let temp = secretLetters.map(() => "gray");
       let letterPool = [];
-      console.log(temp);
-      for (let i = -1; i < secretLetters.length; i++) {
+
+      for (let i = 0; i < 5; i++) {
         if (s.charAt(i) == v.charAt(i)) {
           temp[i] = "green";
         } else {

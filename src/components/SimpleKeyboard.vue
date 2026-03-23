@@ -41,7 +41,6 @@ watch(
     keyboard.value.addButtonTheme(guessedLetters.found.join(" "), "found");
     keyboard.value.addButtonTheme(guessedLetters.hint.join(" "), "hint");
     savedLetters.value = guessedLetters;
-    console.log("letter:", savedLetters.value, guessedLetters);
   },
   { deep: true },
 );
