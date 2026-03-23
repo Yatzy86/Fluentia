@@ -160,7 +160,7 @@ function checkLetter(letter) {
   //pushar in bokstäver för att hålla koll på vilka bokstäver vi har kollat
   letters.push(letter);
 
-  //Kollar index av bokstav i secretWord och om indexen är över -1(alltså att den finns i arrayen eftersom en array börjar på 0), så blir correct lika med true
+  //Kollar index av bokstaven i secretWord och om indexen är över -1(alltså att den finns i arrayen eftersom en array börjar på 0), så blir correct lika med true
   correct.value = secretWord.value.indexOf(letter) > -1;
 
   // om bokstaven är fel(correct = false), så blir errorsLeft en siffra mindre, bilden byts och den pushar bokstaven till wrongLetters arrayen
