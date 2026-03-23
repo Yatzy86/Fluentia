@@ -4,7 +4,7 @@
 //Reactive används främst för vissa tillstånd som objekt och arrayer.
 import WordRow from "../WordRow.vue";
 import SimpleKeyboard from "../SimpleKeyboard.vue";
-import { reactive, onMounted, computed, ref } from "vue";
+import { reactive, onMounted, computed, ref, onUnmounted } from "vue";
 import { useLevelStore } from "../LevelSystem.js";
 
 //Här finns både de svenska och hint i engelska översättningarna
@@ -188,28 +188,40 @@ const handleInput = (key) => {
   }
 };
 //onMounted menas med att detta startar när du kommer in på sidan
-onMounted(() => {
-  window.addEventListener("keydown", (e) => {
-    //Stoppar defaultbeteende på webbsidan
-    e.preventDefault();
-    //Här har jag kopplat enter, backspace och å,ä och ö.
-    let key =
-      e.keyCode === 13
-        ? "{enter}"
-        : e.keyCode === 8
-          ? "{bksp}"
-          : e.keyCode === 221
-            ? "å"
-            : e.keyCode === 222
-              ? "ä"
-              : e.keyCode === 192
-                ? "ö"
-                : //Den lägger in bokstaven och gör den till små bokstäver
-                  String.fromCharCode(e.keyCode).toLowerCase();
 
-    //Här startar spelet
-    handleInput(key);
-  });
+const handleKeyDown = (e) => {
+  const tag = document.activeElement.tagName;
+
+  if (tag === "INPUT" || tag === "TEXTAREA" || tag === "BUTTON") {
+    return;
+  }
+  //Stoppar defaultbeteende på webbsidan
+  e.preventDefault();
+  //Här har jag kopplat enter, backspace och å,ä och ö.
+  let key =
+    e.keyCode === 13
+      ? "{enter}"
+      : e.keyCode === 8
+        ? "{bksp}"
+        : e.keyCode === 221
+          ? "å"
+          : e.keyCode === 222
+            ? "ä"
+            : e.keyCode === 192
+              ? "ö"
+              : //Den lägger in bokstaven och gör den till små bokstäver
+                String.fromCharCode(e.keyCode).toLowerCase();
+
+  //Här startar spelet
+  handleInput(key);
+};
+
+onMounted(() => {
+  window.addEventListener("keydown", handleKeyDown);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("keydown", handleKeyDown);
 });
 </script>
 
@@ -219,6 +231,11 @@ onMounted(() => {
     style="max-width: 28rem"
   >
     <!-- Hinten syns när du klickar på knappen -->
+    <p v-if="wonGame" class="text-center">
+      Congratz on your win! You did it on
+      {{ state.currentGuessIndex }} tries!
+    </p>
+    <p v-else-if="lostGame" class="text-center">Out of tries</p>
     <div @click="toggleHint" v-if="!hintOpen">
       <button class="btn btn-third showHide">Show in english</button>
     </div>
@@ -241,11 +258,6 @@ onMounted(() => {
       />
     </div>
 
-    <p v-if="wonGame" class="text-center">
-      Congratz on your win! You did it on
-      {{ state.currentGuessIndex }} tries!
-    </p>
-    <p v-else-if="lostGame" class="text-center">Out of tries</p>
     <!-- Tar in komponenten simple-keyboard -->
     <simple-keyboard
       @onKeyPress="handleInput"
@@ -309,6 +321,7 @@ onMounted(() => {
     justify-content: flex-start !important;
     padding: 0.5rem;
     gap: 0.5rem;
+    max-width: 360px;
   }
   .text-center,
   .score {
@@ -316,7 +329,9 @@ onMounted(() => {
   }
   .showHide {
     font-size: 0.9rem;
-    padding: 0.4rem 0.65rem;
+    padding: 0.4rem 0.7rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.4rem;
   }
 
   .word-row-bootstrap {

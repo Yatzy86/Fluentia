@@ -28,7 +28,7 @@ const onKeyPress = (button) => {
 //När sidan startar så kommer tangentbordet fram
 
 onMounted(() => {
-  keyboard.value = new Keyboard("simple-keyboard", {
+  keyboard.value = new Keyboard(".simple-keyboard", {
     //Layouten för tangentbordet
     layout: {
       default: [

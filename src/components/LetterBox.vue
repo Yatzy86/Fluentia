@@ -28,13 +28,14 @@ const props = defineProps({
 .letter-box {
   width: 100%;
   aspect-ratio: 1 / 1;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 600;
+  line-height: 1;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 410px) {
   .letter-box {
-    font-size: 1.1rem;
+    font-size: 0.85rem;
   }
 }
 

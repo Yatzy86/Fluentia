@@ -77,10 +77,10 @@ watch(
   margin-inline: auto;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 410px) {
   .word-row-bootstrap {
-    gap: 0.4rem;
-    max-width: 22rem;
+    gap: 0.1rem;
+    max-width: 17rem;
   }
 }
 </style>
