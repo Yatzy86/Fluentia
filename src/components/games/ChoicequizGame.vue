@@ -205,6 +205,9 @@ startGame();
     cancel-title="Go Back"
     @cancel="goBackHome"
     @ok="closeInstructions"
+    no-close-on-backdrop
+    no-close-on-esc
+    no-header-close
   >
     <div class="instructions-box">
       <p>1. Read the captions carefully.</p>
