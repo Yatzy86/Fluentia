@@ -132,11 +132,7 @@ function checkMatch() {
     b.isMatched = true;
     matchedPairs.value++;
     totalXP.value += 10;
-<<<<<<< HEAD
-    levelStore.addXP(7000); //// LEVEL SYSTEM!!   xp för varje rätt svar. (100xp)
-=======
-    levelStore.addXP(125) //// LEVEL SYSTEM!!   xp för varje rätt svar. (100xp)
->>>>>>> 90e196244a4cd495639d33ac6e789d1cd1a00c33
+    levelStore.addXP(125); //// LEVEL SYSTEM!!   xp för varje rätt svar. (100xp)
     flippedCards.value = [];
     isLocked.value = false;
   } else {
