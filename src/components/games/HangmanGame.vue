@@ -82,7 +82,7 @@ function changeImg() {
         //En timeout funktion som startar när currentCount är 19(imgSrc[20])
         if (currentCount == 19) {
           timeoutId.value = setTimeout(function () {
-            //lägger till två på currentCount, vilket gör att två bilder visas efter varandra
+            //lägger till två på currentCount, vilket gör att bilden byts på nytt
             imgCount.value = currentCount + 2;
             currentImg.value = imgSrc[currentCount + 2];
             //isRunning blir false, vilket gör att knapparna m. disable går att trycka på
@@ -93,8 +93,6 @@ function changeImg() {
         }
       }, 900);
     };
-    console.log(imgCount.value);
-    console.log(currentImg.value);
   }
 }
 

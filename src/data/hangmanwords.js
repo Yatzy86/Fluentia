@@ -68,8 +68,8 @@ const words = [
     english: "Watch",
   },
   {
-    swedish: "Shoes",
-    english: "Skor",
+    swedish: "Skor",
+    english: "Shoes",
   },
   {
     swedish: "Människa",
