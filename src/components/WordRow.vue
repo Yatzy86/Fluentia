@@ -72,6 +72,15 @@ watch(
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 0.25rem;
-  max-width: 20rem;
+  max-width: 28rem;
+  width: 100%;
+  margin-inline: auto;
+}
+
+@media (max-width: 410px) {
+  .word-row-bootstrap {
+    gap: 0.1rem;
+    max-width: 17rem;
+  }
 }
 </style>
