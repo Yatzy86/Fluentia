@@ -1,61 +1,64 @@
 <script setup>
+//importerar wordrow, simplekeyboard från komponenter
+//Importerar reactive, onMounted och ref från Vue
+//Reactive används främst för vissa tillstånd som objekt och arrayer.
 import WordRow from "../WordRow.vue";
 import SimpleKeyboard from "../SimpleKeyboard.vue";
 import { reactive, onMounted, computed, ref } from "vue";
 
-//Här finns både de svenska och engelska översättningarna
+//Här finns både de svenska och hint i engelska översättningarna
 const word = [
   {
     swedish: "äpple",
-    english: "apple",
+    english: "A fruit",
   },
   {
     swedish: "banan",
-    english: "banana",
+    english: "A fruit",
   },
   {
     swedish: "hoppa",
-    english: "jump",
+    english: "An action",
   },
   {
     swedish: "spela",
-    english: "play",
+    english: "An activity",
   },
   {
     swedish: "rolig",
-    english: "funny",
+    english: "A personality trait",
   },
   {
     swedish: "snabb",
-    english: "fast",
+    english: "A speed",
   },
   {
     swedish: "stark",
-    english: "strong",
+    english: "A physical trait",
   },
   {
     swedish: "liten",
-    english: "small",
+    english: "A size",
   },
   {
     swedish: "älska",
-    english: "love",
+    english: "A feeling",
   },
   {
     swedish: "snöre",
-    english: "rope",
+    english: "An object to tie something",
   },
   {
     swedish: "morot",
-    english: "carrot",
+    english: "A vegetable",
   },
   {
     swedish: "väder",
-    english: "weather",
+    english: "Rain, sun and windy",
   },
   {
     swedish: "affär",
-    english: "store",
+    english: "A place",
   },
 ];
 //Startar om tangentbordet
@@ -120,7 +123,7 @@ const wonGame = computed(
 const lostGame = computed(() => !wonGame.value && state.currentGuessIndex >= 6);
 
 //Funktionen handleInput tar med key som parameter
-//Om är like med eller mindre än 6 så vinner du
+//Om är like med eller mindre än 6 så förlorar du
 const handleInput = (key) => {
   if (state.currentGuessIndex >= 6 || wonGame.value) {
     return;
@@ -128,6 +131,9 @@ const handleInput = (key) => {
 
   const currentGuess = state.guesses[state.currentGuessIndex];
 
+  //Om tangentbordet startas om
+  //Så ska tangentbordet inaktiveras och det händer likadant med att starta om orden
+  //Frågorna börjar om med guessed letters
   if (restartKeyboard.value === true) {
     restartKeyboard.value = false;
     restartWords.value = false;
@@ -139,10 +145,18 @@ const handleInput = (key) => {
     };
   }
 
+  //Om du tycker på enter(Skickar frågan)
+  //Och om din nuvarande gissning är lika med 5
+  //Så börjar du på nästa rad
+  //Den loopar igenom gissningslängden och låter c spara in vilken bokstav
+  //Om c alltså bokstaven finns med i det rätta svaret(state.solution.charAt) så pushas den in i found och blir grön
+  //Annars ifall den finns men inte är i rätt position för indexOf kikar igenom arrayen, då pushas den in i hint och blir gul
+  //Om inget av detta stämmer så pushas den in i miss
+
   if (key === "{enter}") {
     if (currentGuess.length === 5) {
       state.currentGuessIndex++;
-      for (var i = 0; i < currentGuess.length; i++) {
+      for (let i = 0; i < currentGuess.length; i++) {
         let c = currentGuess.charAt(i);
         if (c == state.solution.charAt(i)) {
           state.guessedLetters.found.push(c);
@@ -153,20 +167,28 @@ const handleInput = (key) => {
         }
       }
     }
+
+    //Om du trycker på backspace
+    //Den sparar in det du skriver in i state.guesses vid andra ord vad du skrivit in och tar bort den senaste bokstaven
   } else if (key == "{bksp}") {
     state.guesses[state.currentGuessIndex] = currentGuess.slice(0, -1);
+
+    //Annars om längden på gissningen är mindre än 5, så du kan inte skriva in mer än 5 tecken
   } else if (currentGuess.length < 5) {
+    //Den tillåter endast a-z A-ZåäöÅäö
     const alphaRegex = /[a-zA-ZåäöÅÄÖ]+/;
     if (alphaRegex.test(key)) {
+      //Den lägger då till vilken bokstav det är utefter alphaRegex
       state.guesses[state.currentGuessIndex] += key;
     }
   }
 };
-
+//onMounted menas med att detta startar när du kommer in på sidan
 onMounted(() => {
   window.addEventListener("keydown", (e) => {
+    //Stoppar defaultbeteende på webbsidan
     e.preventDefault();
-
+    //Här har jag kopplat enter, backspace och å,ä och ö.
     let key =
       e.keyCode === 13
         ? "{enter}"
@@ -178,7 +200,10 @@ onMounted(() => {
               ? "ä"
               : e.keyCode === 192
                 ? "ö"
-                : String.fromCharCode(e.keyCode).toLowerCase();
+                : //Den lägger in bokstaven och gör den till små bokstäver
+                  String.fromCharCode(e.keyCode).toLowerCase();
+
+    //Här startar spelet
     handleInput(key);
   });
 });
@@ -186,9 +211,10 @@ onMounted(() => {
 
 <template>
   <div
-    class="d-flex flex-column vh-100 mx-auto justify-content-evenly"
+    class="game wrapper d-flex flex-column min-vh-100 mx-auto justify-content-evenly"
     style="max-width: 28rem"
   >
+    <!-- Hinten syns när du klickar på knappen -->
     <div @click="toggleHint" v-if="!hintOpen">
       <button class="btn btn-third showHide">Show in english</button>
     </div>
@@ -197,6 +223,10 @@ onMounted(() => {
       <p class="score">{{ randomWordEng }}</p>
     </div>
     <div>
+      <!-- Tar in komponenten word-row -->
+      <!-- Word row loopar igenom frågorna som blandas med math.random -->
+      <!-- Fångar upp frågan, svaret(state.solution) om i är lägre än 5(i < state.currentGuessIndex) -->
+      <!-- restardwords tar information från word-row komponenten genom props och startar om orden -->
       <word-row
         v-for="(guess, i) in state.guesses"
         :key="i"
@@ -212,7 +242,7 @@ onMounted(() => {
       {{ state.currentGuessIndex }} tries!
     </p>
     <p v-else-if="lostGame" class="text-center">Out of tries</p>
-
+    <!-- Tar in komponenten simple-keyboard -->
     <simple-keyboard
       @onKeyPress="handleInput"
       :restartKb="restartKeyboard"
@@ -230,11 +260,33 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.game-wrapper {
+  width: 100%;
+  max-width: 28rem;
+  padding: 1rem;
+}
+
 .text-center {
   color: #fff;
   font-size: 1.25rem;
   text-align: center;
 }
+
+.showHide {
+  display: flex;
+  padding: 0.5 rem 0.75rem;
+  background-color: #e7c558;
+  border-radius: 0.5rem;
+  margin: auto;
+  font-size: 1rem;
+}
+
+.newGameButton {
+  width: 100%;
+  max-width: 12rem;
+  margin: 0 auto;
+}
+
 .score {
   color: #fff;
   font-size: 1.25rem;
@@ -246,5 +298,45 @@ onMounted(() => {
   background-color: #e7c558;
   border-radius: 0.5rem;
   margin: auto;
+}
+
+@media (max-width: 410px) {
+  .game-wrapper {
+    justify-content: flex-start !important;
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+  .text-center,
+  .score {
+    font-size: 1rem;
+  }
+  .showHide {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.65rem;
+  }
+
+  .word-row-bootstrap {
+    gap: 0.2rem;
+  }
+
+  .letter-box {
+    font-size: 1rem;
+  }
+  .newGameButton {
+    width: 100%;
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    padding: 0.5rem;
+  }
+}
+@media (min-width: 768px) {
+  .game-wrapper {
+    max-width: 32rem;
+  }
+  .text-center,
+  .score {
+    font-size: 1.35rem;
+  }
 }
 </style>

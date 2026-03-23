@@ -13,8 +13,7 @@ const props = defineProps({
 
 <template>
   <div
-    class="d-flex align-items-center justify-content-center text-uppercase border border-2 transition"
-    style="height: 4rem"
+    class="letter-box d-flex align-items-center justify-content-center text-uppercase border border-2 transition"
     :class="{
       'bg-white text-dark border-light': !color || color === 'white',
       'border-secondary bg-secondary text-white': color == 'gray',
@@ -25,3 +24,23 @@ const props = defineProps({
     {{ letter }}
   </div>
 </template>
+<style scoped>
+.letter-box {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+@media (max-width: 576px) {
+  .letter-box {
+    font-size: 1.1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .letter-box {
+    font-size: 1.6rem;
+  }
+}
+</style>
