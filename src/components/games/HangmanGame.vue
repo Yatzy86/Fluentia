@@ -2,7 +2,9 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import words from "../../data/hangmanwords.js";
-
+import { useLevelStore } from "../LevelSystem.js" // // nivå
+// //nivå
+const levelStore = useLevelStore() 
 // //INSTRUKTIONER
 const showInstructions = ref(true);
 const router = useRouter();
@@ -171,6 +173,7 @@ function checkLetter(letter) {
   } else {
     //annars pushas bokstaven till correctLetters arrayen
     correctLetters.value.push(letter);
+     levelStore.addXP(125) // 125xp för varje bokstav
   }
   // en array skapas för att hålla koll på status av ordet
   let wordStatus = [];
@@ -210,6 +213,7 @@ function wonGame() {
     //gameWon blir till true och bilden för när man vunnit visas
     gameWon.value = true;
     currentImg.value = imgSrc[22];
+     levelStore.addXP(500) // levelsystem 500xp
   }
 }
 
