@@ -57,7 +57,7 @@ function changeImg() {
   if (isRunning.value) return;
   isRunning.value = true;
 
-  //När jag kör så plussas imgCount upp en gång som gör att bilden byts
+  //När jag kör så plussas imgCount upp en gång
   imgCount.value++;
   //currentCount används i funktionen
   const currentCount = imgCount.value;
@@ -70,6 +70,7 @@ function changeImg() {
 
     //När gif bilden laddats klart körs funktionen
     gifPreload.onload = function () {
+      //rätt bild visas
       currentImg.value = imgSrc[imgCount.value];
 
       //Timeout funktion på 900 msk
@@ -83,7 +84,7 @@ function changeImg() {
         //En timeout funktion som startar när currentCount är 19(imgSrc[20])
         if (currentCount == 19) {
           timeoutId.value = setTimeout(function () {
-            //lägger till två på currentCount, vilket gör att två bilder visas efter varandra
+            //lägger till två på currentCount, vilket gör att bilden byts på nytt
             imgCount.value = currentCount + 2;
             currentImg.value = imgSrc[currentCount + 2];
             //isRunning blir false, vilket gör att knapparna m. disable går att trycka på

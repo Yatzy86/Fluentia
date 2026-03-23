@@ -50,7 +50,7 @@ body {
     border-radius: 20px;
     background-image: url("./img/waveback.png");
     background-repeat: no-repeat;
-    background-position: center; 
+    background-position: center;
     background-size: 1250px;
     background-color: theme-color("secondary");
   }
@@ -113,6 +113,7 @@ body {
 //GameLinks
 
 #game-list {
+  width: 90%;
   margin: 2em auto;
   gap: 2em;
   align-items: center;
@@ -137,6 +138,9 @@ body {
       color: theme-color("primary");
     }
   }
+  a {
+    text-decoration: none;
+  }
   @media (max-width: 900px) {
     .game-card {
       width: 300px;
@@ -156,7 +160,6 @@ body {
   }
   @media (max-width: 480px) {
     .game-card {
-      width: 95vw;
       height: 150px;
 
       p {
@@ -170,10 +173,6 @@ body {
         display: none;
       }
     }
-  }
-
-  a {
-    text-decoration: none;
   }
 }
 

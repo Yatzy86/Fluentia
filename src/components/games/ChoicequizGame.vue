@@ -2,8 +2,7 @@
 import { ref } from "vue";
 
 import { useRouter } from "vue-router";
-import { useLevelStore } from "../LevelSystem.js";
-const levelStore = useLevelStore();
+
 const showInstructions = ref(true);
 const router = useRouter();
 
@@ -202,12 +201,11 @@ startGame();
     ok-title="Got it"
     title="Instructions!"
     cancel-title="Go Back"
-    centered
     @cancel="goBackHome"
     @ok="closeInstructions"
   >
     <div class="instructions-box">
-      <p>1. Read the instructions carefully.</p>
+      <p>1. Read the captions carefully.</p>
       <p>2. Choose the correct answer from the options .</p>
       <p>3. Select only one answer per question.</p>
       <p>4. Review your answers before submitting.</p>
@@ -257,7 +255,7 @@ startGame();
         >
           <!-- Här ligger altButton klassen, vid andra ord de alternativen som kommer i form av knappar -->
 
-          <!-- Detta gör att när du klickar på altButton så blir den grön ifall du svarar rätt, 
+          <!-- Detta gör att när du klickar på altButton så blir den grön ifall du svarar rätt,
           och röd ifall du svarar fel. Ifall du svarar fel så ser du även det rätta alternativet i grön färg.
           Den kollar ditt svar med hjälp av checkAnswer funktionen -->
 
