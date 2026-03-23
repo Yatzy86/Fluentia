@@ -2,7 +2,9 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import words from "../../data/hangmanwords.js";
-
+import { useLevelStore } from "../LevelSystem.js" // // nivå
+// //nivå
+const levelStore = useLevelStore() 
 // //INSTRUKTIONER
 const showInstructions = ref(true);
 const router = useRouter();
@@ -82,7 +84,7 @@ function changeImg() {
         //En timeout funktion som startar när currentCount är 19(imgSrc[20])
         if (currentCount == 19) {
           timeoutId.value = setTimeout(function () {
-            //lägger till två på currentCount, vilket gör att två bilder visas efter varandra
+            //lägger till två på currentCount, vilket gör att bilden byts på nytt
             imgCount.value = currentCount + 2;
             currentImg.value = imgSrc[currentCount + 2];
             //isRunning blir false, vilket gör att knapparna m. disable går att trycka på
@@ -93,8 +95,6 @@ function changeImg() {
         }
       }, 900);
     };
-    console.log(imgCount.value);
-    console.log(currentImg.value);
   }
 }
 
@@ -162,7 +162,7 @@ function checkLetter(letter) {
   //pushar in bokstäver för att hålla koll på vilka bokstäver vi har kollat
   letters.push(letter);
 
-  //Kollar index av bokstav i secretWord och om indexen är över -1(alltså att den finns i arrayen eftersom en array börjar på 0), så blir correct lika med true
+  //Kollar index av bokstaven i secretWord och om indexen är över -1(alltså att den finns i arrayen eftersom en array börjar på 0), så blir correct lika med true
   correct.value = secretWord.value.indexOf(letter) > -1;
 
   // om bokstaven är fel(correct = false), så blir errorsLeft en siffra mindre, bilden byts och den pushar bokstaven till wrongLetters arrayen
@@ -173,6 +173,7 @@ function checkLetter(letter) {
   } else {
     //annars pushas bokstaven till correctLetters arrayen
     correctLetters.value.push(letter);
+     levelStore.addXP(125) // 125xp för varje bokstav
   }
   // en array skapas för att hålla koll på status av ordet
   let wordStatus = [];
@@ -212,6 +213,7 @@ function wonGame() {
     //gameWon blir till true och bilden för när man vunnit visas
     gameWon.value = true;
     currentImg.value = imgSrc[22];
+     levelStore.addXP(500) // levelsystem 500xp
   }
 }
 
@@ -233,13 +235,18 @@ playGame();
       cancel-title="Go Back"
       @cancel="goBackHome"
       @ok="closeInstructions"
+      no-close-on-backdrop
+      no-close-on-esc
+      no-header-close
     >
       <div class="instructions-box">
-        <p>1. Read the captions carefully.</p>
-        <p>2. Choose the correct answer from the options .</p>
-        <p>3. Select only one answer per question.</p>
-        <p>4. Review your answers before submitting.</p>
-        <p>5. Good luck!!</p>
+        <p>2. Guess the hidden word by choosing one letter at a time.</p>
+        <p>3. If your guess is correct, the letter appears in the word.</p>
+        <p>4. if your guess is wrong, a balloon pops.</p>
+        <p>5. You have 10 chances in total</p>
+        <p>6. Keep track of the letters you have already guessed</p>
+        <p>7. Guess the word before all the balloons pop to win</p>
+        <p>8. Good luck and have fun!</p>
       </div>
     </BModal>
 
@@ -346,3 +353,26 @@ playGame();
     </section>
   </article>
 </template>
+<style lang="scss" scoped>
+$color-1: #fdc921;
+$color-2: #fdd85d;
+$color-3: #fffdf5;
+$color-4: #99d6ea;
+$color-5: #6798c0;
+
+.instructions-box {
+  background: $color-3;
+  padding: 10px;
+  border-radius: 12px;
+  border: 2px dashed $color-4;
+  position: relative;
+}
+.instructions-box p {
+  background: $color-2;
+  padding: 6px 10px;
+  border-radius: 8px;
+  margin: 8px 0;
+  border-left: 4px solid $color-4;
+  font-weight: 500;
+}
+</style>

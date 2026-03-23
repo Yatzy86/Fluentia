@@ -18,6 +18,16 @@
           <i class="bi bi-instagram"></i>
         </a>
       </div>
+
+      <!--Sociala medier-->
+      <div class="footer-social">
+        <a href="#" class="social-icon" aria-label="Facebook">
+          <i class="bi bi-facebook"></i>
+        </a>
+        <a href="#" class="social-icon" aria-label="instagram">
+          <i class="bi bi-instagram"></i>
+        </a>
+      </div>
     </div>
 
     <!--Subscribe tips-->
