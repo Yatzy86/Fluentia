@@ -2,11 +2,13 @@
 import axios from "axios";
 import { RouterLink } from "vue-router";
 import ShareButton from "../components/ShareButton.vue";
+import AddToGlossary from "../components/AddToGlossary.vue";
 
 export default {
   components: {
     RouterLink,
     ShareButton,
+    AddToGlossary,
   },
   data() {
     return {
@@ -16,6 +18,8 @@ export default {
       wordSearched: false,
       setLang: "en|sv",
       placeholderText: "Search English - Swedish",
+      addedWord: null,
+      wordList: JSON.parse(localStorage.getItem("wordlist")) || [],
     };
   },
   watch: {
@@ -38,7 +42,7 @@ export default {
         const response = await axios.get(
           //await axios.get skickar en GET request till API:t
           //URL:en byggs med this.inputText
-          `https://api.mymemory.translated.net/get?`,
+          `https://api.mymemory.translated.net/get`,
           {
             params: {
               q: this.inputText,
@@ -66,14 +70,21 @@ export default {
       this.wordSearched = false;
       this.errorMsg = "";
     },
+    addWord(newWord) {
+      //unshift pushar in objektet newWord först i listan(index 0) i arrayen wordlist
+      this.wordList.unshift(newWord);
+      //sparar arrayen till local storage
+      localStorage.setItem("wordlist", JSON.stringify(this.wordList));
+      this.addedWord = newWord;
+    },
   },
 };
 </script>
 
 <template>
-  <p id="title_nav">
+  <p id="title-nav">
     <RouterLink :to="{ name: 'home' }">Home </RouterLink>
-    /Dictionary/
+    / Dictionary /
     <ShareButton />
   </p>
   <h1>Dictionary</h1>
@@ -102,6 +113,25 @@ export default {
     <p v-if="wordSearched">{{ inputText }} => {{ translatedWord }}</p>
     <p v-else-if="errorMsg">{{ errorMsg }}</p>
   </div>
+  <section id="add-glossary">
+    <b-card variant="secondary" title="Add to Glossary">
+      <!-- meddelande som visar att du har lagt till objektet i listan -->
+      <b-card-text v-if="addedWord" class="text-fourth"
+        >You have added
+        <span class="h5" style="color: rgb(107, 255, 107)"
+          >{{ addedWord.word }} : {{ addedWord.translation }}</span
+        >
+        to the Glossary!</b-card-text
+      >
+      <!-- sök och lägg till komponent. Skickar ut objektet som ska läggas till -->
+      <b-card-text> <AddToGlossary @word-added="addWord" /></b-card-text>
+
+      <!-- länk till din glossida -->
+      <RouterLink to="/glossary" class="card-link">
+        Explore your Glossary>
+      </RouterLink>
+    </b-card>
+  </section>
 </template>
 
 <style lang="scss" scoped>
@@ -142,5 +172,9 @@ input {
   color: #fffdf5;
   margin-bottom: 24px;
   font-size: 16px;
+}
+#glossary-section {
+  max-height: 300px;
+  overflow-y: auto;
 }
 </style>

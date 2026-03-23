@@ -61,7 +61,8 @@ function addWord(newWord) {
     <section>
       <p id="title-nav">
         <RouterLink :to="{ name: 'home' }">Home</RouterLink>
-        / {{ props.name }}
+        / {{ props.name }} /
+        <ShareButton />
       </p>
     </section>
 

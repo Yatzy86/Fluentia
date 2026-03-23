@@ -12,4 +12,8 @@ export default createRouter({
     { component: DictionaryView, path: "/dictionary" },
     { component: GlossaryView, path: "/glossary" },
   ],
+  scrollBehavior() {
+    // always scroll to top
+    return { top: 0 };
+  },
 });

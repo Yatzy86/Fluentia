@@ -24,7 +24,7 @@ function removeWord(word) {
     <!-- link back to home  -->
     <p id="title-nav">
       <RouterLink :to="{ name: 'home' }">Home</RouterLink>
-      / Glossary
+      / Glossary / <ShareButton />
     </p>
     <h1 class="text-center mb-4 text-fourth fw-bold fs-2">Glossary</h1>
 
