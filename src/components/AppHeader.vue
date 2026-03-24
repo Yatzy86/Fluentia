@@ -1,9 +1,9 @@
 <script setup>
 import { ref, computed } from "vue";
 import logo from "../assets/img/image.png";
-import { useLevelStore } from "./LevelSystem.js" 
+import { useLevelStore } from "./LevelSystem.js";
 
-const levelStore = useLevelStore()   
+const levelStore = useLevelStore();
 const showLoginModal = ref(false);
 const userName = ref("");
 const tempName = ref("");
@@ -22,8 +22,9 @@ function login() {
 
 // Danar
 function confirmLogin() {
-  if (tempName.value.trim()) { // kontrollera att använderan har skrivit någonting
-    userName.value = tempName.value.trim();  // spara namnet
+  if (tempName.value.trim()) {
+    // kontrollera att använderan har skrivit någonting
+    userName.value = tempName.value.trim(); // spara namnet
   }
   tempName.value = "";
   showLoginModal.value = false;
@@ -39,19 +40,23 @@ function confirmLogin() {
       </RouterLink>
     </div>
     <div class="right">
-          <!--Level bar  /Danar-->
-    <div v-if="isLoggedIn" class="xp-section">
-      <span class="level-badge">Level {{ levelStore.level }}</span>
-      <div class="xp-bar">
-        <div class="xp-fill" :style="{ width: levelStore.xpPercent + '%' }"></div>
+      <!--Level bar  /Danar-->
+      <div v-if="isLoggedIn" class="xp-section">
+        <span class="level-badge">Level {{ levelStore.level }}</span>
+        <div class="xp-bar">
+          <div
+            class="xp-fill"
+            :style="{ width: levelStore.xpPercent + '%' }"
+          ></div>
+        </div>
+        <span class="xp-text"
+          >{{ levelStore.currentXP }} / {{ levelStore.xpNeeded }} XP</span
+        >
       </div>
-      <span class="xp-text">{{ levelStore.currentXP }} / {{ levelStore.xpNeeded }} XP</span>
-    </div>
-      <span class="bi bi-bell icon" title="Notifications"></span>
 
       <div class="user">
         <!-- user section that shows profile name and usericon-->
-        <i class="bi bi-person icon" title="User"> </i>
+        <i @click="login" class="bi bi-person icon" title="User"> </i>
         <span v-if="isLoggedIn" class="user-name">{{ userName }}</span>
       </div>
 
@@ -173,7 +178,7 @@ $color-5: #6798c0;
   align-items: center;
   gap: 8px;
 }
- 
+
 .level-badge {
   background: $color-1;
   color: #1f1f1f;
@@ -183,7 +188,7 @@ $color-5: #6798c0;
   border-radius: 20px;
   white-space: nowrap;
 }
- 
+
 .xp-bar {
   width: 160px;
   height: 10px;
@@ -191,14 +196,14 @@ $color-5: #6798c0;
   border-radius: 10px;
   overflow: hidden;
 }
- 
+
 .xp-fill {
   height: 100%;
   background: $color-1;
   border-radius: 10px;
   transition: width 0.4s ease;
 }
- 
+
 .xp-text {
   font-size: 0.8rem;
   color: #000000;

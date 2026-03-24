@@ -7,9 +7,10 @@ import SimpleKeyboard from "../SimpleKeyboard.vue";
 import { reactive, onMounted, computed, ref, onUnmounted } from "vue";
 import { useLevelStore } from "../LevelSystem.js";
 
-//Här finns både de svenska och hint i engelska översättningarna
 const levelStore = useLevelStore();
-//Här finns både de svenska och engelska översättningarna
+
+//Här i word variabeln finns både de svenska och hint(english)
+
 const word = [
   {
     swedish: "äpple",
@@ -115,10 +116,11 @@ const state = reactive({
 });
 //Denna funktionen startar false men blir här true eftersom denna är kopplad till
 //knappen showHide
+//Vid andra ord så växlar den mellan true/false när man klickar på knappen
 const toggleHint = () => {
   hintOpen.value = !hintOpen.value;
 };
-//Ifall du vinner
+//Ifall du vinner, vid andra ord ifall gissningen stämmer överens med svaret
 const wonGame = computed(
   () => state.guesses[state.currentGuessIndex - 1] === state.solution,
 );
@@ -126,7 +128,7 @@ const wonGame = computed(
 const lostGame = computed(() => !wonGame.value && state.currentGuessIndex >= 6);
 
 //Funktionen handleInput tar med key som parameter
-//Om är like med eller mindre än 6 så förlorar du
+//Om du redan har vunnit eller om du använt dina 6 försök så avbryts funktionen
 const handleInput = (key) => {
   if (state.currentGuessIndex >= 6 || wonGame.value) {
     return;
@@ -187,11 +189,11 @@ const handleInput = (key) => {
     }
   }
 };
-//onMounted menas med att detta startar när du kommer in på sidan
 
 const handleKeyDown = (e) => {
   const tag = document.activeElement.tagName;
-
+  //Denna kollar vilka element som är aktiva
+  //Om användaren skrivet i inputfält, textarea och button så ska den inte göra något
   if (tag === "INPUT" || tag === "TEXTAREA" || tag === "BUTTON") {
     return;
   }
@@ -215,11 +217,11 @@ const handleKeyDown = (e) => {
   //Här startar spelet
   handleInput(key);
 };
-
+//onMounted menas med att detta startar när du kommer in på sidan
 onMounted(() => {
   window.addEventListener("keydown", handleKeyDown);
 });
-
+//Denna stänger av lyssnandet av tangenter när du lämnar
 onUnmounted(() => {
   window.removeEventListener("keydown", handleKeyDown);
 });
@@ -227,15 +229,21 @@ onUnmounted(() => {
 
 <template>
   <div
-    class="game wrapper d-flex flex-column min-vh-100 mx-auto justify-content-evenly"
+    class="game wrapper d-flex flex-column min-vh-100 mx-auto"
     style="max-width: 28rem"
   >
-    <!-- Hinten syns när du klickar på knappen -->
+    <p class="info">
+      When you have clicked the newgame button you need to mouseclick on the
+      site to make the keyboard work
+    </p>
+    <!-- Ifall du vinner så visas wonGame och ifall du förlorar så visas lostGame -->
     <p v-if="wonGame" class="text-center">
       Congratz on your win! You did it on
       {{ state.currentGuessIndex }} tries!
     </p>
     <p v-else-if="lostGame" class="text-center">Out of tries</p>
+
+    <!-- Hinten syns när du klickar på knappen toggleHint -->
     <div @click="toggleHint" v-if="!hintOpen">
       <button class="btn btn-third showHide">Show in english</button>
     </div>
@@ -245,9 +253,11 @@ onUnmounted(() => {
     </div>
     <div>
       <!-- Tar in komponenten word-row -->
-      <!-- Word row loopar igenom frågorna som blandas med math.random -->
-      <!-- Fångar upp frågan, svaret(state.solution) om i är lägre än 5(i < state.currentGuessIndex) -->
-      <!-- restardwords tar information från word-row komponenten genom props och startar om orden -->
+      <!-- Word row loopar igenom gissningar, en rad / guess -->
+      <!-- :solution state.solution skickar in rätt svar i lösningen -->
+      <!-- :submitted Om raden är true så ska den färgläggas -->
+      <!-- :solution state.solution skickar in rätt svar i lösningen -->
+      <!-- restardW restartWords skickar till wordrow att starta om orden -->
       <word-row
         v-for="(guess, i) in state.guesses"
         :key="i"
@@ -259,12 +269,15 @@ onUnmounted(() => {
     </div>
 
     <!-- Tar in komponenten simple-keyboard -->
+    <!-- Tar emot knapptryckningar från tangentbordet -->
+    <!-- restartKb restartKeyboard skickar till wordrow att starta om tangentbordet -->
+    <!-- guessedletters skickar vilka bokstäver som är rätt/fel som sedan färgar -->
+
     <simple-keyboard
       @onKeyPress="handleInput"
       :restartKb="restartKeyboard"
       :guessedLetters="state.guessedLetters"
     />
-
     <button
       v-on:keypress="(e) => e.preventDefault()"
       @click="newGame"
@@ -282,6 +295,12 @@ onUnmounted(() => {
   padding: 1rem;
 }
 
+.info {
+  color: #fff;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
 .text-center {
   color: #fff;
   font-size: 1.25rem;
@@ -294,13 +313,13 @@ onUnmounted(() => {
   background-color: #e7c558;
   border-radius: 0.5rem;
   margin: auto;
-  font-size: 1rem;
+  font-size: 1rem auto;
 }
 
 .newGameButton {
   width: 100%;
   max-width: 12rem;
-  margin: 0 auto;
+  margin: 1rem auto;
 }
 
 .score {

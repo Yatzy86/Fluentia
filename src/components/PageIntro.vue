@@ -6,7 +6,9 @@
       <b-card-text> Play Games, build vocabulary, track progress </b-card-text>
 
       <RouterLink to="/dictionary" class="card-link"
-        ><b-button variant="third">Open Dictionary</b-button></RouterLink
+        ><b-button class="text-primary" variant="third"
+          >Open Dictionary</b-button
+        ></RouterLink
       >
       <RouterLink to="/glossary" class="card-link"
         ><b-button variant="fifth">Open Glossary</b-button></RouterLink
