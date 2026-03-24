@@ -4,8 +4,19 @@
 //Reactive används främst för vissa tillstånd som objekt och arrayer.
 import WordRow from "../WordRow.vue";
 import SimpleKeyboard from "../SimpleKeyboard.vue";
+import { useRouter } from "vue-router";
 import { reactive, onMounted, computed, ref, onUnmounted } from "vue";
 import { useLevelStore } from "../LevelSystem.js";
+
+const showInstructions = ref(true);
+const router = useRouter();
+
+function closeInstructions() {
+  showInstructions.value = false;
+}
+function goBackHome() {
+  router.push("/");
+}
 
 const levelStore = useLevelStore();
 
@@ -228,6 +239,25 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <BModal
+    v-model="showInstructions"
+    ok-title="Got it"
+    title="Instructions!"
+    cancel-title="Go Back"
+    @cancel="goBackHome"
+    @ok="closeInstructions"
+    no-close-on-backdrop
+    no-close-on-esc
+    no-header-close
+  >
+    <div class="instructions-box">
+      <p>1. Read the captions carefully.</p>
+      <p>2. You get 6 chances to guess the right word.</p>
+      <p>3. If you have trouble use the hint button.</p>
+      <p>4. Review your answer before submitting.</p>
+      <p>5. Good luck!!</p>
+    </div>
+  </BModal>
   <div
     class="game-wrapper d-flex flex-column min-vh-100 mx-auto"
     style="max-width: 28rem"
@@ -245,7 +275,7 @@ onUnmounted(() => {
 
     <!-- Hinten syns när du klickar på knappen toggleHint -->
     <div @click="toggleHint" v-if="!hintOpen">
-      <button class="btn btn-third showHide">Show in english</button>
+      <button class="btn btn-third showHide">Hint</button>
     </div>
     <div v-else>
       <button @click="toggleHint" class="btn btn-third showHide">Hide</button>
@@ -288,7 +318,50 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+$color-1: #fdc921;
+$color-2: #fdd85d;
+$color-3: #fffdf5;
+$color-4: #99d6ea;
+$color-5: #6798c0;
+
+//Instruktioner för spelet
+
+:deep(.modal-title) {
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  color: rgba(0, 0, 0, 0.78);
+  text-transform: uppercase;
+}
+
+:deep(.modal-header) {
+  background: $color-1;
+  text-align: center;
+  border-bottom: 3px solid $color-5;
+  padding: 14px 16px;
+}
+:deep(.modal-content) {
+  border-radius: 14px;
+  border: 2px solid $color-4;
+  background-color: $color-3;
+  overflow: hidden;
+}
+.instructions-box {
+  background: $color-3;
+  padding: 16px;
+  border-radius: 12px;
+  border: 2px dashed $color-4;
+  position: relative;
+}
+.instructions-box p {
+  background: $color-2;
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin: 8px 0;
+  border-left: 4px solid $color-4;
+  font-weight: 500;
+}
+
 .game-wrapper {
   width: 100%;
   max-width: 28rem;
