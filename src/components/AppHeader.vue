@@ -53,7 +53,6 @@ function confirmLogin() {
           >{{ levelStore.currentXP }} / {{ levelStore.xpNeeded }} XP</span
         >
       </div>
-      <span class="bi bi-bell icon" title="Notifications"></span>
 
       <div class="user">
         <!-- user section that shows profile name and usericon-->
