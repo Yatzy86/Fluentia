@@ -20,7 +20,7 @@ const props = defineProps({
 const keyboard = ref(null);
 //En variabel med de sparade bokstäverna
 const savedLetters = ref("");
-//Det som händer när man trycker på knappen
+//Skickar vidare vilken tangent som tryckts till parent-komponenten
 const onKeyPress = (button) => {
   emit("onKeyPress", button);
 };
@@ -40,6 +40,7 @@ onMounted(() => {
     onKeyPress: onKeyPress,
   });
 });
+
 //Här ser vi över vad man gissar på för bokstäver och lägger in dem i miss ifall de inte finns, found ifall de är helt på rätt plats och hint ifall de finnns men är på fel plats.
 //Detta gör vi via en prop som tas upp i wordsearch spelet
 watch(
@@ -55,8 +56,8 @@ watch(
   //Deep kikar i objektets egenskaper
   { deep: true },
 );
-//Har även lagt till en watch som även tar bort allt när spelet startar om.
-//Detta läggs till i komponenten via restartKeyboard och ed hjälp av att ha v bindat restartKb
+//Har även lagt till en watch som tar bort tidigare färgteman från tangentbordet när spelet startar om
+//Detta läggs till i komponenten via restartKeyboard och med hjälp av att ha v bindat restartKb
 watch(
   () => props.restartKb,
   (restartStatus) => {

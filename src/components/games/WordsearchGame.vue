@@ -1,6 +1,6 @@
 <script setup>
 //importerar wordrow, simplekeyboard från komponenter
-//Importerar reactive, onMounted och ref från Vue
+//Importerar reactive, onMounted, ref, onUnmounted och computed från Vue
 //Reactive används främst för vissa tillstånd som objekt och arrayer.
 import WordRow from "../WordRow.vue";
 import SimpleKeyboard from "../SimpleKeyboard.vue";
@@ -80,7 +80,7 @@ const hintOpen = ref(false);
 
 //Här är funktionen för newGame
 //Den blandar orden ifrån word variabeln
-//Därefter blandas de i både svenska och engleska och lägger sig i randomWordSwe.value och randomWordEng.value
+//Därefter blandas de i både svenska och engelska och lägger sig i randomWordSwe.value och randomWordEng.value
 //När det blandats så lägger den sig i state.solution
 //Startar med 6 gissningar(state.guesses)
 //Startar på 0 gissningar(state.currentGuessIndex)
@@ -98,7 +98,7 @@ const newGame = () => {
 
 //I state ligger solution där det svenska ordet blandas och läggs in
 //6 gissningar
-//Nuvarande frågor på 0
+//Nuvarande gissningar på 0
 //Här är guessed letters miss, found och hint
 //De är kopplade till tangentbordet och klick
 //Hint betydet att bokstaven finns
@@ -128,7 +128,7 @@ const wonGame = computed(
 const lostGame = computed(() => !wonGame.value && state.currentGuessIndex >= 6);
 
 //Funktionen handleInput tar med key som parameter
-//Om du redan har vunnit eller om du använt dina 6 försök så avbryts funktionen
+//Om spelet redan är slut vinst eller 6 försök gjorda så gör funktionen inget
 const handleInput = (key) => {
   if (state.currentGuessIndex >= 6 || wonGame.value) {
     return;
@@ -136,9 +136,8 @@ const handleInput = (key) => {
 
   const currentGuess = state.guesses[state.currentGuessIndex];
 
-  //Om tangentbordet startas om
-  //Så ska tangentbordet inaktiveras och det händer likadant med att starta om orden
-  //Frågorna börjar om med guessed letters
+  //Om spelet har startats om
+  //Återställ restart och nollställ guessed letters
   if (restartKeyboard.value === true) {
     restartKeyboard.value = false;
     restartWords.value = false;
@@ -150,10 +149,10 @@ const handleInput = (key) => {
     };
   }
 
-  //Om du tycker på enter(Skickar frågan)
+  //Om du tycker på enter(Skickas gissningen)
   //Och om din nuvarande gissning är lika med 5
   //Så börjar du på nästa rad
-  //Den loopar igenom gissningslängden och låter c spara in vilken bokstav
+  //Loopar igenom varje bokstav i den nuvarande gissningen
   //Om c alltså bokstaven finns med i det rätta svaret(state.solution.charAt) så pushas den in i found och blir grön
   //Annars ifall den finns men inte är i rätt position för indexOf kikar igenom arrayen, då pushas den in i hint och blir gul
   //Om inget av detta stämmer så pushas den in i miss
@@ -176,6 +175,7 @@ const handleInput = (key) => {
 
     //Om du trycker på backspace
     //Den sparar in det du skriver in i state.guesses vid andra ord vad du skrivit in och tar bort den senaste bokstaven
+    //från din nuvarande gissning
   } else if (key == "{bksp}") {
     state.guesses[state.currentGuessIndex] = currentGuess.slice(0, -1);
 
@@ -214,7 +214,7 @@ const handleKeyDown = (e) => {
               : //Den lägger in bokstaven och gör den till små bokstäver
                 String.fromCharCode(e.keyCode).toLowerCase();
 
-  //Här startar spelet
+  //Skickar tangentrycket vidare till handleInput
   handleInput(key);
 };
 //onMounted menas med att detta startar när du kommer in på sidan
@@ -229,7 +229,7 @@ onUnmounted(() => {
 
 <template>
   <div
-    class="game wrapper d-flex flex-column min-vh-100 mx-auto"
+    class="game-wrapper d-flex flex-column min-vh-100 mx-auto"
     style="max-width: 28rem"
   >
     <p class="info">
@@ -313,6 +313,7 @@ onUnmounted(() => {
   background-color: #e7c558;
   border-radius: 0.5rem;
   margin: auto;
+  margin-bottom: 1rem;
   font-size: 1rem auto;
 }
 
@@ -326,13 +327,6 @@ onUnmounted(() => {
   color: #fff;
   font-size: 1.25rem;
   text-align: center;
-}
-.showHide {
-  display: flex;
-  padding: 0.5rem;
-  background-color: #e7c558;
-  border-radius: 0.5rem;
-  margin: auto;
 }
 
 @media (max-width: 410px) {
