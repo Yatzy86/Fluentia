@@ -2,9 +2,9 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import words from "../../data/hangmanwords.js";
-import { useLevelStore } from "../LevelSystem.js" // // nivå
+import { useLevelStore } from "../LevelSystem.js"; // // nivå
 // //nivå
-const levelStore = useLevelStore() 
+const levelStore = useLevelStore();
 // //INSTRUKTIONER
 const showInstructions = ref(true);
 const router = useRouter();
@@ -173,7 +173,7 @@ function checkLetter(letter) {
   } else {
     //annars pushas bokstaven till correctLetters arrayen
     correctLetters.value.push(letter);
-     levelStore.addXP(125) // 125xp för varje bokstav
+    levelStore.addXP(125); // 125xp för varje bokstav
   }
   // en array skapas för att hålla koll på status av ordet
   let wordStatus = [];
@@ -213,7 +213,7 @@ function wonGame() {
     //gameWon blir till true och bilden för när man vunnit visas
     gameWon.value = true;
     currentImg.value = imgSrc[22];
-     levelStore.addXP(500) // levelsystem 500xp
+    levelStore.addXP(500); // levelsystem 500xp
   }
 }
 
@@ -240,13 +240,13 @@ playGame();
       no-header-close
     >
       <div class="instructions-box">
-        <p>2. Guess the hidden word by choosing one letter at a time.</p>
-        <p>3. If your guess is correct, the letter appears in the word.</p>
-        <p>4. if your guess is wrong, a balloon pops.</p>
-        <p>5. You have 10 chances in total</p>
-        <p>6. Keep track of the letters you have already guessed</p>
-        <p>7. Guess the word before all the balloons pop to win</p>
-        <p>8. Good luck and have fun!</p>
+        <p>1. Guess the hidden word by choosing one letter at a time.</p>
+        <p>2. If your guess is correct, the letter appears in the word.</p>
+        <p>3. if your guess is wrong, a balloon pops.</p>
+        <p>4. You have 10 chances in total</p>
+        <p>5. Keep track of the letters you have already guessed</p>
+        <p>6. Guess the word before all the balloons pop to win</p>
+        <p>7. Good luck and have fun!</p>
       </div>
     </BModal>
 
