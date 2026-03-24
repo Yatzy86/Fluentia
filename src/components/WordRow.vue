@@ -1,7 +1,8 @@
 <script setup>
+//Här importeras Letterbox och ref, watch
 import LetterBox from "./LetterBox.vue";
 import { ref, watch } from "vue";
-
+//Denna fångar upp propsen och säger vad för typ det ska vara
 const props = defineProps({
   value: String,
   solution: String,
@@ -10,7 +11,7 @@ const props = defineProps({
 });
 
 const colors = ref(["", "", "", "", "", ""]);
-
+//Denna ser över vad som skrivs in i submitted.
 watch(
   () => props.submitted,
   async (submitted, prevSubmitted) => {
@@ -19,9 +20,12 @@ watch(
       let v = props.value;
 
       let temp = ["gray", "gray", "gray", "gray", "gray"];
+      //Letterpool är en tom array
       let letterPool = [];
-
+      //Här hanteras det man skrivit in
+      //Den ser över alla bokstäver
       for (let i = 0; i < 5; i++) {
+        //Om svaret matchar value så blir det grönt
         if (s.charAt(i) == v.charAt(i)) {
           temp[i] = "green";
         } else {
@@ -72,6 +76,15 @@ watch(
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 0.25rem;
-  max-width: 20rem;
+  max-width: 28rem;
+  width: 100%;
+  margin-inline: auto;
+}
+
+@media (max-width: 410px) {
+  .word-row-bootstrap {
+    gap: 0.1rem;
+    max-width: 17rem;
+  }
 }
 </style>
