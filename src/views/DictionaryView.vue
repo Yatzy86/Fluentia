@@ -148,24 +148,29 @@ h1 {
   text-align: center;
 }
 .w-25 {
-  width: 600px !important;
+  width: 100% !important;
   margin: auto;
+  max-width: 600px;
+  padding: 0 12px;
+  box-sizing: border-box;
 }
 .result-box {
   background: $color-3;
   padding: 30px;
   border-radius: 20px;
-  margin-top: 20px auto;
-  width: 700px;
   margin: 40px auto;
+  width: 100%;
   border: 6px solid #9aa2a9;
   font-weight: 600;
   font-style: normal;
   color: #010a19;
   min-height: 250px;
+  box-sizing: border-box;
+  max-width: 600px;
 }
 input {
   font-weight: bold;
+  width: 100%;
 }
 .subtitle {
   text-align: center;
@@ -176,5 +181,21 @@ input {
 #glossary-section {
   max-height: 300px;
   overflow-y: auto;
+}
+@media (max-width: 460px) {
+  .w-25 {
+    padding: 0 12px;
+  }
+  .result-box {
+    padding: 14px;
+    border-width: 4px;
+    min-height: 120px;
+  }
+  h1 {
+    font-size: 1.5rem;
+  }
+  .subtitle {
+    font-size: 13px;
+  }
 }
 </style>
