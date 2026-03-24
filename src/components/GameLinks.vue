@@ -4,25 +4,25 @@ const gameList = [
   {
     title: "Memory",
     name: "memory",
-    img: "https://picsum.photos/600/300/?image=25",
+    img: "../src/assets/img/memory-screen.png",
     description: "Pair words with memory",
   },
   {
     title: "Choice Quiz",
     name: "choicequiz",
-    img: "https://picsum.photos/600/300/?image=25",
+    img: "../src/assets/img/quiz-screen.png",
     description: "Answer multiple choice questions",
   },
   {
     title: "Hangman",
     name: "hangman",
-    img: "https://picsum.photos/600/300/?image=25",
+    img: "../src/assets/img/hangman-screen.png",
     description: "Guess the word before the stickman is hanged",
   },
   {
     title: "Word Search",
     name: "wordsearch",
-    img: "https://picsum.photos/600/300/?image=25",
+    img: "../src/assets/img/word-screen.png",
     description: "Search and find all the hidden words",
   },
 ];
@@ -56,7 +56,7 @@ const gameList = [
       <RouterLink to="#">
         <b-card
           variant="third"
-          img-src="https://picsum.photos/600/300/?image=25"
+          img-src="../src/assets/img/coming-soon.png"
           img-alt="Image"
           img-top
           tag="article"

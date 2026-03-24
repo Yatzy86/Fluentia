@@ -3,6 +3,7 @@ import { ref } from "vue";
 
 import { useRouter } from "vue-router";
 import { useLevelStore } from "../LevelSystem.js" // // nivå
+import LevelUp from "../ShowLevel.vue"
 // //nivå
 const levelStore = useLevelStore() 
 const showInstructions = ref(true);
@@ -159,7 +160,7 @@ const checkAnswer = (chosenAnswer) => {
     chosenQuestions.value[currentQuestion.value].rightAnswer === chosenAnswer
   ) {
     score.value++;
-    levelStore.addXP(125);
+    levelStore.addXP(5000);
   }
   answered.value = true;
 
@@ -220,6 +221,7 @@ startGame();
 
   <!-- <div class="card" v-if="chosenQuestions.length > 0"> -->
   <main class="game">
+    <LevelUp/>
     <h1>Choice Quiz</h1>
     <!-- Om den valda frågans längd är högre eller om den nuvarande frågan är lägre än de valda frågornas längd -->
     <!-- Då ska nedanstående section class quiz visas -->
