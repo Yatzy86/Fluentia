@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import words from "../../data/hangmanwords.js";
 import { useLevelStore } from "../LevelSystem.js"; // // nivå
+import popup from "../LevelShow.vue"
 // //nivå
 const levelStore = useLevelStore();
 // //INSTRUKTIONER
@@ -252,6 +253,7 @@ playGame();
 
     <!-- SPEL -->
     <section class="game-section d-flex justify-content-center">
+      <popup/>
       <!-- Spel Bilderna. Läses in via v-bind -->
       <div>
         <img

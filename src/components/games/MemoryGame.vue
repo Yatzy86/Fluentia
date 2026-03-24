@@ -21,6 +21,7 @@
 
   <div class="Memory">
     <h1>Memory Game</h1>
+    <popup/> <!--level pop up-->
     <p class="Score">
       Score: {{ matchedPairs }} / {{ totalPairs }}
       <span v-if="totalXP > 0" class="xp">+{{ totalXP }} XP</span>
@@ -62,6 +63,8 @@ import { ref, onMounted, computed } from "vue";
 import wordPairs from "../../data/words.js";
 import { useLevelStore } from "../LevelSystem.js";
 import { useRouter } from "vue-router";
+import popup from "../LevelShow.vue"
+
 const levelStore = useLevelStore();
 // all info som spelet håller koll på
 const cards = ref([]); // alla kort
@@ -132,7 +135,7 @@ function checkMatch() {
     b.isMatched = true;
     matchedPairs.value++;
     totalXP.value += 10;
-    levelStore.addXP(125); //// LEVEL SYSTEM!!   xp för varje rätt svar. (100xp)
+    levelStore.addXP(125); //// LEVEL SYSTEM!!   xp för varje rätt svar. (125xp)
     flippedCards.value = [];
     isLocked.value = false;
   } else {

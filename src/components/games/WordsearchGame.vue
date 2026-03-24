@@ -6,6 +6,7 @@ import WordRow from "../WordRow.vue";
 import SimpleKeyboard from "../SimpleKeyboard.vue";
 import { reactive, onMounted, computed, ref, onUnmounted } from "vue";
 import { useLevelStore } from "../LevelSystem.js";
+import popup from "../LevelShow.vue"
 
 const levelStore = useLevelStore();
 
@@ -228,6 +229,7 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <popup/>
   <div
     class="game wrapper d-flex flex-column min-vh-100 mx-auto"
     style="max-width: 28rem"
