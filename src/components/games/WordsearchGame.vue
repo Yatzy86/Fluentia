@@ -7,6 +7,7 @@ import SimpleKeyboard from "../SimpleKeyboard.vue";
 import { useRouter } from "vue-router";
 import { reactive, onMounted, computed, ref, onUnmounted } from "vue";
 import { useLevelStore } from "../LevelSystem.js";
+import popup from "../LevelShow.vue";
 
 const showInstructions = ref(true);
 const router = useRouter();
@@ -258,6 +259,7 @@ onUnmounted(() => {
       <p>5. Good luck!!</p>
     </div>
   </BModal>
+  <popup />
   <div
     class="game-wrapper d-flex flex-column min-vh-100 mx-auto"
     style="max-width: 28rem"
