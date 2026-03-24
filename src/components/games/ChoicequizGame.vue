@@ -3,7 +3,6 @@ import { ref } from "vue";
 
 import { useRouter } from "vue-router";
 import { useLevelStore } from "../LevelSystem.js" // // nivå
-import LevelUp from "../ShowLevel.vue"
 // //nivå
 const levelStore = useLevelStore() 
 const showInstructions = ref(true);
