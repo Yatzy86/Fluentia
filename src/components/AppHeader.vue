@@ -78,6 +78,43 @@ function confirmLogin() {
               >Dictionary</RouterLink
             >
           </li>
+          <li>
+            <RouterLink class="dropdown-item" to="/glossary"
+              >Glossary</RouterLink
+            >
+          </li>
+          <li>
+            <RouterLink
+              class="dropdown-item"
+              :to="{ name: 'game', params: { name: 'memory' } }"
+            >
+              Memory</RouterLink
+            >
+          </li>
+          <li>
+            <RouterLink
+              class="dropdown-item"
+              :to="{ name: 'game', params: { name: 'choicequiz' } }"
+            >
+              Choice Quiz</RouterLink
+            >
+          </li>
+          <li>
+            <RouterLink
+              class="dropdown-item"
+              :to="{ name: 'game', params: { name: 'hangman' } }"
+            >
+              Hangman</RouterLink
+            >
+          </li>
+          <li>
+            <RouterLink
+              class="dropdown-item"
+              :to="{ name: 'game', params: { name: 'wordsearch' } }"
+            >
+              Word Search</RouterLink
+            >
+          </li>
           <!--login or logout button depending on login state-->
           <li>
             <button class="dropdown-item" type="button" @click="login">
