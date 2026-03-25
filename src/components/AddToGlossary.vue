@@ -88,6 +88,7 @@ export default {
         v-model="inputText"
         type="text"
         :placeholder="placeholderText"
+        @keydown.enter="getTranslatedWord"
       ></b-form-input>
 
       <b-input-group-append class="d-flex">
