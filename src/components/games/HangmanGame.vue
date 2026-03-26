@@ -3,7 +3,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import words from "../../data/hangmanwords.js";
 import { useLevelStore } from "../LevelSystem.js"; // // nivå
-import popup from "../LevelShow.vue"
+import popup from "../LevelShow.vue";
 // //nivå
 const levelStore = useLevelStore();
 // //INSTRUKTIONER
@@ -137,7 +137,6 @@ function resetGame() {
   imgCount.value = 0;
   currentImg.value = imgSrc[0];
   isRunning.value = false;
-  console.log(currentImg.value);
   errorsLeft.value = 10;
   letters = [];
   guessedStatus.value = [];
@@ -209,8 +208,8 @@ function lostGame() {
 //Funktion som kollar om man har vunnit
 function wonGame() {
   //guessedStatus är ordets status. Den kollar om det finns tomma strängar i ordets status och om det inte finns det så betyder det att spelet är slut och att man har vunnit. .every kollar varje värde i arrayen och returnerar true eller false(liknande forEach)
-  const guessed = guessedStatus.value.every((letter) => letter !== "");
-  if (guessed) {
+  const allGuessed = guessedStatus.value.every((letter) => letter !== "");
+  if (allGuessed) {
     //gameWon blir till true och bilden för när man vunnit visas
     gameWon.value = true;
     currentImg.value = imgSrc[22];
@@ -253,7 +252,7 @@ playGame();
 
     <!-- SPEL -->
     <section class="game-section d-flex justify-content-center">
-      <popup/>
+      <popup />
       <!-- Spel Bilderna. Läses in via v-bind -->
       <div>
         <img
