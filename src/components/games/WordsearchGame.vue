@@ -136,7 +136,6 @@ const toggleHint = () => {
 const wonGame = computed(
   () => state.guesses[state.currentGuessIndex - 1] === state.solution,
 );
-console.log(wonGame.value);
 
 //Ifall du förlorar
 const lostGame = computed(() => !wonGame.value && state.currentGuessIndex >= 6);
@@ -184,7 +183,9 @@ const handleInput = (key) => {
         }
       }
       state.currentGuessIndex++;
-      levelStore.addXP(500); // levelsystem 500xp
+      if (wonGame.value) {
+        levelStore.addXP(500); // levelsystem 500xp
+      }
     }
 
     //Om du trycker på backspace
