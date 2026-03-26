@@ -276,7 +276,10 @@ onUnmounted(() => {
       Congratz on your win! You did it on
       {{ state.currentGuessIndex }} tries!
     </p>
-    <p v-else-if="lostGame" class="text-center">Out of tries</p>
+    <p v-else-if="lostGame" class="text-center">
+      Out of tries, the right word was
+      <span class="questionWord">{{ randomWordSwe }}</span>
+    </p>
 
     <!-- Hinten syns när du klickar på knappen toggleHint -->
     <div @click="toggleHint" v-if="!hintOpen">
@@ -405,6 +408,10 @@ $color-5: #6798c0;
   color: #fff;
   font-size: 1.25rem;
   text-align: center;
+}
+.questionWord {
+  color: #e7c558;
+  font-weight: 1rem;
 }
 
 @media (max-width: 410px) {
