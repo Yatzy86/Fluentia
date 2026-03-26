@@ -134,7 +134,7 @@ function checkMatch() {
     a.isMatched = true;
     b.isMatched = true;
     matchedPairs.value++;
-    totalXP.value += 10;
+    totalXP.value += 125;
     levelStore.addXP(125); //// LEVEL SYSTEM!!   xp för varje rätt svar. (125xp)
     flippedCards.value = [];
     isLocked.value = false;

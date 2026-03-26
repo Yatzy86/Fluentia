@@ -78,6 +78,43 @@ function confirmLogin() {
               >Dictionary</RouterLink
             >
           </li>
+          <li>
+            <RouterLink class="dropdown-item" to="/glossary"
+              >Glossary</RouterLink
+            >
+          </li>
+          <li>
+            <RouterLink
+              class="dropdown-item"
+              :to="{ name: 'game', params: { name: 'memory' } }"
+            >
+              Memory</RouterLink
+            >
+          </li>
+          <li>
+            <RouterLink
+              class="dropdown-item"
+              :to="{ name: 'game', params: { name: 'choicequiz' } }"
+            >
+              Choice Quiz</RouterLink
+            >
+          </li>
+          <li>
+            <RouterLink
+              class="dropdown-item"
+              :to="{ name: 'game', params: { name: 'hangman' } }"
+            >
+              Hangman</RouterLink
+            >
+          </li>
+          <li>
+            <RouterLink
+              class="dropdown-item"
+              :to="{ name: 'game', params: { name: 'wordsearch' } }"
+            >
+              Word Search</RouterLink
+            >
+          </li>
           <!--login or logout button depending on login state-->
           <li>
             <button class="dropdown-item" type="button" @click="login">
@@ -132,7 +169,7 @@ $color-5: #6798c0;
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex-shrink: 0;
 }
 
@@ -141,6 +178,15 @@ $color-5: #6798c0;
   color: #111;
   cursor: pointer;
 }
+.user {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.user-name {
+  font-size: 14px;
+  white-space: nowrap;
+}
 .hamburger-btn {
   border: 0;
   background: transparent;
@@ -148,30 +194,6 @@ $color-5: #6798c0;
 .hamburger-btn .navbar-toggler-icon {
   width: 1.5em;
   height: 2em;
-}
-@media (max-width: 576px) {
-  .header {
-    height: 70px;
-    padding: 0 12px;
-  }
-  .logo {
-    height: 52px;
-    width: auto;
-    display: block;
-  }
-  .right {
-    gap: 12px;
-  }
-}
-.user {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  gap: 6px;
-}
-.user-name {
-  font-weight: 600;
-  font-size: 14px;
 }
 .xp-section {
   display: flex;
@@ -208,5 +230,76 @@ $color-5: #6798c0;
   font-size: 0.8rem;
   color: #000000;
   white-space: nowrap;
+}
+
+/* ── Mobile ── */
+@media (max-width: 576px) {
+  .header {
+    height: auto;
+    padding: 8px 12px;
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: 6px;
+  }
+
+  .logo-wrap {
+    height: auto;
+    flex: 1;
+  }
+
+  .logo {
+    height: 38px;
+  }
+
+  .right {
+    display: contents;
+  }
+
+  .user {
+    order: 1;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .dropdown {
+    order: 2;
+  }
+
+  .xp-section {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 8px;
+    padding-bottom: 6px;
+  }
+
+  .xp-bar {
+    flex: 1;
+    max-width: 180px;
+    height: 7px;
+  }
+
+  .level-badge {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+  }
+
+  .xp-text {
+    font-size: 0.65rem;
+  }
+
+  .icon {
+    font-size: 20px;
+  }
+
+  .user-name {
+    font-size: 12px;
+    max-width: 70px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 </style>

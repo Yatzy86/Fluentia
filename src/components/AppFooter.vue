@@ -1,3 +1,13 @@
+<script setup>
+import { ref } from "vue";
+
+let emailInput = ref("");
+
+function onSubscribe() {
+  emailInput.value = "";
+}
+</script>
+
 <template>
   <footer class="footer">
     <div class="footer-top">
@@ -25,6 +35,7 @@
       <p class="email-title">Get weekly Swedish tips!</p>
       <div class="email-box">
         <input
+          v-model="emailInput"
           class="email-input"
           type="email"
           placeholder="Enter your email"
@@ -36,7 +47,11 @@
       <p class="footer-bottom">Fluentia Policy & Terms</p>
     </div>
 
-    <b-modal id="subscribe-modal" class="text-center" ok-only
+    <b-modal
+      @click="onSubscribe"
+      id="subscribe-modal"
+      class="text-center"
+      ok-only
       >You have been subscribed!
     </b-modal>
   </footer>
