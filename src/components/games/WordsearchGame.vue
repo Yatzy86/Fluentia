@@ -136,6 +136,8 @@ const toggleHint = () => {
 const wonGame = computed(
   () => state.guesses[state.currentGuessIndex - 1] === state.solution,
 );
+console.log(wonGame.value);
+
 //Ifall du förlorar
 const lostGame = computed(() => !wonGame.value && state.currentGuessIndex >= 6);
 
