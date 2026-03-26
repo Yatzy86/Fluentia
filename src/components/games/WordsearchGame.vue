@@ -182,7 +182,9 @@ const handleInput = (key) => {
         }
       }
       state.currentGuessIndex++;
-      levelStore.addXP(500); // levelsystem 500xp
+      if (wonGame.value) {
+          levelStore.addXP(500); // levelsystem 500xp
+      }
     }
 
     //Om du trycker på backspace
