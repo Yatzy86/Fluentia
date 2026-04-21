@@ -4,6 +4,30 @@ import { useRouter } from "vue-router";
 import words from "../../data/hangmanwords.js";
 import { useLevelStore } from "../LevelSystem.js"; // // nivå
 import popup from "../LevelShow.vue";
+import hangman01 from "@/assets/img/hangman/hangman01.jpg";
+import hangman02 from "@/assets/img/hangman/hangman02.gif";
+import hangman03 from "@/assets/img/hangman/hangman03.jpg";
+import hangman04 from "@/assets/img/hangman/hangman04.gif";
+import hangman05 from "@/assets/img/hangman/hangman05.jpg";
+import hangman06 from "@/assets/img/hangman/hangman06.gif";
+import hangman07 from "@/assets/img/hangman/hangman07.jpg";
+import hangman08 from "@/assets/img/hangman/hangman08.gif";
+import hangman09 from "@/assets/img/hangman/hangman09.jpg";
+import hangman10 from "@/assets/img/hangman/hangman10.gif";
+import hangman11 from "@/assets/img/hangman/hangman11.jpg";
+import hangman12 from "@/assets/img/hangman/hangman12.gif";
+import hangman13 from "@/assets/img/hangman/hangman13.jpg";
+import hangman14 from "@/assets/img/hangman/hangman14.gif";
+import hangman15 from "@/assets/img/hangman/hangman15.jpg";
+import hangman16 from "@/assets/img/hangman/hangman16.gif";
+import hangman17 from "@/assets/img/hangman/hangman17.jpg";
+import hangman18 from "@/assets/img/hangman/hangman18.gif";
+import hangman19 from "@/assets/img/hangman/hangman19.jpg";
+import hangman20 from "@/assets/img/hangman/hangman20.gif";
+import hangman21 from "@/assets/img/hangman/hangman21.gif";
+import hangman22 from "@/assets/img/hangman/hangman22.gif";
+import hangman23 from "@/assets/img/hangman/hangman23.gif";
+
 // //nivå
 const levelStore = useLevelStore();
 // //INSTRUKTIONER
@@ -21,29 +45,29 @@ function goBackHome() {
 
 // //BILDER
 const imgSrc = [
-  "/src/assets/img/hangman/hangman01.jpg",
-  "/src/assets/img/hangman/hangman02.gif",
-  "/src/assets/img/hangman/hangman03.jpg",
-  "/src/assets/img/hangman/hangman04.gif",
-  "/src/assets/img/hangman/hangman05.jpg",
-  "/src/assets/img/hangman/hangman06.gif",
-  "/src/assets/img/hangman/hangman07.jpg",
-  "/src/assets/img/hangman/hangman08.gif",
-  "/src/assets/img/hangman/hangman09.jpg",
-  "/src/assets/img/hangman/hangman10.gif",
-  "/src/assets/img/hangman/hangman11.jpg",
-  "/src/assets/img/hangman/hangman12.gif",
-  "/src/assets/img/hangman/hangman13.jpg",
-  "/src/assets/img/hangman/hangman14.gif",
-  "/src/assets/img/hangman/hangman15.jpg",
-  "/src/assets/img/hangman/hangman16.gif",
-  "/src/assets/img/hangman/hangman17.jpg",
-  "/src/assets/img/hangman/hangman18.gif",
-  "/src/assets/img/hangman/hangman19.jpg",
-  "/src/assets/img/hangman/hangman20.gif",
-  "/src/assets/img/hangman/hangman21.gif",
-  "/src/assets/img/hangman/hangman22.gif",
-  "/src/assets/img/hangman/hangman23.gif",
+  hangman01,
+  hangman02,
+  hangman03,
+  hangman04,
+  hangman05,
+  hangman06,
+  hangman07,
+  hangman08,
+  hangman09,
+  hangman10,
+  hangman11,
+  hangman12,
+  hangman13,
+  hangman14,
+  hangman15,
+  hangman16,
+  hangman17,
+  hangman18,
+  hangman19,
+  hangman20,
+  hangman21,
+  hangman22,
+  hangman23,
 ];
 
 //Variabler för bilderna

@@ -1,28 +1,34 @@
 <script setup>
+import memoryImg from "../assets/img/memory-screen.png";
+import quizImg from "../assets/img/quiz-screen.png";
+import hangmanImg from "../assets/img/hangman-screen.png";
+import wordImg from "../assets/img/word-screen.png";
+import comingSoon from "../assets/img/coming-soon.png";
+
 //Array med all spelinfo och länkar till sidan
 const gameList = [
   {
     title: "Memory",
     name: "memory",
-    img: "../src/assets/img/memory-screen.png",
+    img: memoryImg,
     description: "Pair words with memory",
   },
   {
     title: "Choice Quiz",
     name: "choicequiz",
-    img: "../src/assets/img/quiz-screen.png",
+    img: quizImg,
     description: "Answer multiple choice questions",
   },
   {
     title: "Hangman",
     name: "hangman",
-    img: "../src/assets/img/hangman-screen.png",
+    img: hangmanImg,
     description: "Guess the word before the stickman is hanged",
   },
   {
     title: "Word Search",
     name: "wordsearch",
-    img: "../src/assets/img/word-screen.png",
+    img: wordImg,
     description: "Search and find all the hidden words",
   },
 ];
@@ -56,7 +62,7 @@ const gameList = [
       <RouterLink to="#">
         <b-card
           variant="third"
-          img-src="../src/assets/img/coming-soon.png"
+          :img-src="comingSoon"
           img-alt="Image"
           img-top
           tag="article"
