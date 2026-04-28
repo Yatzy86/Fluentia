@@ -5,7 +5,7 @@ import { BootstrapVueNextResolver } from "bootstrap-vue-next";
 import { fileURLToPath, URL } from "url";
 
 export default defineConfig({
-  base: process.env.NODE_ENV === "production" ? "/fluentia/" : "/",
+  base: "/fluentia/",
   build: {
     target: "es2015",
   },

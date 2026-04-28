@@ -5,7 +5,7 @@ import DictionaryView from "./views/DictionaryView.vue";
 import GlossaryView from "./views/GlossaryView.vue";
 
 export default createRouter({
-  history: createWebHashHistory(),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     { component: GameView, path: "/game/:name", props: true, name: "game" },
     { component: HomeView, path: "/", name: "home" },
