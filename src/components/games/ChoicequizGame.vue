@@ -3,7 +3,7 @@ import { ref } from "vue";
 
 import { useRouter } from "vue-router";
 import { useLevelStore } from "../LevelSystem.js"; // // nivå
-import popup from "../LevelShow.vue"
+import popup from "../LevelShow.vue";
 // import LevelUp from "../ShowLevel.vue"
 // //nivå
 const levelStore = useLevelStore();
@@ -221,7 +221,7 @@ startGame();
   </BModal>
 
   <!-- <div class="card" v-if="chosenQuestions.length > 0"> -->
-    <popup/>
+  <popup />
   <main class="game">
     <h1>Choice Quiz</h1>
     <!-- Om den valda frågans längd är högre eller om den nuvarande frågan är lägre än de valda frågornas längd -->
@@ -249,9 +249,11 @@ startGame();
             chosenQuestions[currentQuestion].question
           }}</span>
         </h2>
-        <!-- Denna loopen går in i answered, fångar in alternativen och lägger i alt,
-         sedan blandas alternativen med math random.
-         Med :key"alt.id" så skapar den ett unikt id -->
+        <!-- Denna loopen går in i answered, fångar in alternativen för den aktuella frågan
+         Om användaren redan har svarat visas alternativen i sin nuvarande ordning
+         Om användaren inte svarat ännu sorteras alternativen slumpmässigt med math random
+         alt är varje enskilt alternativ i loopen.
+         Med :key"alt.id" hjälper Vue att hålla reda på vilket element som är vilket -->
 
         <ul
           v-for="alt in answered
@@ -265,7 +267,8 @@ startGame();
 
           <!-- Detta gör att när du klickar på altButton så blir den grön ifall du svarar rätt,
           och röd ifall du svarar fel. Ifall du svarar fel så ser du även det rätta alternativet i grön färg.
-          Den kollar ditt svar med hjälp av checkAnswer funktionen -->
+          Den kollar ditt svar med hjälp av checkAnswer funktionen
+          Alla knappar låser sig efter du har svarat -->
 
           <div class="d-grid gap-1">
             <button
