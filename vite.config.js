@@ -5,7 +5,7 @@ import { BootstrapVueNextResolver } from "bootstrap-vue-next";
 import { fileURLToPath, URL } from "url";
 
 export default defineConfig({
-  base: "/fluentia/",
+  base: "/Fluentia/",
   build: {
     target: "es2015",
   },
